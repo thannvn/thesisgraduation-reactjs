@@ -5,20 +5,14 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { configAPI, POST_LOGIN_API } from "../../../common/handleAPI";
 import { loginSuccess } from "../../../slices/authentication";
+import { login } from "../../../utils/authentication.dao";
+import { STATUS_OK } from "../../../utils/handleAPI";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -29,7 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    background: "#2ea44f",
+    color: "white",
+    '&:hover': {
+      backgroundColor: "#2ea44f",
+    }
   },
+  labelAsterisk: {
+    color: "red"
+  }
 }));
 
 export default function LoginForm() {
@@ -40,15 +42,12 @@ export default function LoginForm() {
 
   const submitForm = async (data) => {
     //handle
-    try {
-      const result = await axios.request(configAPI(POST_LOGIN_API, data))
-      if (result.status === 200) {
-        dispatch(loginSuccess(result.data.message));
-        localStorage.setItem("auth-token", result.data.token);
-      }
-    } catch (error) {
-      notify.current.innerHTML = error.response.data.message;
-      console.error(error)
+    const result = await login(data);
+    if (result.status === STATUS_OK) {
+      dispatch(loginSuccess(result.message));
+      localStorage.setItem("auth-token", result.token);
+    } else {
+      notify.current.innerHTML = result.message;
     }
   };
   return (
@@ -59,12 +58,18 @@ export default function LoginForm() {
             variant="outlined"
             margin="normal"
             fullWidth
+            InputLabelProps={{
+              shrink: true,
+              classes: {
+                asterisk: classes.labelAsterisk
+              }
+            }}
             id="username"
             label="Tên đăng nhập"
             name="username"
             autoFocus
             required
-            inputRef={register}
+            inputRef={register({ minLength: 6, maxLength: 16 })}
           />
         </Grid>
         <Grid item xs={12}>
@@ -72,28 +77,31 @@ export default function LoginForm() {
             variant="outlined"
             margin="normal"
             fullWidth
+            InputLabelProps={{
+              shrink: true,
+              classes: {
+                asterisk: classes.labelAsterisk
+              }
+            }}
             name="password"
             label="Mật khẩu"
             type="password"
             id="password"
             required
-            inputRef={register}
+            inputRef={register({ minLength: 6 })}
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography
-            variant="h6"
-            component="h1"
-            color="error"
-            ref={notify}
-          ></Typography>
+          <Typography variant="h6" component="h1" color="error" ref={notify}>
+            {(errors.username || errors.password) &&
+              "Sai tên tài khoản hoặc mật khẩu"}
+          </Typography>
         </Grid>
       </Grid>
       <Button
         type="submit"
         fullWidth
         variant="contained"
-        color="primary"
         className={classes.submit}
       >
         Đăng nhập

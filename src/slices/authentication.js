@@ -1,16 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { configAPI, GET_LOGIN_API } from "../common/handleAPI";
-import axios from "axios";
+import { getLoginStatus } from "../utils/authentication.dao";
+import { STATUS_OK } from "../utils/handleAPI";
 
 const fetchLogin = async (dispatch, getState) => {
-  try {
-    const result = await axios.request(configAPI(GET_LOGIN_API));
-    if (result.status === 200) {
-      dispatch(loginSuccess(result.data.message));
-    }
-  } catch (error) {
-    console.error(error);
-  }
+  const result = await getLoginStatus()
+  if (result.status === STATUS_OK) {
+    dispatch(loginSuccess(result.message));
+  } 
 };
 const authenticationSlice = createSlice({
   name: "authentication",
@@ -29,5 +25,5 @@ const authenticationSlice = createSlice({
 
 const { actions, reducer } = authenticationSlice;
 export const { loginSuccess, logoutSuccess } = actions;
-export {fetchLogin};
+export { fetchLogin };
 export default reducer;

@@ -1,7 +1,6 @@
-import "./App.css";
+import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import React from "react";
-import { Suspense } from "react";
+import "./App.css";
 import PrivateRoute from "./routes/PrivateRoute";
 
 const Authentication = React.lazy(() =>
@@ -12,7 +11,9 @@ const Home = React.lazy(() => import("./features/home/router"));
 function App() {
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={null}
+      >
         <Switch>
           <Route path="/auth" component={Authentication} />
           <PrivateRoute path="/" component={Home} />

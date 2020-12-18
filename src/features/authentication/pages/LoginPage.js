@@ -7,12 +7,13 @@ import {
   Link,
   makeStyles,
   Paper,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import Notification from "../../../components/Notification";
 import Copyright from "../components/CopyRight";
 import LoginForm from "../components/LoginForm";
 
@@ -23,23 +24,27 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     width: theme.spacing(60),
-    height: theme.spacing(70),
-    padding: theme.spacing(5)
+    height: "auto",
+    padding: theme.spacing(5),
+    background: "#F7F7F7",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
-  }
+  },
 }));
 
-export default function LoginPage() {
+export default function LoginPage(props) {
+  const notify = props.location.state ? props.location.state.notify : undefined;
+  const type = props.location.state ? props.location.state.type : undefined;
+
   const classes = useStyles();
   const user = useSelector((state) => state.auth);
   return (
     <>
       {user.user !== null && <Redirect to="/" />}
-
-      <Container component="main" maxWidth="xs" c>
+      {notify && <Notification notify={notify} type={type} />}
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Paper variant="outlined" className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -51,7 +56,7 @@ export default function LoginPage() {
           <LoginForm></LoginForm>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/auth/forgot" variant="body2">
                 Quên mật khẩu?
               </Link>
             </Grid>

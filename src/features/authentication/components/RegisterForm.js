@@ -5,10 +5,11 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { configAPI, POST_REGISTER_API } from "../../../common/handleAPI";
+import { registerAccount } from "../../../utils/authentication.dao";
+import { STATUS_OK } from "../../../utils/handleAPI";
+import Password from "./Password";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -16,26 +17,27 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    marginBottom: theme.spacing(3),
+  },
+  labelAsterisk: {
+    color: "red",
   },
 }));
 
-export default function SignUp() {
+export default function RegisterForm(props) {
   const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm();
-  const notify = React.useRef(null);
+  const { register, handleSubmit, errors, watch, setError } = useForm();
   const submitForm = async (data) => {
     //submit form register
-    try {
-      const result = await axios.request(configAPI(POST_REGISTER_API, data));
-      if (result.status === 200) {
-        notify.current.innerHTML =
-          "Đăng ký thành công. Kiểm tra email của bạn ";
-      }
-    } catch (error) {
-      console.log(error.response);
+    const result = await registerAccount(data);
+    if (result.status === STATUS_OK) {
+      props.setId(result.message);
+    } else {
+      //handle
+      setError("apiResult", { message: result.message });
     }
   };
+
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitForm)}>
       <Grid container spacing={2}>
@@ -46,22 +48,33 @@ export default function SignUp() {
             variant="outlined"
             required
             fullWidth
+            InputLabelProps={{
+              shrink: true,
+              classes: {
+                asterisk: classes.labelAsterisk,
+              },
+            }}
             id="firstName"
             label="Họ"
             autoFocus
             inputRef={register}
           />
-          <Typography></Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             variant="outlined"
             required
             fullWidth
+            InputLabelProps={{
+              shrink: true,
+              classes: {
+                asterisk: classes.labelAsterisk,
+              },
+            }}
             id="lastName"
             label="Tên"
             name="lastName"
-            autoComplete="lname"
+            autoComplete="name"
             inputRef={register}
           />
         </Grid>
@@ -70,6 +83,12 @@ export default function SignUp() {
             variant="outlined"
             required
             fullWidth
+            InputLabelProps={{
+              shrink: true,
+              classes: {
+                asterisk: classes.labelAsterisk,
+              },
+            }}
             id="email"
             label="Địa chỉ email"
             name="email"
@@ -80,7 +99,7 @@ export default function SignUp() {
               },
             })}
           />
-          <Typography variant="h6" component="h1" color="error">
+          <Typography component="p" color="error">
             {errors.email && "Email không đúng định dạng"}
           </Typography>
         </Grid>
@@ -89,44 +108,39 @@ export default function SignUp() {
             required
             variant="outlined"
             fullWidth
+            InputLabelProps={{
+              shrink: true,
+              classes: {
+                asterisk: classes.labelAsterisk,
+              },
+            }}
             id="username"
             label="Tên đăng nhập"
             name="username"
             inputRef={register({ minLength: 6, maxLength: 16 })}
           />
-          <Typography variant="h6" component="h1" color="error">
+          <Typography component="p" color="error">
             {errors.username && "Tên đăng nhập phải có 6-16 ký tự"}
           </Typography>
         </Grid>
+        <Password register={register} watch={watch} errors={errors} />
         <Grid item xs={12}>
-          <TextField
-            required
-            variant="outlined"
-            fullWidth
-            name="password"
-            label="Mật khẩu"
-            type="password"
-            id="password"
-            inputRef={register({ minLength: 6 })}
-          />
-          <Typography variant="h6" component="h1" color="error">
-            {errors.password && "Mật khẩu phải lớn hơn 6 ký tự"}
+          <Typography component="p" color="error">
+            {errors.apiResult && errors.apiResult.message}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" component="h1" color="error" ref={notify} />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Tiếp theo
+          </Button>
         </Grid>
       </Grid>
-
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-      >
-        Đăng ký
-      </Button>
     </form>
   );
 }

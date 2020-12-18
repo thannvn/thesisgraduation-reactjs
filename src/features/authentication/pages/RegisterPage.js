@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import RegisterForm from "../components/RegisterForm";
 import React from "react";
 import Copyright from "../components/CopyRight";
+import VerifyAccount from "../components/VerifyAccount";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,8 +22,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     width: theme.spacing(60),
-    height: theme.spacing(70),
+    height: "auto",
     padding: theme.spacing(5),
+    background: "#F7F7F7"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -30,34 +32,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register() {
+export default function RegisterPage() {
   const classes = useStyles();
   //check register in step 1 or 2
-  const [correctInfo, setCorrectInfo] = React.useState(false);
+  const [accountId, setAccountId] = React.useState();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Paper variant="outlined" className={classes.paper}>
-        {correctInfo === false ? (
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        {!accountId ? (
           <>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography variant="h4" >
               Tạo tài khoản
             </Typography>
-            <RegisterForm />
-            <Grid container justify="flex-end">
-              <Grid item>
-                Bạn đã có tài khoản?{" "}
-                <Link href="/auth/login" variant="body2">
-                  Đăng nhập
-                </Link>
-              </Grid>
-            </Grid>
+            <RegisterForm setId={setAccountId} />
           </>
-        ) : null}
+        ) : (
+          <>
+            <Typography variant="h4">
+              Xác thực tài khoản
+            </Typography>
+            <VerifyAccount account={accountId} />
+          </>
+        )}
+        <Grid container justify="flex-end">
+          <Grid item>
+            Bạn đã có tài khoản?{" "}
+            <Link href="/auth/login" variant="body2">
+              Đăng nhập
+            </Link>
+          </Grid>
+        </Grid>
       </Paper>
       <Box mt={5}>
         <Copyright />
