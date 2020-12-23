@@ -14,18 +14,9 @@ import RegisterForm from "../components/RegisterForm";
 import React from "react";
 import Copyright from "../components/CopyRight";
 import VerifyAccount from "../components/VerifyAccount";
+import { StyledPaper } from "../css/custom.component";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: theme.spacing(60),
-    height: "auto",
-    padding: theme.spacing(5),
-    background: "#F7F7F7"
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -40,22 +31,18 @@ export default function RegisterPage() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Paper variant="outlined" className={classes.paper}>
+      <StyledPaper variant="outlined">
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         {!accountId ? (
           <>
-            <Typography variant="h4" >
-              Tạo tài khoản
-            </Typography>
+            <Typography variant="h4">Tạo tài khoản</Typography>
             <RegisterForm setId={setAccountId} />
           </>
         ) : (
           <>
-            <Typography variant="h4">
-              Xác thực tài khoản
-            </Typography>
+            <Typography variant="h4">Xác thực tài khoản</Typography>
             <VerifyAccount account={accountId} />
           </>
         )}
@@ -67,7 +54,8 @@ export default function RegisterPage() {
             </Link>
           </Grid>
         </Grid>
-      </Paper>
+      </StyledPaper>
+
       <Box mt={5}>
         <Copyright />
       </Box>

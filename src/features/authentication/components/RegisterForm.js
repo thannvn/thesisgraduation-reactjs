@@ -1,23 +1,16 @@
-import {
-  Button,
-  Grid,
-  makeStyles,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { BUTTON_LOGIN } from "../../../css/color";
 import { registerAccount } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
+import { StyledButton, StyledValidate } from "../css/custom.component";
 import Password from "./Password";
 
 const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
-  },
-  submit: {
-    marginBottom: theme.spacing(3),
   },
   labelAsterisk: {
     color: "red",
@@ -99,9 +92,9 @@ export default function RegisterForm(props) {
               },
             })}
           />
-          <Typography component="p" color="error">
+          <StyledValidate>
             {errors.email && "Email không đúng định dạng"}
-          </Typography>
+          </StyledValidate>
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -117,11 +110,16 @@ export default function RegisterForm(props) {
             id="username"
             label="Tên đăng nhập"
             name="username"
-            inputRef={register({ minLength: 6, maxLength: 16 })}
+            inputRef={register({
+              pattern: {
+                value: /^[a-zA-Z0-9](?=.*\d){6,16}$/g,
+              },
+            })}
           />
-          <Typography component="p" color="error">
-            {errors.username && "Tên đăng nhập phải có 6-16 ký tự"}
-          </Typography>
+          <StyledValidate>
+            {errors.username &&
+              "Tên tài khoản dài 6-16 ký tự, bao gồm ít nhất 1 ký tự là số, không sử dụng các ký tự đặc biệt"}
+          </StyledValidate>
         </Grid>
         <Password register={register} watch={watch} errors={errors} />
         <Grid item xs={12}>
@@ -130,15 +128,14 @@ export default function RegisterForm(props) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Button
+          <StyledButton
+            color={BUTTON_LOGIN}
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
-            className={classes.submit}
           >
             Tiếp theo
-          </Button>
+          </StyledButton>
         </Grid>
       </Grid>
     </form>

@@ -1,5 +1,6 @@
-import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Grid, makeStyles, TextField } from "@material-ui/core";
 import React from "react";
+import { StyledValidate } from "../css/custom.component";
 
 const useStyles = makeStyles((theme) => ({
   labelAsterisk: {
@@ -32,13 +33,14 @@ export default function Password({ register, watch, errors }) {
           id="password"
           inputRef={register({
             pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/i,
+              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&.])[A-Za-z\d@$!%*#?&.]{6,}$/,
             },
           })}
         />
-        <Typography component="p" color="error">
-          {errors.password && "Mật khẩu phải có ít nhất 6 ký tự, trong đó có ít nhất 1 ký tự là chữ và số"}
-        </Typography>
+        <StyledValidate>
+          {errors.password &&
+            "Mật khẩu phải có ít nhất 6 ký tự, bao gồm ít nhất 1 ký tự là số và ký tự đặc biệt [@, $, !, %, *, #, ?, &, .]"}
+        </StyledValidate>
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -60,9 +62,9 @@ export default function Password({ register, watch, errors }) {
               value === password.current || "Mật khẩu không khớp. Hãy thử lại",
           })}
         />
-        <Typography component="p" color="error">
+        <StyledValidate>
           {errors.rePassword && errors.rePassword.message}
-        </Typography>
+        </StyledValidate>
       </Grid>
     </>
   );

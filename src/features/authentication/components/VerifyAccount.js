@@ -1,47 +1,38 @@
-import {
-  Button,
-  Grid,
-  makeStyles,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { BUTTON_LOGIN } from "../../../css/color";
 import { sendCode } from "../../../utils/authentication.dao";
+import { StyledButton, StyledTypography } from "../css/custom.component";
+
 const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
-  submit: {
-    marginBottom: theme.spacing(3),
-    background: "#2ea44f",
-    color: "white",
-    '&:hover': {
-      backgroundColor: "#2ea44f",
-    }
-  },
   labelAsterisk: {
     color: "red",
-  },
-  typography: {
-    fontStyle: "italic",
   },
 }));
 
 export default function VerifyAccount(props) {
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
-  const [success, setSuccess] = React.useState(false);
-  const notify = React.useRef(null);
+  const { register, handleSubmit, errors, setError } = useForm();
+  const history = useHistory();
   //submit verify code
   const submitCode = async (data) => {
     const result = await sendCode(data.code, props.account);
     if (result.status === 200) {
-      setSuccess(true);
+      history.push({
+        pathname: "/auth/login",
+        state: {
+          notify: "Đăng ký thành công",
+          type: "success",
+        },
+      });
     } else {
-      notify.current.innerHTML = result.message;
+      setError("apiResult", { message: result.message });
     }
   };
   return (
@@ -49,9 +40,9 @@ export default function VerifyAccount(props) {
       <form className={classes.form} onSubmit={handleSubmit(submitCode)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h5" className={classes.typography}>
+            <StyledTypography>
               Kiểm tra email và nhập mã xác nhận:
-            </Typography>
+            </StyledTypography>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -73,19 +64,19 @@ export default function VerifyAccount(props) {
             ></TextField>
           </Grid>
           <Grid item xs={12}>
-            <Typography ref={notify} variant="h6" color="error">
+            <Typography variant="h6">
+              {errors.apiResult && errors.apiResult.message}
             </Typography>
-            {success && <Alert severity="success">Đăng ký thành công</Alert>}
           </Grid>
           <Grid item xs={12}>
-            <Button
+            <StyledButton
+              color={BUTTON_LOGIN}
               type="submit"
               fullWidth
               variant="contained"
-              className={classes.submit}
             >
               Xác nhận
-            </Button>
+            </StyledButton>
           </Grid>
         </Grid>
       </form>

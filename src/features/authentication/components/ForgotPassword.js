@@ -1,27 +1,15 @@
-import {
-  Button,
-  Grid,
-  makeStyles,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { BUTTON_LOGIN } from "../../../css/color";
 import { forgotPassword } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
+import { StyledButton } from "../css/custom.component";
 
 const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    background: "#2ea44f",
-    color: "white",
-    "&:hover": {
-      backgroundColor: "#2ea44f",
-    },
   },
   labelAsterisk: {
     color: "red",
@@ -67,20 +55,23 @@ export default function ForgotPassword(props) {
               },
             })}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Typography component="p" color="error" ref={notify}>
             {errors.email && "Email không đúng định dạng"}
           </Typography>
         </Grid>
+        <Grid item xs={12}>
+          <StyledButton
+            color={BUTTON_LOGIN}
+            type="submit"
+            fullWidth
+            variant="contained"
+          >
+            Nhận link
+          </StyledButton>
+        </Grid>
       </Grid>
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-      >
-        Gửi
-      </Button>
     </form>
   );
 }

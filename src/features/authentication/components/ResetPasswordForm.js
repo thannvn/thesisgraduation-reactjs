@@ -1,18 +1,17 @@
-import { Button, Grid, makeStyles } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import Password from "./Password";
+import { useHistory } from "react-router-dom";
+import { BUTTON_LOGIN } from "../../../css/color";
 import { resetPassword } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
-import { useHistory } from "react-router-dom";
+import { StyledButton } from "../css/custom.component";
+import Password from "./Password";
 
 const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
-  },
-  submit: {
-    marginBottom: theme.spacing(3),
   },
   labelAsterisk: {
     color: "red",
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ResetPasswordForm(props) {
   const classes = useStyles();
   const history = useHistory();
-  const { register, handleSubmit, errors, watch, setError } = useForm();
+  const { register, handleSubmit, errors, watch } = useForm();
   const submitForm = async (data) => {
     //submit form register
     const result = await resetPassword(data.newPassword);
@@ -40,15 +39,14 @@ export default function ResetPasswordForm(props) {
       <Grid container spacing={2}>
         <Password register={register} watch={watch} errors={errors} />
         <Grid item xs={12}>
-          <Button
+          <StyledButton
+            color={BUTTON_LOGIN}
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
-            className={classes.submit}
           >
-            Xác nhận
-          </Button>
+            Đăng nhập
+          </StyledButton>
         </Grid>
       </Grid>
     </form>

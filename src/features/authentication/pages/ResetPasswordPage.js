@@ -16,29 +16,11 @@ import { resetPassword } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import Copyright from "../components/CopyRight";
 import ResetPasswordForm from "../components/ResetPasswordForm";
+import { StyledPaper } from "../css/custom.component";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: theme.spacing(50),
-    height: "auto",
-    padding: theme.spacing(5),
-    background: "#F7F7F7",
-  },
   avatar: {
     margin: theme.spacing(1),
-  },
-  typography: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    fontStyle: "italic",
-  },
-  button: {
-    margin: theme.spacing(3, 0, 2),
-    background: "#F7F7F7",
   },
 }));
 
@@ -56,7 +38,7 @@ export default function ResetPasswordPage() {
       } else {
         history.push({
           pathname: "/auth/login",
-          state: { notify: "Link không đúng" },
+          state: { notify: "Link không đúng", type: "error" },
         });
         localStorage.removeItem("resetPassword-token");
       }
@@ -70,7 +52,7 @@ export default function ResetPasswordPage() {
       {isValidToken && (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Paper variant="outlined" className={classes.paper}>
+          <StyledPaper variant="outlined">
             <Avatar className={classes.avatar} src={img}></Avatar>
             <Typography component="h1" variant="h5">
               Đổi mật khẩu
@@ -84,7 +66,7 @@ export default function ResetPasswordPage() {
                 </Link>
               </Grid>
             </Grid>
-          </Paper>
+          </StyledPaper>
           <Box mt={8}>
             <Copyright />
           </Box>

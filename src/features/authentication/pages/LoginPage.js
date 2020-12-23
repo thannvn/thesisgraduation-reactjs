@@ -16,18 +16,9 @@ import { Redirect } from "react-router-dom";
 import Notification from "../../../components/Notification";
 import Copyright from "../components/CopyRight";
 import LoginForm from "../components/LoginForm";
+import { StyledPaper } from "../css/custom.component";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: theme.spacing(60),
-    height: "auto",
-    padding: theme.spacing(5),
-    background: "#F7F7F7",
-  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -46,8 +37,8 @@ export default function LoginPage(props) {
       {notify && <Notification notify={notify} type={type} />}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Paper variant="outlined" className={classes.paper}>
-          <Avatar className={classes.avatar}>
+        <StyledPaper variant="outlined" >
+        <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -67,7 +58,8 @@ export default function LoginPage(props) {
               </Link>
             </Grid>
           </Grid>
-        </Paper>
+        </StyledPaper>
+
         <Box mt={8}>
           <Copyright />
         </Box>
