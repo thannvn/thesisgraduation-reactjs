@@ -1,23 +1,14 @@
-import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { BUTTON_LOGIN } from "../../../css/color";
 import { sendCode } from "../../../utils/authentication.dao";
 import { StyledButton, StyledTypography } from "../css/custom.component";
+import "../css/style.css";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  labelAsterisk: {
-    color: "red",
-  },
-}));
 
 export default function VerifyAccount(props) {
-  const classes = useStyles();
   const { register, handleSubmit, errors, setError } = useForm();
   const history = useHistory();
   //submit verify code
@@ -37,7 +28,7 @@ export default function VerifyAccount(props) {
   };
   return (
     <>
-      <form className={classes.form} onSubmit={handleSubmit(submitCode)}>
+      <form className='form' onSubmit={handleSubmit(submitCode)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <StyledTypography>
@@ -52,7 +43,7 @@ export default function VerifyAccount(props) {
               InputLabelProps={{
                 shrink: true,
                 classes: {
-                  asterisk: classes.labelAsterisk,
+                  asterisk: 'labelAsterisk',
                 },
               }}
               id="code"
@@ -64,7 +55,7 @@ export default function VerifyAccount(props) {
             ></TextField>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6">
+            <Typography className='resultAPI'>
               {errors.apiResult && errors.apiResult.message}
             </Typography>
           </Grid>

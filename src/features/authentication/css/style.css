@@ -1,0 +1,22 @@
+.labelAsterisk {
+  color: red;
+}
+
+.form {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.resultAPI {
+  font-size: 1.2rem;
+  color: red;
+}
+
+.avatar {
+  margin: 8px;
+}
+
+.main {
+    margin-top: 50px;
+    width: 500px !important;
+}

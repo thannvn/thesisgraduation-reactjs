@@ -7,6 +7,7 @@ const Authentication = React.lazy(() =>
   import("./features/authentication/router")
 );
 const Home = React.lazy(() => import("./features/home/router"));
+const Introduce = React.lazy(() => import("./features/introduce/router"))
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       >
         <Switch>
           <Route path="/auth" component={Authentication} />
-          <PrivateRoute path="/" component={Home} />
+          <PrivateRoute path="/home" component={Home} />
+          <Route path="/" component={Introduce}></Route>
         </Switch>
       </Suspense>
     </>

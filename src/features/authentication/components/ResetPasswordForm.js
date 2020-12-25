@@ -1,4 +1,4 @@
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
@@ -6,20 +6,10 @@ import { BUTTON_LOGIN } from "../../../css/color";
 import { resetPassword } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import { StyledButton } from "../css/custom.component";
+import "../css/style.css";
 import Password from "./Password";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  labelAsterisk: {
-    color: "red",
-  },
-}));
-
 export default function ResetPasswordForm(props) {
-  const classes = useStyles();
   const history = useHistory();
   const { register, handleSubmit, errors, watch } = useForm();
   const submitForm = async (data) => {
@@ -35,7 +25,7 @@ export default function ResetPasswordForm(props) {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(submitForm)}>
+    <form className='form' onSubmit={handleSubmit(submitForm)}>
       <Grid container spacing={2}>
         <Password register={register} watch={watch} errors={errors} />
         <Grid item xs={12}>

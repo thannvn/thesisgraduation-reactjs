@@ -5,34 +5,25 @@ import {
   CssBaseline,
   Grid,
   Link,
-  makeStyles,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import RegisterForm from "../components/RegisterForm";
 import React from "react";
 import Copyright from "../components/CopyRight";
+import RegisterForm from "../components/RegisterForm";
 import VerifyAccount from "../components/VerifyAccount";
 import { StyledPaper } from "../css/custom.component";
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-}));
+import "../css/style.css";
 
 export default function RegisterPage() {
-  const classes = useStyles();
   //check register in step 1 or 2
   const [accountId, setAccountId] = React.useState();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" className="main">
       <CssBaseline />
       <StyledPaper variant="outlined">
-        <Avatar className={classes.avatar}>
+        <Avatar className="avatar">
           <LockOutlinedIcon />
         </Avatar>
         {!accountId ? (

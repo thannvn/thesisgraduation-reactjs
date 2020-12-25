@@ -1,4 +1,4 @@
-import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -7,25 +7,11 @@ import { loginSuccess } from "../../../slices/authentication";
 import { login } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import { StyledButton } from "../css/custom.component";
-
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  labelAsterisk: {
-    color: "red",
-  },
-  resultAPI: {
-    fontSize: "1.2rem",
-  },
-}));
+import "../css/style.css";
 
 export default function LoginForm() {
-  const classes = useStyles();
   const { register, handleSubmit, errors, setError } = useForm();
   const dispatch = useDispatch();
-
   const submitForm = async (data) => {
     //handle
     const result = await login(data);
@@ -37,7 +23,7 @@ export default function LoginForm() {
     }
   };
   return (
-    <form className={classes.form} onSubmit={handleSubmit(submitForm)}>
+    <form className="form" onSubmit={handleSubmit(submitForm)}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -47,7 +33,7 @@ export default function LoginForm() {
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: classes.labelAsterisk,
+                asterisk: "labelAsterisk",
               },
             }}
             id="username"
@@ -57,7 +43,7 @@ export default function LoginForm() {
             required
             inputRef={register({
               pattern: {
-                value: /^[a-zA-Z0-9](?=.*\d){6,16}$/,
+                value: /^(?=.{6,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
               },
             })}
           />
@@ -70,7 +56,7 @@ export default function LoginForm() {
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: classes.labelAsterisk,
+                asterisk: "labelAsterisk",
               },
             }}
             name="password"
@@ -86,7 +72,7 @@ export default function LoginForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography className={classes.resultAPI} color="error">
+          <Typography className="resultAPI">
             {(errors.username || errors.password || errors.apiResult) &&
               "Sai tên tài khoản hoặc mật khẩu"}
           </Typography>

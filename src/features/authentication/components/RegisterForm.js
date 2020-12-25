@@ -1,4 +1,4 @@
-import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { BUTTON_LOGIN } from "../../../css/color";
@@ -7,18 +7,7 @@ import { STATUS_OK } from "../../../utils/handleAPI";
 import { StyledButton, StyledValidate } from "../css/custom.component";
 import Password from "./Password";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  labelAsterisk: {
-    color: "red",
-  },
-}));
-
 export default function RegisterForm(props) {
-  const classes = useStyles();
   const { register, handleSubmit, errors, watch, setError } = useForm();
   const submitForm = async (data) => {
     //submit form register
@@ -32,7 +21,7 @@ export default function RegisterForm(props) {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(submitForm)}>
+    <form className="form" onSubmit={handleSubmit(submitForm)}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -44,7 +33,7 @@ export default function RegisterForm(props) {
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: classes.labelAsterisk,
+                asterisk: "labelAsterisk",
               },
             }}
             id="firstName"
@@ -61,7 +50,7 @@ export default function RegisterForm(props) {
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: classes.labelAsterisk,
+                asterisk: "labelAsterisk",
               },
             }}
             id="lastName"
@@ -79,7 +68,7 @@ export default function RegisterForm(props) {
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: classes.labelAsterisk,
+                asterisk: "labelAsterisk",
               },
             }}
             id="email"
@@ -104,7 +93,7 @@ export default function RegisterForm(props) {
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: classes.labelAsterisk,
+                asterisk: 'labelAsterisk',
               },
             }}
             id="username"
@@ -112,18 +101,18 @@ export default function RegisterForm(props) {
             name="username"
             inputRef={register({
               pattern: {
-                value: /^[a-zA-Z0-9](?=.*\d){6,16}$/g,
+                value: /^(?=.{6,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
               },
             })}
           />
           <StyledValidate>
             {errors.username &&
-              "Tên tài khoản dài 6-16 ký tự, bao gồm ít nhất 1 ký tự là số, không sử dụng các ký tự đặc biệt"}
+              "Tên tài khoản dài 6-16 ký tự, không sử dụng các ký tự đặc biệt"}
           </StyledValidate>
         </Grid>
         <Password register={register} watch={watch} errors={errors} />
         <Grid item xs={12}>
-          <Typography component="p" color="error">
+          <Typography className="resultAPI">
             {errors.apiResult && errors.apiResult.message}
           </Typography>
         </Grid>

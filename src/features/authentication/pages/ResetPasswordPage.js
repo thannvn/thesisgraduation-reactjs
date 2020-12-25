@@ -5,24 +5,16 @@ import {
   CssBaseline,
   Grid,
   Link,
-  makeStyles,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
-import img from "../../../images/reset-password.png";
+import img from "../../../assets/images/reset-password.png";
 import { resetPassword } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import Copyright from "../components/CopyRight";
 import ResetPasswordForm from "../components/ResetPasswordForm";
 import { StyledPaper } from "../css/custom.component";
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(1),
-  },
-}));
 
 export default function ResetPasswordPage() {
   const { resetCode } = useParams();
@@ -46,14 +38,13 @@ export default function ResetPasswordPage() {
     validateResetCode();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const classes = useStyles();
   return (
     <>
       {isValidToken && (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <StyledPaper variant="outlined">
-            <Avatar className={classes.avatar} src={img}></Avatar>
+            <Avatar className='avatar' src={img}></Avatar>
             <Typography component="h1" variant="h5">
               Đổi mật khẩu
             </Typography>

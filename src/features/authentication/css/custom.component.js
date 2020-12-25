@@ -16,7 +16,7 @@ const StyledPaper = styled(Paper)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 480px;
+  width: auto;
   height: auto;
   padding: 40px;
   background: #f7f7f7;
@@ -33,7 +33,8 @@ const StyledTypography = styled(Typography)`
 //Style notify when validate input: username, password, email...
 const StyledValidate = styled(Typography)`
   font-style: italic;
-  font-size: 0.9rem;
+  margin: 2px 2px 0px 2px;
+  font-size: 0.85rem;
   color: red;
 `;
 export { StyledButton, StyledPaper, StyledTypography, StyledValidate };
