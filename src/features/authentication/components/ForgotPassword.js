@@ -1,10 +1,9 @@
 import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { BUTTON_LOGIN } from "../../../css/color";
 import { forgotPassword } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
-import { StyledButton } from "../css/custom.component";
+import CustomButton from "../../../components/custom/CustomButton";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -62,14 +61,7 @@ export default function ForgotPassword(props) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <StyledButton
-            color={BUTTON_LOGIN}
-            type="submit"
-            fullWidth
-            variant="contained"
-          >
-            Nhận link
-          </StyledButton>
+          <CustomButton color="success" fullWidth>Đăng nhập</CustomButton>
         </Grid>
       </Grid>
     </form>

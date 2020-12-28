@@ -39,9 +39,10 @@ export default function Password({ register, watch, errors }) {
         />
         <StyledValidate>
           {errors.password &&
-            "Mật khẩu phải có ít nhất 6 ký tự, bao gồm ít nhất 1 ký tự là số và ký tự đặc biệt [@, $, !, %, *, #, ?, &, .]"}
+            "Mật khẩu phải có ít nhất 6 ký tự, bao gồm ít nhất 1 ký tự là số và 1 ký tự đặc biệt [@, $, !, %, *, #, ?, &, .]"}
         </StyledValidate>
       </Grid>
+
       <Grid item xs={12}>
         <TextField
           required

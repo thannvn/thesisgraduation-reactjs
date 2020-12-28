@@ -100,14 +100,6 @@ const headerLinksStyle = theme => ({
     fontSize: "20px !important",
     marginRight: "4px"
   },
-  dropdownLink: {
-    "&,&:hover,&:focus": {
-      color: "inherit",
-      textDecoration: "none",
-      display: "block",
-      padding: "10px 20px"
-    }
-  },
   ...tooltip,
   marginRight5: {
     marginRight: "5px"

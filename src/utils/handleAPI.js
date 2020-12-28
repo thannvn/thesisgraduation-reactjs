@@ -30,6 +30,11 @@ const POST_RESET_PASSWORD = {
   URL: "auth/reset-password"
 }
 
+const POST_LOGIN_GOOGLE = {
+  method: "POST",
+  URL: "auth/login-google"
+}
+
 const STATUS_OK = 200
 const configAPI = (API, data) => {
   return {
@@ -53,5 +58,6 @@ export {
   POST_VERIFY_ACCOUNT,
   STATUS_OK,
   POST_FORGOT_PASSWORD,
-  POST_RESET_PASSWORD
+  POST_RESET_PASSWORD,
+  POST_LOGIN_GOOGLE
 };

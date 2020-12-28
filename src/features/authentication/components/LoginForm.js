@@ -2,11 +2,10 @@ import { Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { BUTTON_LOGIN } from "../../../css/color";
+import CustomButton from "../../../components/custom/CustomButton";
 import { loginSuccess } from "../../../slices/authentication";
 import { login } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
-import { StyledButton } from "../css/custom.component";
 import "../css/style.css";
 
 export default function LoginForm() {
@@ -24,11 +23,10 @@ export default function LoginForm() {
   };
   return (
     <form className="form" onSubmit={handleSubmit(submitForm)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
             fullWidth
             InputLabelProps={{
               shrink: true,
@@ -43,7 +41,7 @@ export default function LoginForm() {
             required
             inputRef={register({
               pattern: {
-                value: /^(?=.{6,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
+                value: /^(?=.{6,}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._@]+(?<![_.])$/,
               },
             })}
           />
@@ -51,7 +49,6 @@ export default function LoginForm() {
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            margin="normal"
             fullWidth
             InputLabelProps={{
               shrink: true,
@@ -78,14 +75,9 @@ export default function LoginForm() {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <StyledButton
-            color={BUTTON_LOGIN}
-            type="submit"
-            fullWidth
-            variant="contained"
-          >
+          <CustomButton color="success" fullWidth>
             Đăng nhập
-          </StyledButton>
+          </CustomButton>
         </Grid>
       </Grid>
     </form>

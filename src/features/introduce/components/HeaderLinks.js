@@ -3,8 +3,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-import { CloudDownload } from "@material-ui/icons";
 import React from "react";
 import styles from "../../../assets/jss/material-kit-react/components/headerLinksStyle";
 import CustomButton from "../../../components/custom/CustomButton";

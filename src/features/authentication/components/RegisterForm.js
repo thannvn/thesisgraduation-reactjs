@@ -1,11 +1,11 @@
 import { Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { BUTTON_LOGIN } from "../../../css/color";
 import { registerAccount } from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
-import { StyledButton, StyledValidate } from "../css/custom.component";
+import { StyledValidate } from "../css/custom.component";
 import Password from "./Password";
+import CustomButton from "../../../components/custom/CustomButton";
 
 export default function RegisterForm(props) {
   const { register, handleSubmit, errors, watch, setError } = useForm();
@@ -22,7 +22,7 @@ export default function RegisterForm(props) {
 
   return (
     <form className="form" onSubmit={handleSubmit(submitForm)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
             autoComplete="fname"
@@ -85,6 +85,7 @@ export default function RegisterForm(props) {
             {errors.email && "Email không đúng định dạng"}
           </StyledValidate>
         </Grid>
+
         <Grid item xs={12}>
           <TextField
             required
@@ -93,7 +94,7 @@ export default function RegisterForm(props) {
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: 'labelAsterisk',
+                asterisk: "labelAsterisk",
               },
             }}
             id="username"
@@ -101,15 +102,16 @@ export default function RegisterForm(props) {
             name="username"
             inputRef={register({
               pattern: {
-                value: /^(?=.{6,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
+                value: /^(?=.{6,}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._@]+(?<![_.])$/,
               },
             })}
           />
           <StyledValidate>
             {errors.username &&
-              "Tên tài khoản dài 6-16 ký tự, không sử dụng các ký tự đặc biệt"}
+              "Tên tài khoản dài hơn 6 ký tự, không sử dụng các ký tự đặc biệt"}
           </StyledValidate>
         </Grid>
+
         <Password register={register} watch={watch} errors={errors} />
         <Grid item xs={12}>
           <Typography className="resultAPI">
@@ -117,14 +119,9 @@ export default function RegisterForm(props) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <StyledButton
-            color={BUTTON_LOGIN}
-            type="submit"
-            fullWidth
-            variant="contained"
-          >
-            Tiếp theo
-          </StyledButton>
+          <CustomButton color="success" fullWidth type="submit">
+            Đăng nhập
+          </CustomButton>
         </Grid>
       </Grid>
     </form>

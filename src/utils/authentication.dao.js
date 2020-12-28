@@ -7,6 +7,7 @@ import {
   POST_REGISTER_ACCOUNT,
   POST_RESET_PASSWORD,
   POST_VERIFY_ACCOUNT,
+  POST_LOGIN_GOOGLE,
 } from "./handleAPI";
 
 /* login */
@@ -85,6 +86,21 @@ const resetPassword = async (newPassword) => {
     return createResult(error.response.status, error.response.data.message);
   }
 };
+
+/* Login with google */
+const loginGoogle = async (accessToken, profile) => {
+  try {
+    const data = {
+      accessToken: accessToken,
+      profile: profile,
+    };
+    const result = await axios.request(configAPI(POST_LOGIN_GOOGLE, data));
+    return createResult(result.status, result.data.message);
+  } catch (error) {
+    return createResult(error.response.status, error.response.data.message);
+  }
+};
+
 const createResult = (status, message) => {
   return {
     status: status,
@@ -92,4 +108,12 @@ const createResult = (status, message) => {
   };
 };
 
-export { login, registerAccount, getLoginStatus, sendCode, forgotPassword, resetPassword };
+export {
+  login,
+  registerAccount,
+  getLoginStatus,
+  sendCode,
+  forgotPassword,
+  resetPassword,
+  loginGoogle,
+};

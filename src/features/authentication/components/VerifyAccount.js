@@ -2,11 +2,10 @@ import { Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { BUTTON_LOGIN } from "../../../css/color";
 import { sendCode } from "../../../utils/authentication.dao";
-import { StyledButton, StyledTypography } from "../css/custom.component";
+import { StyledTypography } from "../css/custom.component";
 import "../css/style.css";
-
+import CustomButton from "../../../components/custom/CustomButton";
 
 export default function VerifyAccount(props) {
   const { register, handleSubmit, errors, setError } = useForm();
@@ -28,7 +27,7 @@ export default function VerifyAccount(props) {
   };
   return (
     <>
-      <form className='form' onSubmit={handleSubmit(submitCode)}>
+      <form className="form" onSubmit={handleSubmit(submitCode)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <StyledTypography>
@@ -43,7 +42,7 @@ export default function VerifyAccount(props) {
               InputLabelProps={{
                 shrink: true,
                 classes: {
-                  asterisk: 'labelAsterisk',
+                  asterisk: "labelAsterisk",
                 },
               }}
               id="code"
@@ -55,19 +54,14 @@ export default function VerifyAccount(props) {
             ></TextField>
           </Grid>
           <Grid item xs={12}>
-            <Typography className='resultAPI'>
+            <Typography className="resultAPI">
               {errors.apiResult && errors.apiResult.message}
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <StyledButton
-              color={BUTTON_LOGIN}
-              type="submit"
-              fullWidth
-              variant="contained"
-            >
-              Xác nhận
-            </StyledButton>
+            <CustomButton color="success" fullWidth>
+              Đăng nhập
+            </CustomButton>
           </Grid>
         </Grid>
       </form>

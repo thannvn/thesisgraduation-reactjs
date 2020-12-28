@@ -1,11 +1,11 @@
 import {
   Avatar,
   Box,
-  Button,
   Container,
   Grid,
   Link,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
@@ -14,10 +14,18 @@ import { Redirect } from "react-router-dom";
 import Notification from "../../../components/Notification";
 import Copyright from "../components/CopyRight";
 import LoginForm from "../components/LoginForm";
+import LoginGoogle from "../components/LoginGoogle";
 import { StyledPaper } from "../css/custom.component";
 import "../css/style.css";
 
+const useStyles = makeStyles((theme) => ({
+  oauth: {
+    margin: "20px 0px 20px 0px",
+  },
+}));
+
 export default function LoginPage(props) {
+  const classes = useStyles();
   const notify = props.location.state ? props.location.state.notify : undefined;
   const type = props.location.state ? props.location.state.type : undefined;
   const user = useSelector((state) => state.auth);
@@ -34,7 +42,7 @@ export default function LoginPage(props) {
             Đăng nhập
           </Typography>
           <LoginForm></LoginForm>
-          <Button variant="outlined">Đăng nhập với google</Button>
+          <LoginGoogle className={classes.oauth} />
           <Grid container>
             <Grid item xs>
               <Link href="/auth/forgot" variant="body2">
