@@ -1,7 +1,7 @@
 import { Grid, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { registerAccount } from "../../../utils/authentication.dao";
+import AuthenticationDao from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import { StyledValidate } from "../css/custom.component";
 import Password from "./Password";
@@ -11,7 +11,7 @@ export default function RegisterForm(props) {
   const { register, handleSubmit, errors, watch, setError } = useForm();
   const submitForm = async (data) => {
     //submit form register
-    const result = await registerAccount(data);
+    const result = await AuthenticationDao.registerAccount(data);
     if (result.status === STATUS_OK) {
       props.setId(result.message);
     } else {
@@ -102,13 +102,13 @@ export default function RegisterForm(props) {
             name="username"
             inputRef={register({
               pattern: {
-                value: /^(?=.{6,}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._@]+(?<![_.])$/,
+                value: /^(?=.{6,}$)(?![_.@])(?!.*[_.]{2})[a-zA-Z0-9._@]+(?<![_.@])$/,
               },
             })}
           />
           <StyledValidate>
             {errors.username &&
-              "Tên tài khoản dài hơn 6 ký tự, không sử dụng các ký tự đặc biệt"}
+              "Tên tài khoản lớn hơn 6 ký tự, không sử dụng các ký tự đặc biệt, có thể sử dụng [@ . _]"}
           </StyledValidate>
         </Grid>
 
@@ -120,7 +120,7 @@ export default function RegisterForm(props) {
         </Grid>
         <Grid item xs={12}>
           <CustomButton color="success" fullWidth type="submit">
-            Đăng nhập
+            Đăng ký
           </CustomButton>
         </Grid>
       </Grid>

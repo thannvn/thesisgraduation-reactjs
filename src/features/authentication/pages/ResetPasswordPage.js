@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import img from "../../../assets/images/reset-password.png";
-import { resetPassword } from "../../../utils/authentication.dao";
+import AuthenticationDao from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import Copyright from "../components/CopyRight";
 import ResetPasswordForm from "../components/ResetPasswordForm";
@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
 
   React.useEffect(() => {
     const validateResetCode = async () => {
-      const result = await resetPassword();
+      const result = await AuthenticationDao.resetPassword();
       if (result.status === STATUS_OK) {
         setValidToken(true);
       } else {

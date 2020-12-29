@@ -2,7 +2,7 @@ import { Grid } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { resetPassword } from "../../../utils/authentication.dao";
+import AuthenticationDao from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import "../css/style.css";
 import Password from "./Password";
@@ -13,7 +13,7 @@ export default function ResetPasswordForm(props) {
   const { register, handleSubmit, errors, watch } = useForm();
   const submitForm = async (data) => {
     //submit form register
-    const result = await resetPassword(data.newPassword);
+    const result = await AuthenticationDao.resetPassword(data.newPassword);
     if (result.status === STATUS_OK) {
       history.push({
         pathname: "/auth/login",
@@ -28,8 +28,8 @@ export default function ResetPasswordForm(props) {
       <Grid container spacing={2}>
         <Password register={register} watch={watch} errors={errors} />
         <Grid item xs={12}>
-          <CustomButton color="success" fullWidth>
-            Nhận link
+          <CustomButton color="success" fullWidth type="submit">
+            Đổi mật khẩu
           </CustomButton>
         </Grid>
       </Grid>

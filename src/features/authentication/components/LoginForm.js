@@ -4,21 +4,22 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import CustomButton from "../../../components/custom/CustomButton";
 import { loginSuccess } from "../../../slices/authentication";
-import { login } from "../../../utils/authentication.dao";
+import AuthenticationDao from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import "../css/style.css";
 
 export default function LoginForm() {
-  const { register, handleSubmit, errors, setError } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
+  const apiResult = React.useRef(null);
   const submitForm = async (data) => {
     //handle
-    const result = await login(data);
+    const result = await AuthenticationDao.login(data);
     if (result.status === STATUS_OK) {
       dispatch(loginSuccess(result.message));
       localStorage.setItem("auth-token", result.token);
     } else {
-      setError("apiResult", { message: result.message });
+      apiResult.current.innerHTML = result.message;
     }
   };
   return (
@@ -41,7 +42,7 @@ export default function LoginForm() {
             required
             inputRef={register({
               pattern: {
-                value: /^(?=.{6,}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._@]+(?<![_.])$/,
+                value: /^(?=.{6,}$)[a-zA-Z0-9._@]+(?<![_.@])$/,
               },
             })}
           />
@@ -69,13 +70,13 @@ export default function LoginForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Typography className="resultAPI">
-            {(errors.username || errors.password || errors.apiResult) &&
+          <Typography className="resultAPI" ref={apiResult}>
+            {(errors.username || errors.password) &&
               "Sai tên tài khoản hoặc mật khẩu"}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <CustomButton color="success" fullWidth>
+          <CustomButton color="success" fullWidth type="submit">
             Đăng nhập
           </CustomButton>
         </Grid>

@@ -2,14 +2,19 @@ import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../../slices/authentication";
 import { STATUS_OK } from "../../../utils/handleAPI";
-import { loginGoogle } from "../../../utils/authentication.dao";
+import AuthenticationDao from "../../../utils/authentication.dao";
 
 export default function LoginGoogle(props) {
   const dispatch = useDispatch();
   const successResponse = async (success) => {
-    const result = await loginGoogle(success.accessToken, success.profileObj);
-    console.log(result);
-    dispatch(loginSuccess(success.profileObj.name));
+    const result = await AuthenticationDao.loginGoogle(
+      success.accessToken,
+      success.profileObj
+    );
+    if (result.status === STATUS_OK) {
+      dispatch(loginSuccess(result.message));
+      localStorage.setItem("auth-token", result.token);
+    }
   };
   const failureResponse = (fail) => {
     console.log(fail);

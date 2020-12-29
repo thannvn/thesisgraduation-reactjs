@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLoginStatus } from "../utils/authentication.dao";
+import AuthenticationDao from "../utils/authentication.dao";
 import { STATUS_OK } from "../utils/handleAPI";
 
 const fetchLogin = async (dispatch, getState) => {
-  const result = await getLoginStatus()
+  const result = await AuthenticationDao.getLoginStatus()
   if (result.status === STATUS_OK) {
     dispatch(loginSuccess(result.message));
   } 

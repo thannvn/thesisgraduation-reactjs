@@ -1,7 +1,7 @@
 import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { forgotPassword } from "../../../utils/authentication.dao";
+import AuthenticationDao from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
 import CustomButton from "../../../components/custom/CustomButton";
 
@@ -22,7 +22,7 @@ export default function ForgotPassword(props) {
 
   const submitForm = async (data) => {
     //handle
-    const result = await forgotPassword(data.email);
+    const result = await AuthenticationDao.forgotPassword(data.email);
     if (result.status === STATUS_OK) {
       props.exist(true);
     } else {
@@ -61,7 +61,7 @@ export default function ForgotPassword(props) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <CustomButton color="success" fullWidth>Đăng nhập</CustomButton>
+          <CustomButton color="success" fullWidth type="submit">Nhận link</CustomButton>
         </Grid>
       </Grid>
     </form>
