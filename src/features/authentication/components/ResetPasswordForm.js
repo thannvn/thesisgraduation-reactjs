@@ -13,7 +13,7 @@ export default function ResetPasswordForm(props) {
   const { register, handleSubmit, errors, watch } = useForm();
   const submitForm = async (data) => {
     //submit form register
-    const result = await AuthenticationDao.resetPassword(data.newPassword);
+    const result = await AuthenticationDao.resetPassword(data.password);
     if (result.status === STATUS_OK) {
       history.push({
         pathname: "/auth/login",

@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import PrivateRoute from "./routes/PrivateRoute";
-
 const Authentication = React.lazy(() =>
   import("./features/authentication/router")
 );

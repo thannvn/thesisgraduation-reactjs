@@ -79,7 +79,7 @@ export default class AuthenticationDao {
   static resetPassword = async (newPassword) => {
     try {
       const data = {
-        newPassword: newPassword,
+        password: newPassword,
       };
       const result = await axios.request(configAPI(POST_RESET_PASSWORD, data));
       return this.createResult(result);

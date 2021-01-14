@@ -9,6 +9,7 @@ import CustomButton from "../../../components/custom/CustomButton";
 
 export default function RegisterForm(props) {
   const { register, handleSubmit, errors, watch, setError } = useForm();
+
   const submitForm = async (data) => {
     //submit form register
     const result = await AuthenticationDao.registerAccount(data);
@@ -120,7 +121,7 @@ export default function RegisterForm(props) {
         </Grid>
         <Grid item xs={12}>
           <CustomButton color="success" fullWidth type="submit">
-            Đăng ký
+            Tiếp theo
           </CustomButton>
         </Grid>
       </Grid>

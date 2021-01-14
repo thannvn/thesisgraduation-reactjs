@@ -41,8 +41,8 @@ const configAPI = (API, data) => {
     method: API.method,
     url: BASE_URL_API + API.URL,
     headers: {
-      "auth-token": localStorage.getItem("auth-token"),
-      "resetPassword-token": localStorage.getItem("resetPassword-token"),
+      "Auth-Token": localStorage.getItem("auth-token"),
+      "ResetPassword-Token": localStorage.getItem("resetPassword-token"),
       "Content-Type": "application/json",
     },
     data: data,

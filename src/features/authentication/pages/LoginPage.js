@@ -13,14 +13,23 @@ import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Notification from "../../../components/Notification";
 import Copyright from "../components/CopyRight";
+import LoginFacebook from "../components/LoginFacebook";
 import LoginForm from "../components/LoginForm";
 import LoginGoogle from "../components/LoginGoogle";
 import { StyledPaper } from "../css/custom.component";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../css/style.css";
+toast.configure()
 
 const useStyles = makeStyles((theme) => ({
   oauth: {
     margin: "20px 0px 20px 0px",
+  },
+  facebook: {
+    width: "200px",
+    fontSize: "14px !important",
+    height: "43px",
   },
 }));
 
@@ -41,7 +50,8 @@ export default function LoginPage(props) {
           <Typography component="h1" variant="h5">
             Đăng nhập
           </Typography>
-          <LoginForm></LoginForm>
+          <LoginForm />
+          <LoginFacebook />
           <LoginGoogle className={classes.oauth} />
           <Grid container>
             <Grid item xs>

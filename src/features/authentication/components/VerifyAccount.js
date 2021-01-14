@@ -1,26 +1,39 @@
-import { Grid, TextField, Typography } from "@material-ui/core";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import AuthenticationDao from "../../../utils/authentication.dao";
-import { StyledTypography } from "../css/custom.component";
-import "../css/style.css";
-import CustomButton from "../../../components/custom/CustomButton";
-
+import { Grid, TextField, Typography } from '@material-ui/core';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import AuthenticationDao from '../../../utils/authentication.dao';
+import { StyledTypography } from '../css/custom.component';
+import '../css/style.css';
+import CustomButton from '../../../components/custom/CustomButton';
+import {toast} from 'react-toastify'
 export default function VerifyAccount(props) {
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
   const apiResult = React.useRef(null);
+
+  const toastNotification = () => {
+    if(errors.code) {
+      toast.error('Failed !', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } else {
+      
+      toast.success('Success Notification !', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    
+  };
   //submit verify code
   const submitCode = async (data) => {
-    console.log(data)
     const result = await AuthenticationDao.sendCode(data.code, props.account);
     if (result.status === 200) {
       history.push({
-        pathname: "/auth/login",
+        pathname: '/auth/login',
         state: {
-          notify: "Đăng ký thành công",
-          type: "success",
+          notify: 'Đăng ký thành công',
+          type: 'success',
         },
       });
     } else {
@@ -28,7 +41,7 @@ export default function VerifyAccount(props) {
     }
   };
   return (
-    <form className="form" onSubmit={handleSubmit(submitCode)}>
+    <form className='form' onSubmit={handleSubmit(submitCode)}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <StyledTypography>
@@ -37,17 +50,17 @@ export default function VerifyAccount(props) {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            variant="outlined"
+            variant='outlined'
             fullWidth
             InputLabelProps={{
               shrink: true,
               classes: {
-                asterisk: "labelAsterisk",
+                asterisk: 'labelAsterisk',
               },
             }}
-            id="code"
-            label="Mã kích hoạt"
-            name="code"
+            id='code'
+            label='Mã kích hoạt'
+            name='code'
             autoFocus
             required
             inputRef={register({
@@ -58,10 +71,12 @@ export default function VerifyAccount(props) {
           ></TextField>
         </Grid>
         <Grid item xs={12}>
-          <Typography className="resultAPI" ref={apiResult}>{errors.code && "Mã kích hoạt sai"}</Typography>
+          <Typography className='resultAPI' ref={apiResult}>
+            {errors.code && 'Mã kích hoạt sai'}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
-          <CustomButton color="success" fullWidth type="submit">
+          <CustomButton color='success' fullWidth type='submit' onClick={toastNotification}>
             Xác nhận
           </CustomButton>
         </Grid>

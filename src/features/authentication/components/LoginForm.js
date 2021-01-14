@@ -6,12 +6,15 @@ import CustomButton from "../../../components/custom/CustomButton";
 import { loginSuccess } from "../../../slices/authentication";
 import AuthenticationDao from "../../../utils/authentication.dao";
 import { STATUS_OK } from "../../../utils/handleAPI";
+import {useToasts} from 'react-toast-notifications'
 import "../css/style.css";
 
 export default function LoginForm() {
   const { register, handleSubmit, errors } = useForm();
+  const {addToast} = useToasts()
   const dispatch = useDispatch();
   const apiResult = React.useRef(null);
+  
   const submitForm = async (data) => {
     //handle
     const result = await AuthenticationDao.login(data);
@@ -22,7 +25,9 @@ export default function LoginForm() {
       apiResult.current.innerHTML = result.message;
     }
   };
+
   return (
+    <div>
     <form className="form" onSubmit={handleSubmit(submitForm)}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -82,5 +87,7 @@ export default function LoginForm() {
         </Grid>
       </Grid>
     </form>
+    </div>
+    
   );
 }
