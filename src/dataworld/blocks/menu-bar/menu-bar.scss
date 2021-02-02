@@ -1,0 +1,12 @@
+.t-menu-bar {
+  display: inline-flex;
+  justify-content: space-between;
+
+  .title {
+    float: 'left';
+  }
+
+  .avatar {
+    margin-left: 1000px;
+  }
+}

@@ -1,0 +1,51 @@
+.t-card-post {
+  margin-top: 50px;
+  width: auto;
+  height: 700px;
+  background-color: rgb(253, 253, 253);
+
+  .b-card-media {
+    height: 0;
+    padding-top: 56.25%; // 16:9
+  }
+
+  .b-card-action {
+    padding-left: 16px !important;
+    margin-top: 10px;
+  }
+
+  .p-button-action {
+    padding: 0px !important;
+  }
+
+  .MuiCardContent-root {
+    padding-top: 0px;
+  }
+
+  .b-comment-box {
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 110px;
+    border-top: 1px solid rgb(189, 189, 189);
+    display: inline-flex;
+
+    .p-input-comment {
+      background-color: rgb(253, 253, 253);
+      height: 30px;
+      border: none !important;
+      margin-left: 30px;
+      width: 90%;
+    }
+
+    .p-input-comment:focus {
+      outline: none;
+    }
+
+    .p-span-button {
+      cursor: pointer;
+      margin-right: 20px;
+      color: rgb(0, 140, 255);
+    }
+  }
+}

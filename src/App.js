@@ -1,12 +1,13 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import "./App.css";
+import MenuBar from "./dataworld/blocks/menu-bar/menu-bar.component";
 import PrivateRoute from "./routes/PrivateRoute";
+
 const Authentication = React.lazy(() =>
-  import("./features/authentication/router")
+  import("./app/modules/authentication/router")
 );
-const Home = React.lazy(() => import("./features/home/router"));
-const Introduce = React.lazy(() => import("./features/introduce/router"))
+const Home = React.lazy(() => import("./app/modules/home/router"));
+const Introduce = React.lazy(() => import("./app/modules/introduce/router"))
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Suspense
         fallback={null}
       >
+        <MenuBar />
         <Switch>
           <Route path="/auth" component={Authentication} />
           <PrivateRoute path="/home" component={Home} />

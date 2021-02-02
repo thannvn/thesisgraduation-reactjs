@@ -1,0 +1,27 @@
+.facebook-button {
+  width: 150px;
+  display: inline-flex;
+  font-size: 14px !important;
+  align-items: center;
+  margin-top: 20px;
+  height: 44px;
+  background: #3b5998;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+  padding: 0px 0px 0px 0px;
+  color: white;
+  align-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-family: Roboto, sans-serif;
+
+  .icon-facebook {
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 2px;
+  }
+  .span-facebook {
+    padding: 10px 10px 10px 0px;
+  }
+}
