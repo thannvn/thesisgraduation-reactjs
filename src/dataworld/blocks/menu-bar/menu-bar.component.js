@@ -1,13 +1,15 @@
 import {
   AppBar,
   Avatar,
-  Button, IconButton, Menu,
-  MenuItem, Toolbar
+  IconButton, 
+  Menu,
+  MenuItem, 
+  Toolbar
 } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutSuccess } from '../../../redux/authentication';
-import './menu-bar.scss';
+import ButtonSpan from '../../parts/button-span/button-span.component';
 
 export default function MenuBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -33,9 +35,7 @@ export default function MenuBar() {
       {user.user && (
           <AppBar position='fixed' color='inherit' >
             <Toolbar className='t-menu-bar'>
-              <Button className='title'>
-                <a href='/home'>Data world</a>
-              </Button>
+              <ButtonSpan label='Data word' color='primary' h-ml-24 />
               <IconButton
                 aria-label='account of current user'
                 aria-controls='menu-appbar'

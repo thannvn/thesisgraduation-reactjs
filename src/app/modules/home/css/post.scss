@@ -1,7 +1,7 @@
 .t-card-post {
   margin-top: 50px;
   width: auto;
-  height: 700px;
+  height: auto;
   background-color: rgb(253, 253, 253);
 
   .b-card-media {
@@ -22,6 +22,14 @@
     padding-top: 0px;
   }
 
+  .p-label-bold {
+    font-weight: bold;
+  }
+
+  .p-label-comment {
+    font-weight: 10px;
+  }
+
   .b-comment-box {
     width: 100%;
     align-items: center;
@@ -40,12 +48,6 @@
 
     .p-input-comment:focus {
       outline: none;
-    }
-
-    .p-span-button {
-      cursor: pointer;
-      margin-right: 20px;
-      color: rgb(0, 140, 255);
     }
   }
 }
