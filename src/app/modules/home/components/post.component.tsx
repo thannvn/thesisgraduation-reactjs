@@ -8,8 +8,9 @@ import {
     IconButton,
     Typography
 } from '@material-ui/core';
-import { MoreVert, FavoriteBorder, ChatBubbleOutlineOutlined, Share } from '@material-ui/icons';
+import { ChatBubbleOutlineOutlined, FavoriteBorder, MoreVert, Share } from '@material-ui/icons';
 import React from 'react';
+import ButtonSpan from '../../../../dataworld/parts/button-span/button-span.component';
 import '../css/post.scss';
 
 export default function Post() {
@@ -30,7 +31,7 @@ export default function Post() {
                 title="data"
             />
             <CardActions disableSpacing className='b-card-action'>
-                <IconButton aria-label='like' className='p-button-action '>
+                <IconButton aria-label='like' className='p-button-action'>
                     <FavoriteBorder />
                 </IconButton>
                 <IconButton aria-label='comment' className='p-button-action h-ml-20'>
@@ -41,13 +42,14 @@ export default function Post() {
                 </IconButton>
             </CardActions>
             <CardContent>
-                <Typography className='p-span-button'>1000 likes</Typography>
-                <Typography className='p-span-button'>View comment</Typography>
+                <ButtonSpan label='1000 likes' className='p-label-bold' />
+                <ButtonSpan label='Thann' />
+                <ButtonSpan label='View all comments...' />
             </CardContent>
 
             <CardActions className='b-comment-box'>
                 <input placeholder='Add a comment...' className='p-input-comment'></input>
-                <Typography className='p-span-button'>Post</Typography>
+                <ButtonSpan label='Post' className='h-mr-24' color='primary' />
             </CardActions>
         </Card>
     )

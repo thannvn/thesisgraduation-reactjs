@@ -1,3 +1,10 @@
+/* Import common css */
 @import './common/margin.scss';
 @import './common/index.scss';
-@import './common/app.scss'
+@import './common/app.scss';
+
+/* Import parts css */
+@import './parts/button-span.scss';
+
+/* Import blocks css */
+@import './blocks/menu-bar.scss'

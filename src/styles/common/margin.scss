@@ -1,7 +1,35 @@
-.h-mt-20 {
-    margin-top: 20px;
-}
+// .h-mt-8  : margin-top: 0.5rem = 8px
+// .h-ml-16 : margin-left: 1rem = 16px
+@use 'sass:map';
 
-.h-ml-20 {
-    margin-left: 20px !important;
+$_spacings: (
+  2: 2 / 16,
+  4: 4 / 16,
+  6: 6 / 16,
+  8: 8 / 16,
+  10: 10 / 16,
+  12: 12 / 16,
+  14: 14 / 16,
+  16: 16 / 16,
+  20: 20 / 16,
+  24: 24 / 16,
+  100: 100 / 16,
+);
+
+@each $_spacing_key, $_spacing in $_spacings {
+  .h-mt-#{$_spacing_key} {
+    margin-top: $_spacing + rem !important;
+  }
+
+  .h-mr-#{$_spacing_key} {
+    margin-right: $_spacing + rem !important;
+  }
+
+  .h-mb-#{$_spacing_key} {
+    margin-bottom: $_spacing + rem !important;
+  }
+
+  .h-ml-#{$_spacing_key} {
+    margin-left: $_spacing + rem !important;
+  }
 }
