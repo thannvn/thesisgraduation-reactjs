@@ -4,7 +4,7 @@ interface Result {
   message: string,
   token: string,
 }
-const configAPI = (API: any, data: any) => {
+const configAPI = (API: any, data?: any) => {
   return {
     method: API.method,
     url: BASE_URL_API + API.URL,

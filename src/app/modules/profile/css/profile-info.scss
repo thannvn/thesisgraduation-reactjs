@@ -1,0 +1,67 @@
+.b-profile-info {
+  display: flex;
+  flex-direction: column;
+
+  .p-avatar {
+    display: inline-flex;
+    justify-content: center;
+
+    div {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .p-name {
+    font-weight: bold !important;
+  }
+
+  .p-button-edit {
+    background-color: rgb(236, 236, 236);
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid rgb(129, 129, 129);
+    height: 30px;
+  }
+
+  .p-button-edit:focus {
+    outline: none !important;
+  }
+
+  .p-text-area-bio {
+    border-radius: 5px;
+  }
+
+  .p-text-area-bio:focus {
+    outline: none;
+    box-shadow: 0 0 0 1.5pt #4447cf;
+  }
+
+  .p-icon-text-input {
+    display: inline-flex;
+    margin-top: 10px;
+
+    .p-icon {
+      color: rgb(99, 99, 99);
+    }
+
+    .h-ml-5 {
+        margin-left: 5px;
+    }
+    .MuiOutlinedInput-inputMarginDense {
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
+  }
+
+  .p-btn-save {
+    width: 60px;
+    background-color: #2ea44f;
+    color: rgb(211, 211, 211);
+  }
+
+  .p-btn-cancel {
+    width: 60px;
+  }
+}

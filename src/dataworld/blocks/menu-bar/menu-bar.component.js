@@ -6,11 +6,13 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { logoutSuccess } from '../../../redux/authentication';
 import './menu-bar.scss';
 
-export default function MenuBar() {
+export default function MenuBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory()
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
   const open = Boolean(anchorEl);
@@ -19,6 +21,10 @@ export default function MenuBar() {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleGotoProfile = () => {
+    handleClose()
+    history.push('/profile')
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -61,7 +67,7 @@ export default function MenuBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleGotoProfile}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>

@@ -8,18 +8,20 @@ const Authentication = React.lazy(() =>
 );
 const Home = React.lazy(() => import("./app/modules/home/router"));
 const Introduce = React.lazy(() => import("./app/modules/introduce/router"))
+const Profile = React.lazy(() => import("./app/modules/profile/router"))
 
 function App() {
   return (
     <>
       <Suspense
-        fallback={null}
+        fallback={<div>Loading...</div>}
       >
         <MenuBar />
         <Switch>
           <Route path="/auth" component={Authentication} />
           <PrivateRoute path="/home" component={Home} />
-          <Route path="/" component={Introduce}></Route>
+          <PrivateRoute path='/profile' component={Profile} />
+          <PrivateRoute path="/" component={Introduce} />
         </Switch>
       </Suspense>
     </>

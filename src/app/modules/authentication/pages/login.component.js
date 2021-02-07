@@ -4,7 +4,7 @@ import {
   Container,
   Grid,
   Link,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React from 'react';

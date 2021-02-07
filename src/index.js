@@ -5,11 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { fetchLogin } from './redux/authentication';
 import { ToastContainer } from 'react-toastify';
 import './styles/main.scss'
-
-store.dispatch(fetchLogin);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -6,7 +6,6 @@ import {
     CardHeader,
     CardMedia,
     IconButton,
-    TextField,
     Typography
 } from '@material-ui/core';
 import { MoreVert, FavoriteBorder, ChatBubbleOutlineOutlined, Share } from '@material-ui/icons';

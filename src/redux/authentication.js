@@ -8,6 +8,7 @@ const fetchLogin = async (dispatch, getState) => {
     dispatch(loginSuccess(result.message));
   } 
 };
+
 const authenticationSlice = createSlice({
   name: "authentication",
   initialState: {
