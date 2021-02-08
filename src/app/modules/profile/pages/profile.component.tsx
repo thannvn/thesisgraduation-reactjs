@@ -9,6 +9,9 @@ interface ProfileState {
 }
 
 interface Values {
+    avatar: string,
+    name: string,
+    username: string,
     bio: string | null,
     dateOfBirth: Date | null,
     company: string | null,
@@ -18,18 +21,21 @@ interface Values {
 }
 
 export default class Profile extends React.Component {
-    state: ProfileState = {
-        isEdit: false,
-        userInfo: {},
-    }
-
     defaultValues: Values = {
+        avatar: '',
+        name: '',
+        username: '',
         bio: '',
-        dateOfBirth:  new Date(),
+        dateOfBirth: new Date(),
         company: '',
         location: '',
         website: '',
         github: '',
+    }
+
+    state: ProfileState = {
+        isEdit: false,
+        userInfo: {},
     }
 
     handleChangeEditMode = () => {
@@ -37,9 +43,15 @@ export default class Profile extends React.Component {
     }
 
     handleSaveEdit = async (data: any) => {
-        console.log(moment(data.dateOfBirth).format())
-        // this.setState({...this.state, userInfo: data})
+        const dateOfBirth = `${moment(data.dateOfBirth).format('M')}
+            / ${moment(data.dateOfBirth).format('D')}
+            / ${moment(data.dateOfBirth).format('YYYY')}`
+            const {avatar, username} = this.state.userInfo
+        data.avatar = avatar
+        data.username = username
+        data.dateOfBirth = dateOfBirth
         this.handleChangeEditMode()
+        this.setState({...this.state, userInfo: data})
     }
 
     handleCancelEdit = () => {
@@ -48,9 +60,9 @@ export default class Profile extends React.Component {
 
     componentDidMount = async () => {
         const result = await ProfileAPI.getProfile()
-        this.setState({...this.state, userInfo: result.message})
+        this.setState({ ...this.state, userInfo: result.message })
     }
-    
+
     render() {
         return (
             <ProfileTemplate self={this} />

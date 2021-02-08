@@ -4,7 +4,7 @@ import {
     CakeOutlined,
     GitHub, LanguageOutlined, LocationOnOutlined
 } from '@material-ui/icons';
-import React, {useEffect} from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import DateTimePicker from '../../../../dataworld/parts/datetime-picker/date-time-picker.component';
 import '../css/profile-info.scss';
