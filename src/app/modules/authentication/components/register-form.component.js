@@ -1,7 +1,7 @@
 import { Grid, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import AuthenticationDao from '../../../../api/authentication-api';
+import AuthenticationAPI from '../../../../api/authentication-api';
 import { STATUS_OK } from '../../../const/status-api.const';
 import { StyledValidate } from '../css/custom.component';
 import Password from './common/password.component';
@@ -13,7 +13,7 @@ export default function RegisterForm(props) {
 
   const submitForm = async (data) => {
     //submit form register
-    const result = await AuthenticationDao.registerAccount(data);
+    const result = await AuthenticationAPI.registerAccount(data);
     if (result.status === STATUS_OK) {
       props.setId(result.message);
     } else {

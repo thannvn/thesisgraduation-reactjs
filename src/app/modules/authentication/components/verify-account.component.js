@@ -2,7 +2,7 @@ import { Grid, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import AuthenticationDao from '../../../../api/authentication-api';
+import AuthenticationAPI from '../../../../api/authentication-api';
 import { StyledTypography } from '../css/custom.component';
 import CustomButton from "../../../../dataworld/parts/button/custom-button.component";
 import addToast from '../../../../dataworld/parts/toast/add-toast.component';
@@ -15,7 +15,7 @@ export default function VerifyAccount(props) {
 
   //submit verify code
   const submitCode = async (data) => {
-    const result = await AuthenticationDao.sendCode(data.code, props.account);
+    const result = await AuthenticationAPI.sendCode(data.code, props.account);
     if (result.status === 200) {
       addToast({message: "Đăng ký thành công", type: "success"})
       history.push({

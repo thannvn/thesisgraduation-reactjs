@@ -49,7 +49,7 @@ const POST_LOGIN_FACEBOOK: ApiTemplate = {
 /*Profile */
 const GET_PROFILE: ApiTemplate = {
   method: "GET",
-  URL: 'auth/profile'
+  URL: 'profile'
 }
 
 

@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import addToast from "../../../../dataworld/parts/toast/add-toast.component";
-import AuthenticationDao from "../../../../api/authentication-api";
+import AuthenticationAPI from "../../../../api/authentication-api";
 import { STATUS_OK } from "../../../const/status-api.const";
 import Copyright from "../../../../dataworld/parts/copy-right/copy-right.component";
 import ResetPasswordForm from "../components/reset-password-form.component";
@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
 
   React.useEffect(() => {
     const validateResetCode = async () => {
-      const result = await AuthenticationDao.resetPassword();
+      const result = await AuthenticationAPI.resetPassword();
       if (result.status === STATUS_OK) {
         setValidToken(true);
       } else {

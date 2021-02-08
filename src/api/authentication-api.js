@@ -12,7 +12,7 @@ import {
 } from '../app/const/url-api.const';
 
 
-export default class AuthenticationDao {
+export default class AuthenticationAPI {
   /* login */
   static login = async (account) => {
     //handle

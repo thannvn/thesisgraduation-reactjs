@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import CustomButton from "../../../../dataworld/parts/button/custom-button.component";
 import { loginSuccess } from "../../../../redux/authentication";
-import AuthenticationDao from "../../../../api/authentication-api";
+import AuthenticationAPI from "../../../../api/authentication-api";
 import { STATUS_OK } from "../../../const/status-api.const";
 
 export default function LoginForm() {
@@ -14,7 +14,7 @@ export default function LoginForm() {
   
   const submitForm = async (data) => {
     //handle
-    const result = await AuthenticationDao.login(data);
+    const result = await AuthenticationAPI.login(data);
     if (result.status === STATUS_OK) {
       dispatch(loginSuccess(result.message));
       localStorage.setItem("auth-token", result.token);

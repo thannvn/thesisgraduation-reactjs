@@ -2,7 +2,7 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import AuthenticationDao from '../../../../api/authentication-api';
+import AuthenticationAPI from '../../../../api/authentication-api';
 import { STATUS_OK } from '../../../const/status-api.const';
 import Password from './common/password.component';
 import CustomButton from '../../../../dataworld/parts/button/custom-button.component';
@@ -14,7 +14,7 @@ export default function ResetPasswordForm(props) {
   
   const submitForm = async (data) => {
     //submit form register
-    const result = await AuthenticationDao.resetPassword(data.password);
+    const result = await AuthenticationAPI.resetPassword(data.password);
     if (result.status === STATUS_OK) {
       history.push({
         pathname: '/auth/login',

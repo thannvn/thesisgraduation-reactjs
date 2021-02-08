@@ -2,17 +2,17 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../../../redux/authentication';
 import { STATUS_OK } from '../../../const/status-api.const';
-import AuthenticationDao from '../../../../api/authentication-api';
+import AuthenticationAPI from '../../../../api/authentication-api';
 import React from 'react';
 import { TiSocialFacebook } from 'react-icons/ti';
 import '../css/login-facebook.scss';
 
 export default function LoginFacebook(props) {
   const dispatch = useDispatch();
+  
   const responseFacebook = async (response) => {
-    console.log(response.picture.data.url)
     const profile = {email: response.email, avatar: response.picture.data.url}
-    const result = await AuthenticationDao.loginFacebook(
+    const result = await AuthenticationAPI.loginFacebook(
       response.accessToken,
       profile
     );

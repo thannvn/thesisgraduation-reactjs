@@ -2,13 +2,13 @@ import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../../../redux/authentication";
 import { STATUS_OK } from "../../../const/status-api.const";
-import AuthenticationDao from "../../../../api/authentication-api";
+import AuthenticationAPI from "../../../../api/authentication-api";
 import '../css/login-google.scss'
 
 export default function LoginGoogle(props) {
   const dispatch = useDispatch();
   const successResponse = async (success) => {
-    const result = await AuthenticationDao.loginGoogle(
+    const result = await AuthenticationAPI.loginGoogle(
       success.accessToken,
       success.profileObj
     );

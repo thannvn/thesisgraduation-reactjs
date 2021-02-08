@@ -1,132 +1,180 @@
-import { Avatar, Paper, TextareaAutosize, TextField, Typography } from '@material-ui/core'
-import React from 'react'
+import { Avatar, Paper, TextareaAutosize, TextField, Typography } from '@material-ui/core';
 import {
     BusinessRounded,
-    LocationOnOutlined,
-    LanguageOutlined,
     CakeOutlined,
-    GitHub
+    GitHub, LanguageOutlined, LocationOnOutlined
 } from '@material-ui/icons';
-import '../css/profile-info.scss'
-import { ProfileProps } from '../pages/profile.template'
+import React, {useEffect} from 'react';
+import { useForm } from 'react-hook-form';
+import DateTimePicker from '../../../../dataworld/parts/datetime-picker/date-time-picker.component';
+import '../css/profile-info.scss';
+import { ProfileProps } from '../pages/profile.template';
 
 export default function ProfileInfo({ self }: ProfileProps) {
-    const { state, handleChangeEditMode, handleSaveEdit, handleCancelEdit } = self
-
+    const { state, handleChangeEditMode, handleSaveEdit, handleCancelEdit, defaultValues } = self
+    const { handleSubmit, register, control, setValue } = useForm({defaultValues})
+    
     return (
-        <Paper className='paper b-profile-info'>
-            <div className='p-avatar'>
-                <Avatar />
-            </div>
-
-            <Typography className='p-name' >Thann</Typography>
-
-            <Typography>username</Typography>
-
-            <Typography>Bio</Typography>
-
-            {!state.isEdit &&
-                <button
-                    className='p-button-edit'
-                    onClick={handleChangeEditMode}>
-                    Chỉnh sửa
-                </button>
-            }
-
-
-            {state.isEdit &&
-                <TextareaAutosize
-                    placeholder='Add a bio'
-                    rowsMin={5}
-                    className='p-text-area-bio'
-                />
-            }
-
-            <div className='p-icon-text-input'>
-                <CakeOutlined className='p-icon' />
-                {state.isEdit ?
-                    <TextField
-                        name='dateOfBirth'
-                        variant='outlined'
-                        fullWidth
-                        size='small'
-                        className='h-ml-5' />
-                    :
-                    <Typography className='h-ml-5'>Ngày sinh</Typography>
-                }
-
-            </div>
-
-            <div className='p-icon-text-input'>
-                <BusinessRounded className='p-icon' />
-                {state.isEdit ?
-                    <TextField
-                        name='company'
-                        variant='outlined'
-                        fullWidth
-                        size='small'
-                        className='h-ml-5' />
-                    :
-                    <Typography className='h-ml-5'>Company</Typography>
-                }
-
-            </div>
-
-            <div className='p-icon-text-input'>
-                <LocationOnOutlined className='p-icon' />
-                {state.isEdit ?
-                    <TextField
-                        name='location'
-                        variant='outlined'
-                        fullWidth
-                        size='small'
-                        className='h-ml-5' />
-                    :
-                    <Typography className='h-ml-5'>Location</Typography>
-                }
-
-            </div>
-
-            <div className='p-icon-text-input'>
-                <LanguageOutlined className='p-icon' />
-                {state.isEdit ?
-                    <TextField
-                        name='website'
-                        variant='outlined'
-                        fullWidth
-                        size='small'
-                        className='h-ml-5' />
-                    :
-                    <Typography className='h-ml-5'>Website</Typography>
-                }
-
-            </div>
-
-            <div className='p-icon-text-input'>
-                <GitHub className='p-icon' />
-                {state.isEdit ?
-                    <TextField
-                        name='github'
-                        variant='outlined'
-                        fullWidth
-                        size='small'
-                        className='h-ml-5' />
-                    :
-                    <Typography className='h-ml-5'>Website</Typography>
-                }
-
-            </div>
-
-            {state.isEdit &&
-                <div className='h-mt-20'>
-                    <button className='p-button-edit p-btn-save' onClick={handleSaveEdit}>
-                        Lưu
-                    </button>
-                    <button className='p-button-edit h-ml-5 p-btn-cancel' onClick={handleCancelEdit}>
-                        Hủy
-                    </button>
+        <Paper className='paper'>
+            <form className='b-profile-info' onSubmit={handleSubmit(handleSaveEdit)}>
+                <div className='p-avatar'>
+                    <Avatar src={state.userInfo.avatar} />
                 </div>
-            }
+
+                <Typography className='p-name h-mt-32' >{state.userInfo.name}</Typography>
+
+                <Typography className='p-username'>{state.userInfo.username}</Typography>
+
+                <Typography className='h-mt-20'>{state.userInfo.bio}</Typography>
+
+                {!state.isEdit &&
+                    <button
+                        type='button'
+                        className='p-button-edit h-mt-20'
+                        onClick={handleChangeEditMode}>
+                        Chỉnh sửa
+                </button>
+                }
+
+
+                <div>
+                    {state.isEdit &&
+                        <TextareaAutosize
+                            placeholder='Add a bio'
+                            ref={register}
+                            name='bio'
+                            rowsMin={5}
+                            className='p-text-area-bio h-mt-20 h-ml-4'
+                        />
+                    }
+                </div>
+
+                <div className='p-icon-text-input'>
+                    {state.isEdit &&
+                        <>
+                            <CakeOutlined className='p-icon' />
+                            <DateTimePicker 
+                                setDateTime={setValue}
+                                currentDateTime={state.userInfo.dateOfBirth}
+                                name='dateOfBirth'
+                                control={control} 
+                                className='h-ml-12 h-mt-0 h-mb-0 date-time-picker' />
+                        </>
+                    }
+
+                    {!state.isEdit && state.userInfo.dateOfBirth &&
+                        <>
+                            <CakeOutlined className='p-icon' />
+                            <Typography className='h-ml-8'>{state.userInfo.dateOfBirth}</Typography>
+                        </>
+                    }
+                </div>
+
+                <div className='p-icon-text-input'>
+                    {state.isEdit &&
+                        <>
+                            <BusinessRounded className='p-icon' />
+                            <TextField
+                                name='company'
+                                defaultValue='abc'
+                                variant='outlined'
+                                fullWidth
+                                inputRef={register}
+                                size='small'
+                                className='h-ml-8' />
+                        </>
+                    }
+
+                    {!state.isEdit && state.userInfo.company &&
+                        <>
+                            <BusinessRounded className='p-icon' />
+                            <Typography className='h-ml-8'>{state.userInfo.company}</Typography>
+                        </>
+                    }
+                </div>
+
+                <div className='p-icon-text-input'>
+                    {state.isEdit &&
+                        <>
+                            <LocationOnOutlined className='p-icon' />
+                            <TextField
+                                name='location'
+                                variant='outlined'
+                                fullWidth
+                                inputRef={register}
+                                size='small'
+                                className='h-ml-8' />
+                        </>
+                    }
+
+                    {!state.isEdit && state.userInfo.location &&
+                        <>
+                            <LocationOnOutlined className='p-icon' />
+                            <Typography className='h-ml-8'>{state.userInfo.location}</Typography>
+                        </>
+                    }
+                </div>
+
+                <div className='p-icon-text-input'>
+                    {state.isEdit &&
+                        <>
+                            <LanguageOutlined className='p-icon' />
+                            <TextField
+                                name='website'
+                                variant='outlined'
+                                fullWidth
+                                inputRef={register}
+                                size='small'
+                                className='h-ml-8' />
+                        </>
+                    }
+
+                    {!state.isEdit && state.userInfo.website &&
+                        <>
+                            <LanguageOutlined className='p-icon' />
+                            <Typography className='h-ml-8'>{state.userInfo.website}</Typography>
+                        </>
+                    }
+                </div>
+
+                <div className='p-icon-text-input'>
+                    {state.isEdit &&
+                        <>
+                            <GitHub className='p-icon' />
+                            <TextField
+                                name='github'
+                                variant='outlined'
+                                fullWidth
+                                inputRef={register}
+                                size='small'
+                                className='h-ml-8' />
+                        </>
+                    }
+
+                    {!state.isEdit && state.userInfo.github &&
+                        <>
+                            <GitHub className='p-icon' />
+                            <Typography className='h-ml-8'>{state.userInfo.github}</Typography>
+                        </>
+                    }
+                </div>
+
+                {state.isEdit &&
+                    <div className='h-mt-20'>
+                        <button
+                            className='p-button-edit p-btn-save'
+                            type='submit'>
+                            Lưu
+                    </button>
+                        <button
+                            className='p-button-edit h-ml-6 p-btn-cancel'
+                            type='button'
+                            onClick={handleCancelEdit}>
+                            Hủy
+                    </button>
+                    </div>
+                }
+            </form>
 
         </Paper>
     )

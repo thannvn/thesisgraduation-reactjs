@@ -1,7 +1,7 @@
 import { Grid, makeStyles, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import AuthenticationDao from "../../../../api/authentication-api";
+import AuthenticationAPI from "../../../../api/authentication-api";
 import { STATUS_OK } from "../../../const/status-api.const";
 import CustomButton from "../../../../dataworld/parts/button/custom-button.component";
 
@@ -22,7 +22,7 @@ export default function ForgotPassword(props) {
 
   const submitForm = async (data) => {
     //handle
-    const result = await AuthenticationDao.forgotPassword(data.email);
+    const result = await AuthenticationAPI.forgotPassword(data.email);
     if (result.status === STATUS_OK) {
       props.exist(true);
     } else {

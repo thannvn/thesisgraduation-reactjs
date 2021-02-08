@@ -13,7 +13,13 @@
   }
 
   .p-name {
+    font-size: 26px;
     font-weight: bold !important;
+  }
+
+  .p-username {
+    font-size: 20px;
+    color: rgb(114, 114, 114);
   }
 
   .p-button-edit {
@@ -30,7 +36,12 @@
   }
 
   .p-text-area-bio {
+    width: 97.5%;
     border-radius: 5px;
+  }
+
+  .date-time-picker {
+    width: 91%;
   }
 
   .p-text-area-bio:focus {
@@ -46,9 +57,6 @@
       color: rgb(99, 99, 99);
     }
 
-    .h-ml-5 {
-        margin-left: 5px;
-    }
     .MuiOutlinedInput-inputMarginDense {
       padding-top: 4px;
       padding-bottom: 4px;

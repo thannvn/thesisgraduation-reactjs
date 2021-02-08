@@ -2,7 +2,7 @@ import axios from 'axios';
 import { configAPI, createResult} from '../app/const/handle-api.const';
 import { GET_PROFILE } from '../app/const/url-api.const';
 
-export default class Profile {
+export default class ProfileAPI {
     /* Get profile */
     static getProfile = async () => {
         try {

@@ -1,7 +1,8 @@
 const BASE_URL_API = "http://localhost:3000/api/";
+
 interface Result {
   status: number,
-  message: string,
+  message: any,
   token: string,
 }
 const configAPI = (API: any, data?: any) => {
