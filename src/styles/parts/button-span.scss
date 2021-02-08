@@ -1,7 +1,16 @@
 .p-button-span {
+  padding: 0px 0px 0px 0px !important;
   cursor: pointer;
+  font-size: 0.9rem;
+  background: none;
+  border: none !important;
 }
 
-.p-button-span:hover {
-  background: transparent !important;
+.p-button-span:focus {
+  outline: none;
+}
+
+.p-button-span:disabled {
+  opacity: 0.4;
+  cursor: default;
 }

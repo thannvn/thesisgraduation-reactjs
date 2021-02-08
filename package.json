@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.0",
     "date-fns": "^2.16.1",
+    "emoji-mart": "^3.0.0",
     "jwt-decode": "^3.1.2",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
@@ -57,7 +58,11 @@
     ]
   },
   "devDependencies": {
+<<<<<<< Updated upstream
     "@types/emoji-mart": "^3.0.4",
     "@types/react-router-dom": "^5.1.7"
+=======
+    "@types/emoji-mart": "^3.0.4"
+>>>>>>> Stashed changes
   }
 }

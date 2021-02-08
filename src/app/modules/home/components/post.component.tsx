@@ -8,48 +8,57 @@ import {
     IconButton,
     Typography
 } from '@material-ui/core';
-import { ChatBubbleOutlineOutlined, FavoriteBorder, MoreVert, Share } from '@material-ui/icons';
-import React from 'react';
-import ButtonSpan from '../../../../dataworld/parts/button-span/button-span.component';
+import { FavoriteBorder } from '@material-ui/icons';
+import React, { useState } from 'react';
+import Emoji from '../../../../dataworld/parts/emoji/emoji.component';
 import '../css/post.scss';
 
 export default function Post() {
+    const [message, setMessage] = useState<any>('')
     return (
         <Card className='t-card-post'>
             <CardHeader
                 avatar={<Avatar aria-label="avatar" src={process.env.PUBLIC_URL + 'images/avatar.jpg'} />}
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVert />
+                    <IconButton aria-label='like' className='p-button-action h-mt-14 h-mr-8'>
+                        <FavoriteBorder />
                     </IconButton>}
                 title="Thann"
                 subheader="September 14, 2016"
             />
-            <CardMedia
-                className='b-card-media'
-                image={process.env.PUBLIC_URL + 'images/data-content.jpg'}
-                title="data"
-            />
-            <CardActions disableSpacing className='b-card-action'>
-                <IconButton aria-label='like' className='p-button-action'>
-                    <FavoriteBorder />
-                </IconButton>
-                <IconButton aria-label='comment' className='p-button-action h-ml-20'>
-                    <ChatBubbleOutlineOutlined />
-                </IconButton>
-                <IconButton aria-label='share' className='p-button-action h-ml-20'>
-                    <Share />
-                </IconButton>
-            </CardActions>
+
             <CardContent>
-                <ButtonSpan label='1000 likes' className='p-label-bold' />
-                <ButtonSpan label='Thann' />
-                <ButtonSpan label='View all comments...' />
+                <div>
+                    <Typography variant='h5'>
+                        Baseline - Mmdetection Instance Segmentation Model
+                    </Typography>
+                    <Typography variant='subtitle1' className='p-sub-title h-ml-2' gutterBottom>
+                        in the <a href='/'>Riiid Answer Correctness Prediction</a>
+                    </Typography>
+                    <span className='h-ml-12 p-content'>
+                        I am a beginner here. Everytime I try to submit my notebook which is using 3- TTA, my notebook gets an error saying "Notebook Exceeded Allowed Compute" . Can someone please help me solve this problem
+                    </span>
+                </div>
+                <div>
+                    <button className='p-button-span p-label-bold h-mt-20'>1000 likes</button>
+                </div>
+                <div>
+                    <button className='p-button-span p-label-view-comment h-mt-10'>View all comment</button>
+                </div>
             </CardContent>
 
             <CardActions className='b-comment-box'>
-                <input placeholder='Add a comment...' className='p-input-comment'></input>
-                <ButtonSpan label='Post' className='h-mr-24' color='primary' />
+                <Emoji message={message} setMessage={setMessage} />
+                <input
+                    placeholder='Bình luận...'
+                    className='p-input-comment'
+                    value={message}
+                    onChange={(event) => setMessage(event.currentTarget.value)} />
+                <button
+                    className='p-button-span h-mr-24 p-btn-post'
+                    disabled={message === ''}>
+                    Post
+                </button>
             </CardActions>
         </Card>
     )

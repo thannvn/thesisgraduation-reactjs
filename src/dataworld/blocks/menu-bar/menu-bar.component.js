@@ -10,7 +10,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logoutSuccess } from '../../../redux/authentication';
-import ButtonSpan from '../../parts/button-span/button-span.component';
 
 export default function MenuBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,7 +40,7 @@ export default function MenuBar(props) {
       {user.user && (
           <AppBar position='fixed' color='inherit' >
             <Toolbar className='t-menu-bar'>
-              <ButtonSpan label='Data word' color='primary' h-ml-24 />
+              <button className='h-ml-24' >Data world</button>
               <IconButton
                 aria-label='account of current user'
                 aria-controls='menu-appbar'
