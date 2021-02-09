@@ -52,6 +52,11 @@ const GET_PROFILE: ApiTemplate = {
   URL: 'profile'
 }
 
+const UPDATE_PROFILE: ApiTemplate = {
+  method: "POST",
+  URL: "profile/update"
+}
+
 
 export {
     POST_LOGIN,
@@ -63,5 +68,6 @@ export {
     POST_RESET_PASSWORD,
     POST_LOGIN_GOOGLE,
     POST_LOGIN_FACEBOOK,
-    GET_PROFILE
+    GET_PROFILE,
+    UPDATE_PROFILE
   };

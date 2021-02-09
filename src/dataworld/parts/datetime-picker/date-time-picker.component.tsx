@@ -20,7 +20,7 @@ export default function DateTimePicker({
   currentDateTime
 }: DateTimePickerProps) {
   const [selectedDate, setSelectedDate] = React.useState<any>(
-    new Date(currentDateTime !== null ? currentDateTime : Date.now()),
+    new Date(currentDateTime ? currentDateTime : Date.now()),
   );
 
   const handleDateChange = (date: any) => {
