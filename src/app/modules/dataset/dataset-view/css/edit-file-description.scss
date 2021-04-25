@@ -1,0 +1,33 @@
+.b-edit-file-description {
+  .MuiSelect-select.MuiSelect-select {
+    padding-right: 0px;
+  }
+
+  .b-title {
+    border-bottom: 1px solid #dedfe0;
+
+    .p-icon-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
+
+  .b-actions {
+    border-top: 1px solid #dedfe0;
+  }
+
+  .b-form {
+    width: 100%;
+
+    .b-columns-description {
+      overflow-x: auto;
+      width: 100%;
+      white-space: nowrap;
+      max-width: 960px;
+      border-top: 1px solid #dedfe0;
+      height: 195px;
+      display: inline-flex;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.t-dataset-list {
+  padding: 0px 60px 0px 60px;
+
+  .b-header {
+    display: block;
+
+    .popular-tags {
+      display: flex;
+      align-items: center;
+
+      .MuiButton-root {
+        border-radius: 15px;
+      }
+    }
+  }
+
+  .b-list {
+    .b-list-by-tags {
+      padding-bottom: 50px;
+      border-bottom: 1px solid #dedfe0;
+
+      .p-title {
+        display: flex;
+        justify-content: space-between;
+        div {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

@@ -1,12 +1,21 @@
-.t-menu-bar {
-  display: inline-flex;
-  justify-content: space-between;
-
-  .title {
-    float: 'left';
-  }
-
-  .avatar {
-    margin-left: 1000px;
+.t-app-bar {
+  background-color: #24292e !important;
+  .b-tool-bar {
+    display: inline-flex;
+    justify-content: space-between;
+  
+    .MuiIconButton-root {
+      padding: 0px;
+    }
+  
+    .p-redirect-page {
+      font-weight: 600;
+    }
+  
+    .MuiLink-underlineHover:hover {
+      color: rgb(128, 128, 128);
+      text-decoration: none;
+    }
   }
 }
+

@@ -1,0 +1,85 @@
+.t-settings-tab {
+  height: 500px;
+
+  .p-title {
+    height: 50px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: rgb(247, 247, 247);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #dedfe0;
+  }
+
+  .b-settings {
+    border: 1px solid #dedfe0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    .p-options {
+      border-right: 1px solid #dedfe0;
+      padding: 20px 0px 20px 20px;
+      .p-option-name {
+        font-weight: 700;
+        font-size: medium;
+        color: rgb(41, 41, 41);
+      }
+      .p-option-current {
+        color: #0077ff;
+      }
+    }
+
+    .b-general {
+      margin-left: 100px;
+      margin-right: 50px;
+      padding: 20px 0px 20px 20px;
+
+      .p-input-field {
+        align-items: center;
+        display: flex;
+
+        .MuiTypography-body1 {
+          width: 100px;
+          text-align: right;
+        }
+
+        .MuiOutlinedInput-input {
+          height: 15px;
+        }
+      }
+    }
+
+    .p-action {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      .p-button-span {
+        color: #ff0000;
+      }
+    }
+
+    .b-upload-banner-thumbnail {
+      padding: 20px;
+      display: flex;
+      position: relative;
+
+      .p-button-click {
+        width: 150px;
+        cursor: pointer;
+        height: 120px;
+        .p-button-span {
+          color: #0077ff;
+        }
+      }
+
+      .p-current-banner-thumbnail {
+        margin-left: 85px;
+        object-fit: cover;
+        max-width: 550px;
+        height: 250px;
+      }
+    }
+  }
+}

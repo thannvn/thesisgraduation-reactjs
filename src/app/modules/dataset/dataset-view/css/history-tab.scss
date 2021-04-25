@@ -1,0 +1,96 @@
+.t-history-tab {
+  height: auto;
+  margin-bottom: 100px;
+
+  .p-title {
+    height: 50px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #dedfe0;
+  }
+
+  .b-history {
+    border: 1px solid #dedfe0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    .b-options {
+      border-right: 1px solid #dedfe0;
+
+      .p-version {
+        padding: 20px 0px 20px 20px;
+        overflow-x: auto;
+        overflow-y: auto;
+
+        .p-option-name {
+          font-weight: 700;
+          font-size: medium;
+          color: rgb(41, 41, 41);
+        }
+
+        .p-option-current {
+          color: #0077ff;
+        }
+      }
+
+      .p-new-version {
+        padding: 20px 0px 20px 20px;
+        border-top: 1px solid #dedfe0;
+      }
+    }
+
+    .b-list {
+      width: 100%;
+      padding: 0px;
+      margin: 0px;
+
+      .p-item {
+        border-bottom: 1px solid #dedfe0;
+        padding: 8px 16px 8px 16px;
+      }
+    }
+
+    .b-version-info {
+      padding: 20px 50px 20px 50px;
+
+      .p-header-version {
+        padding: 10px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top: 1px solid #dedfe0;
+        border-left: 1px solid #dedfe0;
+        border-right: 1px solid #dedfe0;
+        background-color: #f7f7f7;
+      }
+
+      .p-change {
+        .p-summary-custom {
+          background-color: #f7f7f7;
+          border: 1px solid #dedfe0;
+        }
+
+        .MuiAccordionDetails-root {
+          padding: 0px;
+        }
+      }
+    }
+
+    .b-add-new-version {
+      padding: 20px 50px 20px 50px;
+    }
+
+    .p-action {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      .p-button-span {
+        color: #ff0000;
+      }
+    }
+  }
+}

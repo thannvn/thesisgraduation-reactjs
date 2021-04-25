@@ -1,0 +1,57 @@
+.t-comment-tab {
+  position: relative;
+
+  .b-info-options {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+  }
+
+  .b-list-comment {
+    position: relative;
+  }
+
+  .b-list-comment::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 51px;
+    display: block;
+    width: 1px;
+    content: "";
+    background-color: #dedfe0;
+  }
+
+  .b-post-comment {
+    padding-top: 20px;
+    width: 75%;
+    border-top: 2px solid #dedfe0;
+
+    .p-input-comment {
+      width: 100%;
+
+      .p-title {
+        height: 40px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: rgb(247, 247, 247);
+        border: 1px solid #dedfe0;
+      }
+
+      .p-input-area {
+        padding: 10px 20px 10px 20px;
+        border: 1px solid #dedfe0;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        .tox-tinymce {
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}

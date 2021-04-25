@@ -1,0 +1,66 @@
+.t-data-tab {
+  .b-info {
+    height: 50px;
+    width: 99.8%;
+    display: inline-flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    border: 1px solid #dedfe0;
+
+    .p-text {
+      cursor: pointer;
+      color: #539bfa;
+    }
+  }
+
+  .b-dataset-info {
+    .p-summary {
+      .p-button-visibility {
+        position: absolute;
+        right: 10px;
+        height: 30px;
+      }
+    }
+
+    .p-detail-info {
+      .p-info {
+        display: flex;
+        align-items: center;
+
+        .p-blue-color {
+          color: #539bfa;
+        }
+      }
+    }
+  }
+
+  .b-description {
+    .p-button-edit {
+      background-color: rgb(236, 236, 236);
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 1px solid rgb(129, 129, 129);
+      height: 24px;
+    }
+
+    .p-button-edit:focus {
+      outline: none !important;
+    }
+
+    .p-btn-save {
+      width: 60px;
+      background-color: #2ea44f;
+      color: rgb(211, 211, 211);
+    }
+
+    .p-btn-save:disabled {
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    .p-btn-cancel {
+      width: 60px;
+    }
+  }
+}

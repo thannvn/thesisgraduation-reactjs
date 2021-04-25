@@ -1,0 +1,52 @@
+.b-comment-post {
+  padding-bottom: 40px;
+  width: 75%;
+  height: auto;
+
+  .b-comment {
+    width: 100%;
+
+    .p-title {
+      height: 40px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: #f6f8fa;
+      border: 1px solid #dedfe0;
+
+      .p-author {
+        border: 1px solid #dedfe0;
+        padding: 0 10px;
+        border-radius: 15px;
+      }
+    }
+
+
+
+    .p-comment-content {
+      border: 1px solid #dedfe0;
+      padding: 10px 20px 10px 20px;
+
+      .p-reply {
+        border-radius: 5px;
+        padding: 10px;
+        font-style: italic;
+        font-size: 0.85rem;
+        background-color: #f6f8fa;
+      }
+
+      .MuiTypography-body2 {
+        color: rgb(44, 44, 44);
+      }
+    }
+
+    .p-actions {
+      border: 1px solid #dedfe0;
+      padding: 10px 20px 10px 20px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+}

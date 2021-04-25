@@ -1,0 +1,27 @@
+.b-column {
+  border-right: 1px solid #dedfe0;
+  width: 167px;
+  padding: 12px;
+
+  .b-column-title {
+    display: flex;
+    justify-content: space-between;
+
+    .p-column-name {
+      display: flex;
+      .MuiTypography-body1 {
+        font-size: 0.9rem;
+        width: 117px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .p-text-area {
+    font-size: 1rem;
+    overflow-y: scroll;
+    width: 172px;
+    height: 130px;
+  }
+}

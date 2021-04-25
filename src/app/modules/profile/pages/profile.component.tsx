@@ -1,70 +1,44 @@
 import React from 'react'
-import ProfileAPI from '../../../../api/profile-api'
-import DateTime from '../../../../utils/handle-date-time'
-import { STATUS_OK } from '../../../const/status-api.const'
+import ProfileAPI, { ProfileValues, defaultProfileValues } from 'api/profile-api'
+import HandleCommon from 'utils/handle-common'
+import { STATUS_OK } from 'services/axios/common-services.const'
+import { RouteComponentProps } from "react-router-dom";
 import ProfileTemplate from './profile.template'
 
 interface ProfileState {
+  isLoading: boolean,
   isEdit: boolean,
-  userInfo: Values,
+  userInfo: ProfileValues,
 }
 
-interface Values {
-  avatar: string,
-  name: string,
-  username: string,
-  bio: string,
-  dateOfBirth: Date | string,
-  company: string,
-  location: string,
-  website: string,
-  github: string,
+interface RouteParams {
+  username: string
 }
 
-export default class Profile extends React.Component {
+export default class Profile extends React.Component<RouteComponentProps<RouteParams>, ProfileState> {
   state: ProfileState = {
+    isLoading: true,
     isEdit: false,
-    userInfo: {
-      avatar: '',
-      name: '',
-      username: '',
-      bio: '',
-      dateOfBirth: '',
-      company: '',
-      location: '',
-      website: '',
-      github: '',
-    },
+    userInfo: { ...defaultProfileValues },
   }
 
-  defaultValues: Values = {
-    avatar: '',
-    name: '',
-    username: '',
-    bio: '',
-    dateOfBirth: new Date(),
-    company: '',
-    location: '',
-    website: '',
-    github: '',
-  }
+  defaultValues: ProfileValues = { ...defaultProfileValues }
 
   handleChangeEditMode = () => {
     this.setState({ ...this.state, isEdit: !this.state.isEdit })
   }
 
-  handleSaveEdit = async (data: any) => {
+  handleSaveEdit = async (data: ProfileValues) => {
     const result = await ProfileAPI.updateProfile(data)
     if (result.status === STATUS_OK) {
       const { avatar, username } = this.state.userInfo
       data.avatar = avatar
       data.username = username
-      data.dateOfBirth = DateTime.handleDateOfBirth(data.dateOfBirth)
+      data.dateOfBirth = HandleCommon.handleDateOfBirth(data.dateOfBirth)
       this.defaultValues = data
       this.handleChangeEditMode()
       this.setState({ ...this.state, userInfo: data })
     }
-
   }
 
   handleCancelEdit = () => {
@@ -72,10 +46,17 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount = async () => {
-    const result = await ProfileAPI.getProfile()
-    this.defaultValues = result.message
-    result.message.dateOfBirth = DateTime.handleDateOfBirth(result.message.dateOfBirth)
-    this.setState({ ...this.state, userInfo: result.message })
+    const { username } = this.props.match.params;
+    const result = await ProfileAPI.getProfile(username)
+    if (result.status !== STATUS_OK) {
+      return this.props.history.push('/404')
+    }
+    document.title = result.data ? result.data.name : 'Thông tin tài khoản'
+    this.defaultValues = result.data
+    if (result.data) {
+      result.data.dateOfBirth = HandleCommon.handleDateOfBirth(result.data.dateOfBirth)
+    }
+    this.setState({ ...this.state, userInfo: result.data, isLoading: false })
   }
 
   render() {

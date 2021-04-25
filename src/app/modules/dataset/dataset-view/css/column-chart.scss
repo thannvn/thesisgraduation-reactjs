@@ -1,0 +1,26 @@
+.b-column-chart {
+  border-bottom: 1px solid #dedfe0;
+
+  .-blue-color {
+    color: #0077ff;
+  }
+
+  .b-chart {
+    width: 400px;
+    .MuiOutlinedInput-input {
+      padding: 2px 27px 2px 12px;
+    }
+
+    .p-column-description {
+      width: 230px;
+    }
+
+    .p-select-chart {
+      height: 30px;
+    }
+  }
+
+  .b-chart-info {
+    width: 400px;
+  }
+}

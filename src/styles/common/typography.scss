@@ -1,0 +1,30 @@
+// .h-mt-8  : margin-top: 0.5rem = 8px
+// .h-ml-16 : margin-left: 1rem = 16px
+@use 'sass:map';
+
+$_font_weights: (
+  400: 400,
+  700: 700,
+);
+
+@each $_weight, $_font_weight in $_font_weights {
+  .f-weight-#{$_weight} {
+    font-weight: $_font_weight  !important;
+  }
+}
+
+.p-validate-error {
+  font-style: italic;
+  margin-left: 2px;
+  font-size: 0.85rem !important;
+  color: red;
+}
+
+.p-gray-color-typography {
+  color: #586069;
+}
+
+.resultAPI {
+  font-size: 1.2rem;
+  color: red;
+}

@@ -1,0 +1,19 @@
+.t-dataset-search {
+  padding: 0px 100px 0px 100px;
+
+  .b-dataset-list {
+    .p-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .b-item {
+      padding: 20px;
+      border-bottom: 1px solid #dedfe0;
+    }
+
+    .b-item:hover {
+      background-color: #f3f3f3;
+    }
+  }
+}

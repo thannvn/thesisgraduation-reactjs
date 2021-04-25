@@ -1,0 +1,18 @@
+.dzu-dropzone {
+  margin-bottom: 32px;
+  .dzu-previewContainer {
+    padding: 10px 3%;
+    min-height: 40px ;
+  }
+
+  .dzu-previewContainer:hover {
+    background-color: rgb(245, 245, 245);
+  }
+
+  .dzu-inputLabelWithFiles {
+    padding: 0px 8px;
+    height: 30px;
+    background-color:#4CAF50;
+    color: rgb(255, 255, 255);
+  }
+}

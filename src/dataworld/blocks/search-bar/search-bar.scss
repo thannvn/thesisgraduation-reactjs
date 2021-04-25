@@ -1,0 +1,36 @@
+.b-search-bar {
+  display: flex;
+  width: 100%;
+
+  .p-search-field {
+    .MuiOutlinedInput-root {
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      height: 50px;
+    }
+
+    .MuiButton-root {
+      border-radius: 15px;
+    }
+  }
+
+  .p-text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .p-button-search {
+    width: 5%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    .MuiButton-startIcon {
+      margin: 0px;
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.b-preview-files {
+  height: 840px;
+  border-radius: 5px;
+  border: 1px solid #dedfe0;
+
+  .b-select-file {
+    border-right: 1px solid #dedfe0;
+    .b-files {
+      padding: 20px;
+      border-bottom: 1px solid #dedfe0;
+
+      .MuiTypography-h6 {
+        font-weight: bold;
+      }
+
+      .p-file-info {
+        display: flex;
+        align-items: center;
+
+        .p-file-name {
+          color: #0077ff;
+        }
+      }
+    }
+  }
+
+  .b-preview {
+    height: 800px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #dedfe0;
+
+    .p-title-file {
+      display: flex;
+      position: relative;
+      align-items: center;
+
+      .MuiTypography-h6 {
+        font-weight: bold;
+      }
+
+      .p-option {
+        position: absolute;
+        right: 20px;
+        top: 0;
+      }
+    }
+
+    .p-preview-tab {
+      .MuiTab-root {
+        text-transform: none;
+        min-width: 120px !important;
+      }
+
+      .PrivateTabIndicator-root-1{
+        background-color: rgb(0, 0, 0) !important;
+      }
+    }
+
+    
+  }
+}

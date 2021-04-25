@@ -1,0 +1,48 @@
+.b-filter-popover {
+  width: 800px;
+
+  .b-content {
+    padding: 30px 30px 0px 30px;
+
+    .p-field-item {
+      .p-item {
+        display: flex;
+
+        .MuiOutlinedInput-input {
+          padding: 10px 30px 10px 15px;
+        }
+        
+        .p-text-field {
+          width: 150px;
+        }
+
+        .p-select {
+          padding: 0px;
+          height: 40px;
+        }
+
+        .p-text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+
+      .p-search-tags {
+        .MuiOutlinedInput-root {
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+
+  .p-action {
+    padding: 10px 30px 30px 0px;
+    display: flex;
+    justify-content: flex-end;
+
+    .MuiButton-contained {
+      border-radius: 15px;
+    }
+  }
+}

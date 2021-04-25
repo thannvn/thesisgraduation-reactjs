@@ -1,0 +1,27 @@
+.labelAsterisk {
+  color: red;
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+  font-size: 0.9rem !important ;
+}
+
+.MuiIconButton-root {
+  padding: 0px !important;
+}
+
+//accordion
+.p-summary {
+  background-color: #f7f7f7 !important;
+  border-top-right-radius: 5px !important;
+  border-top-left-radius: 5px !important;
+  border: 1px solid #dedfe0 !important;
+}
+
+.b-details {
+  display: block;
+  border-bottom-right-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  border: 1px solid #dedfe0 !important;
+}

@@ -2,9 +2,11 @@
 @import './common/margin.scss';
 @import './common/index.scss';
 @import './common/app.scss';
+@import './common/button.scss';
+@import './common/common.scss';
+@import './common/display.scss';
+@import './common/typography.scss';
+@import './common/custom-style-material-ui.scss';
+@import './common/button-span.scss';
 
 /* Import parts css */
-@import './parts/button-span.scss';
-
-/* Import blocks css */
-@import './blocks/menu-bar.scss'

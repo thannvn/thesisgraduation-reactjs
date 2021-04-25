@@ -1,0 +1,38 @@
+.t-dataset-create {
+  padding: 0px 200px 0px 200px;
+
+  .b-header {
+    .p-title {
+      width: 75% !important;
+    }
+
+    .p-text-area {
+      width: 75%;
+      background-color: #fafbfc;
+      border-radius: 5px;
+    }
+
+    .p-text-area:focus {
+      outline: none;
+      box-shadow: 0 0 0 1.5pt #3f51b5;
+    }
+
+    .b-dataset-url {
+      width: 100%;
+      display: inline-flex;
+
+      .MuiOutlinedInput-root {
+        height: 29px;
+        font-size: small;
+      }
+
+      .MuiOutlinedInput-input {
+        padding-left: 4px;
+      }
+
+      .MuiIconButton-root {
+        padding: 0px;
+      }
+    }
+  }
+}

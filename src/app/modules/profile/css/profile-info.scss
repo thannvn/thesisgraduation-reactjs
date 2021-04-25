@@ -3,12 +3,19 @@
   flex-direction: column;
 
   .p-avatar {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
+    position: relative;
 
     div {
-      width: 150px;
-      height: 150px;
+      width: 250px;
+      height: 250px;
+    }
+
+    .p-edit {
+      position: absolute;
+      bottom: 25px;
+      right: 50px;
     }
   }
 
@@ -35,18 +42,18 @@
     outline: none !important;
   }
 
+  .date-time-picker {
+    width: 91%;
+  }
+
   .p-text-area-bio {
     width: 97.5%;
     border-radius: 5px;
   }
 
-  .date-time-picker {
-    width: 91%;
-  }
-
   .p-text-area-bio:focus {
     outline: none;
-    box-shadow: 0 0 0 1.5pt #4447cf;
+    box-shadow: 0 0 0 1.5pt #3f51b5;
   }
 
   .p-icon-text-input {
@@ -57,13 +64,10 @@
       color: rgb(99, 99, 99);
     }
 
-    .p-text-input {
-      font-size: 10px;
-    }
-
     .MuiOutlinedInput-inputMarginDense {
-      padding-top: 4px;
-      padding-bottom: 4px;
+      font-size: 13px;
+      padding-top: 8px;
+      padding-bottom: 8px;
     }
   }
 
