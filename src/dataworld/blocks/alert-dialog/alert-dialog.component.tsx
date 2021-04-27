@@ -13,9 +13,16 @@ interface AlertDialogProps {
   open: boolean,
   onClose: () => void,
   onAccept: () => void,
+  acceptTheme?: 'primary' | 'secondary'
 }
-export default function AlertDialog(props: AlertDialogProps) {
-  const { title, content, open, onClose, onAccept } = props
+export default function AlertDialog({
+  title,
+  content,
+  open,
+  onClose,
+  onAccept,
+  acceptTheme = 'primary'
+}: AlertDialogProps) {
 
   const handleClose = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation()
@@ -64,8 +71,9 @@ export default function AlertDialog(props: AlertDialogProps) {
           <Button
             onClick={(event) => handleAccept(event)}
             size='small'
+            color={acceptTheme}
             variant='contained'
-            className='p-button-save-color p-round-button'>
+            className='p-round-button'>
             Xác nhận
           </Button>
         </DialogActions>

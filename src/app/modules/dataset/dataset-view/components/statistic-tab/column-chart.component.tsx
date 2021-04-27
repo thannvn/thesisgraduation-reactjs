@@ -160,7 +160,7 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
             }
           </div>
 
-          {!isHidden &&
+          {/* {!isHidden &&
             <Select
               id="select-number-of-column"
               variant='outlined'
@@ -173,7 +173,7 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
               <MenuItem value='bar'>Biểu đồ cột</MenuItem>
               <MenuItem value='area'>Biểu đồ địa lý</MenuItem>
             </Select>
-          }
+          } */}
         </div>
 
         {isHidden ?

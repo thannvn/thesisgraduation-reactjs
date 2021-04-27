@@ -38,7 +38,8 @@ export interface DatasetValues {
 
 export interface Version {
   version: string,
-  fileChanges: Array<FileVersion>
+  fileChanges: Array<FileVersion>,
+  createdDate: Date | string | number,
 }
 
 export interface FileVersion {

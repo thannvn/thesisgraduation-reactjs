@@ -77,7 +77,7 @@ export default function DatasetItem({ datasetValues, position, self }: DatasetIt
             {state.isLoading ?
               <Skeleton animation="wave" height={10} width={100} className='h-ml-10' /> :
               <Typography variant="body2" className='p-color-content h-ml-10'>
-                Updated {moment(datasetValues.dataset.lastUpdate).fromNow()}
+                Cập nhật {moment(datasetValues.dataset.lastUpdate).fromNow()}
               </Typography>
             }
           </div>

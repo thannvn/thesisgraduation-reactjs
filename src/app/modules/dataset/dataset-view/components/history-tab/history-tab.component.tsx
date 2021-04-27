@@ -20,6 +20,7 @@ import DatasetUpload from 'app/modules/dataset/dataset-create/components/dataset
 import 'app/modules/dataset/dataset-view/css/history-tab.scss';
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component';
 import clsx from 'clsx';
+import moment from 'moment'
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -84,6 +85,7 @@ export default function HistoryTab(props: HistoryTabProps) {
       hidden={index !== value}
       className="t-history-tab h-mt-32"
     >
+      {console.log(currentVersion)}
       <div className='p-title'>
         <Typography variant='h6' className='h-ml-20'>Lịch sử sửa đổi</Typography>
       </div>
@@ -213,8 +215,10 @@ export default function HistoryTab(props: HistoryTabProps) {
             <div className='b-version-info'>
               <div className='h-d_flex p-header-version'>
                 <History />
-                <Typography className='f-weight-700 h-ml-10'>Version 1</Typography>
-                <Typography className='p-gray-color-typography h-ml-32'>Cập nhật 2 tháng trước</Typography>
+                <Typography className='f-weight-700 h-ml-10'>{currentVersion?.version}</Typography>
+                <Typography className='p-gray-color-typography h-ml-32'>
+                  Cập nhật {moment(currentVersion?.createdDate).fromNow()}
+                </Typography>
               </div>
 
               <div
@@ -225,7 +229,7 @@ export default function HistoryTab(props: HistoryTabProps) {
                     className='p-summary-custom'
                     expandIcon={<ExpandMore />}
                   >
-                    <Typography>Có 6 files thay đổi</Typography>
+                    <Typography>Có {currentVersion?.fileChanges.length} files thay đổi</Typography>
 
                     <Typography className='h-ml-32'>
                       <span style={{ color: '#4caf50' }}>101 thêm</span>
