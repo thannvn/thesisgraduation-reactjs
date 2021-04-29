@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from 'redux/authentication-slice';
 import { STATUS_OK } from 'services/axios/common-services.const';
 import AuthenticationAPI from 'api/authentication-api';
-import '../../css/login-google.scss';
+import '../css/login-google.scss';
 
 export default function LoginGoogle(props) {
   const dispatch = useDispatch();

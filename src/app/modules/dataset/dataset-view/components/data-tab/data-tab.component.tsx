@@ -1,7 +1,7 @@
 import DatasetAPI from 'api/dataset-api'
 import FileAPI, { fileDefaultValues, FileInfo } from 'api/file-api'
 import { STATUS_OK } from 'services/axios/common-services.const'
-import { DatasetVisibility } from 'app/const/dataset/common.const'
+import { DatasetVisibility } from 'app/modules/dataset/_common/common.const'
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component'
 import addToast from 'dataworld/parts/toast/add-toast.component'
 import React, { useContext, useEffect, useState } from 'react'

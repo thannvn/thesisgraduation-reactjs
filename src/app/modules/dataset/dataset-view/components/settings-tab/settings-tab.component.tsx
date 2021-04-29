@@ -11,6 +11,7 @@ import addToast from 'dataworld/parts/toast/add-toast.component'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component'
+import { IMAGE_TYPE } from 'app/modules/dataset/_common/common.const'
 
 interface SettingsTabsProps {
   index: number,
@@ -72,30 +73,9 @@ export default function SettingsTab(props: SettingsTabsProps) {
 
   }
 
-  const uploadBanner = async () => {
-    if (cropperBanner) {
-      cropperBanner.getCroppedCanvas().toBlob(async (blob) => {
-        if (blob) {
-          const formData = new FormData()
-          formData.append('datasetId', datasetValues.dataset._id)
-          formData.append('url', datasetValues.dataset.url)
-          formData.append('username', datasetValues.username)
-          formData.append('mode', 'dataset-banner')
-          formData.append('image', blob, 'banner.png')
-          const result = await DatasetAPI.uploadBanner(formData)
-          if (result.status === STATUS_OK) {
-            addToast({ message: result.message, type: "success" })
-            setBannerDataset(result.data)
-            setBanner('')
-          } else {
-            addToast({ message: result.message, type: "error" })
-          }
-        }
-      })
-    }
-  }
+  const uploadImage = async (imageType: number) => {
+    const banner = imageType === IMAGE_TYPE.BANNER
 
-  const uploadThumbnail = async () => {
     if (cropperThumbnail) {
       cropperThumbnail.getCroppedCanvas().toBlob(async (blob) => {
         if (blob) {
@@ -103,13 +83,15 @@ export default function SettingsTab(props: SettingsTabsProps) {
           formData.append('datasetId', datasetValues.dataset._id)
           formData.append('url', datasetValues.dataset.url)
           formData.append('username', datasetValues.username)
-          formData.append('mode', 'dataset-thumbnail')
-          formData.append('image', blob, 'thumbnail.png')
-          const result = await DatasetAPI.uploadThumbnail(formData)
+          formData.append('imageType', imageType.toString())
+          formData.append('image', blob, banner ? 'banner' : 'thumbnail.png')
+
+          const result = await DatasetAPI.uploadImage(formData)
+
           if (result.status === STATUS_OK) {
             addToast({ message: result.message, type: "success" })
-            setThumbnailDataset(result.data)
-            setThumbnail('')
+            banner ? setBannerDataset(result.data) : setThumbnailDataset(result.data)
+            banner ? setBanner('') : setThumbnail('')
           } else {
             addToast({ message: result.message, type: "error" })
           }
@@ -282,8 +264,8 @@ export default function SettingsTab(props: SettingsTabsProps) {
                   type="submit"
                   disabled={currentOption === options[1].title ? banner === '' : thumbnail === ''}
                   onClick={currentOption === options[1].title ?
-                    uploadBanner :
-                    uploadThumbnail}
+                    () => uploadImage(IMAGE_TYPE.BANNER) :
+                    () => uploadImage(IMAGE_TYPE.THUMBNAIL)}
                   size='small'>
                   Upload ảnh
                 </Button>

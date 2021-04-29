@@ -9,9 +9,9 @@ import {
   ArrowDropDown
 } from '@material-ui/icons'
 import { ColumnInfo } from 'api/file-api';
-import { options } from 'app/const/dataset/column-type.const'
+import { options } from 'app/modules/dataset/_common/column-type.const'
 import 'app/modules/dataset/dataset-view/css/menu-type-column.scss'
-import { icons } from 'app/const/dataset/column-icons.const'
+import { icons } from 'app/modules/dataset/_common/column-icons.const'
 
 export interface MenuTypeColumnProps {
   columnInfo: ColumnInfo,

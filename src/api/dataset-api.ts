@@ -187,7 +187,7 @@ export default class DatasetAPI {
   }
 
   /* update dataset title and subtitle */
-  static uploadThumbnail = async (thumbnailForm: FormData) => {
+  static uploadImage = async (thumbnailForm: FormData) => {
     try {
       const result = await axios.post(UPLOAD_THUMBNAIL.URL, thumbnailForm, {
         headers: {

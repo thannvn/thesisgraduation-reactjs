@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import AuthenticationAPI from 'api/authentication-api';
 import { STATUS_OK } from 'services/axios/common-services.const';
 import { StyledValidate } from '../../../../../styles/jss/custom.component';
-import Password from '../common/password.component';
+import Password from '../../_common/password.component';
 import CustomButton from 'dataworld/parts/button/custom-button.component';
 
 export default function RegisterForm(props) {

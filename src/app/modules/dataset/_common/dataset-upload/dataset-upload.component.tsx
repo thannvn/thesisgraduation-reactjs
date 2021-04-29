@@ -3,7 +3,7 @@ import React from 'react';
 import Dropzone, { IFileWithMeta, StatusValue, IDropzoneProps } from 'react-dropzone-uploader';
 import 'react-dropzone-uploader/dist/styles.css';
 import { Controller } from 'react-hook-form';
-import 'app/modules/dataset/dataset-create/css/dataset-upload.scss';
+import './dataset-upload.scss';
 
 export interface DatasetUploadProps {
   control: any,

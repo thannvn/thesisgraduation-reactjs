@@ -1,6 +1,6 @@
 import { Grid, makeStyles, TextField } from '@material-ui/core';
 import React from 'react';
-import { StyledValidate } from '../../../../../styles/jss/custom.component';
+import { StyledValidate } from 'styles/jss/custom.component';
 
 const useStyles = makeStyles((theme) => ({
   labelAsterisk: {

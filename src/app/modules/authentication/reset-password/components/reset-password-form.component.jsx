@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import AuthenticationAPI from 'api/authentication-api';
 import { STATUS_OK } from 'services/axios/common-services.const';
-import Password from '../common/password.component';
+import Password from '../../_common/password.component';
 import { useDispatch } from 'react-redux';
 import { logoutSuccess } from 'redux/authentication-slice';
 import CustomButton from 'dataworld/parts/button/custom-button.component';

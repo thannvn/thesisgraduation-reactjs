@@ -2,7 +2,7 @@ import CommentAPI from "api/comment-api";
 import DatasetAPI, { datasetDefaultValues, DatasetValues, Tags } from "api/dataset-api";
 import FileAPI, { ColumnInfo, FileInfo } from 'api/file-api';
 import { STATUS_OK } from "services/axios/common-services.const";
-import { DatasetVisibility } from "app/const/dataset/common.const";
+import { DatasetVisibility } from "app/modules/dataset/_common/common.const";
 import addToast from "dataworld/parts/toast/add-toast.component";
 import React, { createContext, useState } from "react";
 import { useSelector } from "react-redux";

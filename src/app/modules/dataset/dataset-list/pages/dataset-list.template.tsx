@@ -3,7 +3,7 @@ import React from 'react'
 import DatasetList from './dataset-list.component'
 import { TrendingUp } from '@material-ui/icons';
 import 'app/modules/dataset/dataset-list/css/dataset-list.scss'
-import DatasetPost from 'app/modules/dataset/dataset-list/components/dataset-post/dataset-post.component';
+import DatasetPost from 'app/modules/dataset/dataset-list/components/dataset-post.component';
 import { Skeleton } from '@material-ui/lab';
 import SearchBar from 'dataworld/blocks/search-bar/search-bar.component';
 import clsx from 'clsx';

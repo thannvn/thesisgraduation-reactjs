@@ -13,8 +13,8 @@ import addToast from 'dataworld/parts/toast/add-toast.component';
 import AuthenticationAPI from 'api/authentication-api';
 import { STATUS_OK } from 'services/axios/common-services.const';
 import Copyright from 'dataworld/parts/copy-right/copy-right.component';
-import ResetPasswordForm from '../components/reset-password/reset-password-form.component';
-import { StyledPaper } from '../../../../styles/jss/custom.component';
+import ResetPasswordForm from '../components/reset-password-form.component';
+import { StyledPaper } from 'styles/jss/custom.component';
 
 export default function ResetPasswordPage() {
   const { resetCode } = useParams();

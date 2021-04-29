@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { MenuItem, Select, Typography } from '@material-ui/core';
 import { ColumnInfo } from 'api/file-api';
-import { icons } from 'app/const/dataset/column-icons.const';
-import { COLUMN_TYPE } from 'app/const/dataset/column-type.const';
+import { icons } from 'app/modules/dataset/_common/column-icons.const';
+import { COLUMN_TYPE } from 'app/modules/dataset/_common/column-type.const';
 import 'app/modules/dataset/dataset-view/css/column-chart.scss';
 import Parser from 'html-react-parser';
 import _ from 'lodash';

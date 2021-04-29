@@ -16,7 +16,7 @@ import {
   LocalOffer
 } from '@material-ui/icons'
 import { Skeleton } from '@material-ui/lab'
-import { DatasetVisibility } from 'app/const/dataset/common.const'
+import { DatasetVisibility } from 'app/modules/dataset/_common/common.const'
 import 'app/modules/dataset/dataset-view/css/data-tab.scss'
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component'
 import clsx from 'clsx'

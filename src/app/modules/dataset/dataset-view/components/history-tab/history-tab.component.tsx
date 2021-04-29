@@ -16,7 +16,7 @@ import {
 } from '@material-ui/icons';
 import DatasetAPI, { Version } from 'api/dataset-api';
 import { FileInfo } from 'api/file-api';
-import DatasetUpload from 'app/modules/dataset/dataset-create/components/dataset-upload/dataset-upload.component';
+import DatasetUpload from 'app/modules/dataset/_common/dataset-upload/dataset-upload.component';
 import 'app/modules/dataset/dataset-view/css/history-tab.scss';
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component';
 import clsx from 'clsx';

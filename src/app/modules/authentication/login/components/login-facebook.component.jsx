@@ -5,7 +5,7 @@ import { STATUS_OK } from 'services/axios/common-services.const';
 import AuthenticationAPI from 'api/authentication-api';
 import React from 'react';
 import { TiSocialFacebook } from 'react-icons/ti';
-import '../../css/login-facebook.scss';
+import '../css/login-facebook.scss';
 
 export default function LoginFacebook(props) {
   const dispatch = useDispatch();

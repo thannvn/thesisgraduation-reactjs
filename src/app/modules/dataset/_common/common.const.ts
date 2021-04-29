@@ -11,3 +11,8 @@ export enum FILE_STATUS {
   MODIFIED = 1,
   DELETE = 2,
 };
+
+export enum IMAGE_TYPE {
+  BANNER = 0,
+  THUMBNAIL = 1,
+}

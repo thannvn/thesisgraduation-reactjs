@@ -9,7 +9,7 @@ import {
 import { Link } from '@material-ui/icons';
 import UploadFileAPI from 'api/dataset-api';
 import { STATUS_OK } from 'services/axios/common-services.const';
-import { DatasetVisibility } from 'app/const/dataset/common.const';
+import { DatasetVisibility } from 'app/modules/dataset/_common/common.const';
 import TinyMCEEditor from 'dataworld/blocks/tinymce-editor/tinymce-editor.component';
 import addToast from 'dataworld/parts/toast/add-toast.component';
 import React, { useEffect, useRef, useState } from 'react';
@@ -18,8 +18,8 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from 'store';
-import DatasetSelectVisibility from '../components/dataset-select-visibility/dataset-select-visibility.component';
-import DatasetUpload from '../components/dataset-upload/dataset-upload.component';
+import DatasetSelectVisibility from '../components/dataset-select-visibility.component';
+import DatasetUpload from '../../_common/dataset-upload/dataset-upload.component';
 import '../css/dataset-create.scss';
 
 interface IUploads {

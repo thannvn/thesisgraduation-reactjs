@@ -21,7 +21,7 @@ import HandleCommon from 'utils/handle-common';
 import { Skeleton } from '@material-ui/lab';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { DatasetListProps } from '../../pages/dataset-list.template';
+import { DatasetListProps } from '../pages/dataset-list.template';
 
 interface DatasetPostProps extends DatasetListProps {
   tagsIndex: number,

@@ -10,9 +10,9 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
 import Copyright from "dataworld/parts/copy-right/copy-right.component";
-import RegisterForm from "../components/register/register-form.component";
-import VerifyAccount from "../components/register/verify-account.component";
-import { StyledPaper } from "../../../../styles/jss/custom.component";
+import RegisterForm from "../components/register-form.component";
+import VerifyAccount from "../components/verify-account.component";
+import { StyledPaper } from "styles/jss/custom.component";
 
 export default function RegisterPage() {
   //check register in step 1 or 2

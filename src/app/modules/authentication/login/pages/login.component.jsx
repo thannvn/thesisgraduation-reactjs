@@ -11,10 +11,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Copyright from 'dataworld/parts/copy-right/copy-right.component';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { StyledPaper } from '../../../../styles/jss/custom.component';
-import LoginFacebook from '../components/login/login-facebook.component';
-import LoginForm from '../components/login/login-form.component';
-import LoginGoogle from '../components/login/login-google.component';
+import { StyledPaper } from 'styles/jss/custom.component';
+import LoginFacebook from '../components/login-facebook.component';
+import LoginForm from '../components/login-form.component';
+import LoginGoogle from '../components/login-google.component';
 
 export default function LoginPage(props) {
   const user = useSelector((state) => state.auth.user);
@@ -23,7 +23,7 @@ export default function LoginPage(props) {
       {user.accountId === '' ? (
         <Container component='main' className='main'>
           <StyledPaper variant='outlined'>
-            <Avatar className='avatar'>
+            <Avatar className=''>
               <LockOutlinedIcon />
             </Avatar>
 

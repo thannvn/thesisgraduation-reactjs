@@ -11,8 +11,8 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import Copyright from "dataworld/parts/copy-right/copy-right.component";
-import ForgotPassword from "../components/forgot-password/forgot-password.component";
-import { StyledPaper, StyledTypography } from "../../../../styles/jss/custom.component";
+import ForgotPassword from "../components/forgot-password.component";
+import { StyledPaper, StyledTypography } from "styles/jss/custom.component";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
   const [isExistEmail, setExistEmail] = React.useState(false);
   return (
     <>
-      <Container component="main" className="main">
+      <Container component="main" className=".t-forgot-password">
         <CssBaseline />
         <StyledPaper variant="outlined">
           <Avatar className="avatar" src={process.env.PUBLIC_URL + 'images/forgot-password.png'}></Avatar>
