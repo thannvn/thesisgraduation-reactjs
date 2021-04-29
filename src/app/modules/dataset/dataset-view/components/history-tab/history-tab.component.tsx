@@ -12,7 +12,7 @@ import {
   Add, AddBox,
   ExpandMore, History,
   InsertDriveFileOutlined,
-  Delete,
+  Delete, Remove, TrackChanges,
 } from '@material-ui/icons';
 import DatasetAPI, { Version } from 'api/dataset-api';
 import { FileInfo } from 'api/file-api';
@@ -33,6 +33,12 @@ interface FormValues {
   version: string,
   files: Array<any>,
 }
+
+const iconStatus = [
+  <AddBox style={{ color: '#4caf50' }} />,
+  <TrackChanges style={{ color: '#ff9901' }} />,
+  <Remove style={{ color: '#fa0101' }} />
+]
 
 export default function HistoryTab(props: HistoryTabProps) {
   const { index, value } = props
@@ -230,38 +236,25 @@ export default function HistoryTab(props: HistoryTabProps) {
                     expandIcon={<ExpandMore />}
                   >
                     <Typography>Có {currentVersion?.fileChanges.length} files thay đổi</Typography>
-
-                    <Typography className='h-ml-32'>
-                      <span style={{ color: '#4caf50' }}>101 thêm</span>
-                      <span style={{ color: 'red' }} className='h-ml-10'>54 delete</span>
-                    </Typography>
                   </AccordionSummary>
 
                   <AccordionDetails>
                     <ul className='b-list'>
-                      <li className='h-d_flex -justify-space-between p-item'>
-                        <div className='h-d_flex'>
-                          <AddBox style={{ color: '#4caf50' }} />
-                          <Typography className='h-ml-10'>Item 1</Typography>
-                        </div>
+                      {currentVersion?.fileChanges.map(file =>
+                        <li className='h-d_flex -justify-space-between p-item'>
+                          <div className='h-d_flex'>
+                            {iconStatus[file.status]}
+                            <Typography className='h-ml-10'>{file.fileName}</Typography>
+                          </div>
 
-                        <div className='h-d_flex'>
-                          <span style={{ color: '#4caf50' }}>+101</span>
-                          <span style={{ color: 'red' }} className='h-ml-10'>-54</span>
-                        </div>
-                      </li>
-
-                      <li className='h-d_flex -justify-space-between p-item'>
-                        <div className='h-d_flex'>
-                          <AddBox style={{ color: '#4caf50' }} />
-                          <Typography className='h-ml-10'>Item 2</Typography>
-                        </div>
-
-                        <div className='h-d_flex'>
-                          <span style={{ color: '#4caf50' }}>+101</span>
-                          <span style={{ color: 'red' }} className='h-ml-10'>-54</span>
-                        </div>
-                      </li>
+                          <div className='h-d_flex'>
+                            <span style={{ color: '#4caf50' }}>
+                              {file.status !== 1 ? file.changeDetails.add : file.changeDetails.add.length}
+                            </span>
+                            <span style={{ color: 'red' }} className='h-ml-10'>-54</span>
+                          </div>
+                        </li>
+                      )}
                     </ul>
                   </AccordionDetails>
                 </Accordion>

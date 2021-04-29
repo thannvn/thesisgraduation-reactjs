@@ -45,7 +45,10 @@ export interface Version {
 export interface FileVersion {
   fileName: string,
   status: number,
-  changeDetails: object,
+  changeDetails: {
+    add: any,
+    delete: any
+  },
 }
 
 export interface DatasetValuesList {
