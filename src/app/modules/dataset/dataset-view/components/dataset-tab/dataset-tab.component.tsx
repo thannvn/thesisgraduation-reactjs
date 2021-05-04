@@ -3,9 +3,14 @@ import {
   Button,
   IconButton,
   Tab,
-  Tabs
+  Tabs,
+  Typography,
 } from '@material-ui/core';
-import { MoreVert } from '@material-ui/icons';
+import {
+  MoreVert, SettingsOutlined,
+  InsertCommentOutlined,
+  Timeline, StorageRounded,
+} from '@material-ui/icons';
 import 'app/modules/dataset/dataset-view/css/dataset-tab.scss';
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component';
 import React, { useContext, useState } from 'react';
@@ -46,11 +51,42 @@ export default function DatasetTab() {
           <AppBar position="static" className='b-dataset-tab'>
             <div className='b-tab'>
               <Tabs value={value} onChange={handleChange}>
-                <Tab label="Data" id='data-tab' />
-                <Tab label={`Bình luận (${countComment})`} />
-                <Tab label='Lịch sử sửa đổi' id='history-tab' />
+                <Tab label={
+                  <Typography variant='body2' className='h-d_flex -align-center'>
+                    <StorageRounded />
+                    <span className='h-ml-4'>
+                      Dữ liệu
+                    </span>
+                  </Typography>} />
+
+                <Tab label={
+                  <Typography variant='body2' className='h-d_flex -align-center'>
+                    <InsertCommentOutlined />
+                    <span className='h-ml-4'>
+                      Bình luận
+                      (<span className='p-gray-color-typography'>
+                        {countComment}
+                      </span>)
+                    </span>
+                  </Typography>}
+                />
+
+                <Tab label={
+                  <Typography variant='body2' className='h-d_flex -align-center'>
+                    <Timeline />
+                    <span className='h-ml-4'>
+                      Lịch sử phiên bản
+                    </span>
+                  </Typography>}
+                />
+
                 {ownerDataset &&
-                  <Tab label="Cài đặt" />
+                  <Tab label={
+                    <Typography variant='body2' className='h-d_flex -align-center'>
+                      <SettingsOutlined />
+                      <span className='h-ml-4'>Cài đặt</span>
+                    </Typography>}
+                  />
                 }
               </Tabs>
               <div>

@@ -5,8 +5,14 @@ import {
   Link,
   Menu,
   MenuItem,
-  Toolbar
+  Toolbar,
+  Typography
 } from '@material-ui/core';
+import {
+  AccountCircleOutlined,
+  ExitToApp,
+  SettingsOutlined,
+} from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -28,7 +34,12 @@ export default function MenuBar() {
 
   const handleGotoProfile = () => {
     handleMenu(null);
-    history.push(`/profile/${user.username}`);
+    history.push({
+      pathname: `/profile/${user.username}`,
+      state: {
+        tabIndex: 1,
+      }
+    });
   };
 
   const handleLogout = async () => {
@@ -58,12 +69,13 @@ export default function MenuBar() {
               aria-controls='menu-appbar'
               aria-haspopup='true'
               onClick={(event) => handleMenu(event)}
-              color='default'
             >
               <Avatar src={user.avatar} />
             </IconButton>
             <Menu
               id='menu-appbar'
+              className='h-mt-38'
+              disableScrollLock
               anchorEl={anchorEl}
               anchorOrigin={{
                 vertical: 'top',
@@ -77,9 +89,30 @@ export default function MenuBar() {
               open={open}
               onClose={() => handleMenu(null)}
             >
-              <MenuItem onClick={handleGotoProfile}>Tài khoản</MenuItem>
-              <MenuItem onClick={handleChangePassword}>Đổi mật khẩu</MenuItem>
-              <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+              <MenuItem
+                onClick={handleGotoProfile}
+                style={{ borderBottom: '1px solid #dedfe0' }}
+              >
+                <div >
+                  <Typography className='f-weight-700'>{user.name}</Typography>
+                  <Typography>@{user.username}</Typography>
+                </div>
+              </MenuItem>
+
+              <MenuItem onClick={handleGotoProfile}>
+                <AccountCircleOutlined className='h-mr-10' />
+                Hồ sơ cá nhân
+              </MenuItem>
+
+              <MenuItem onClick={handleChangePassword}>
+                <SettingsOutlined className='h-mr-10' />
+                Tài khoản
+              </MenuItem>
+
+              <MenuItem onClick={handleLogout}>
+                <ExitToApp className='h-mr-10' />
+                Đăng xuất
+              </MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>

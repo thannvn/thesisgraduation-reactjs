@@ -157,7 +157,7 @@ export default function DataTab(props: TabProps) {
         isLoadingFile: true
       })
       const { path } = datasetValues.dataset
-      const filePath = `${path}/${fileName}`
+      const filePath = `${path}/files/${fileName}`
       const fileContent = await FileAPI.getOneFileInDataset(filePath)
 
       setState({
@@ -200,7 +200,7 @@ export default function DataTab(props: TabProps) {
   useEffect(() => {
     const getFileContent = async () => {
       const { path, description } = datasetValues.dataset
-      const filePath = `${path}/${files[0].name}`
+      const filePath = `${path}/files/${files[0].name}`
       const firstFileContent = await FileAPI.getOneFileInDataset(filePath)
       setState((state) => ({
         ...state,

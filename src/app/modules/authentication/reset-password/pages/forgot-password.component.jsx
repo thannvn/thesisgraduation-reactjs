@@ -8,20 +8,20 @@ import {
   Link,
   makeStyles,
   Typography,
-} from "@material-ui/core";
-import React from "react";
-import Copyright from "dataworld/parts/copy-right/copy-right.component";
-import ForgotPassword from "../components/forgot-password.component";
-import { StyledPaper, StyledTypography } from "styles/jss/custom.component";
+} from '@material-ui/core';
+import React from 'react';
+import Copyright from 'dataworld/parts/copy-right/copy-right.component';
+import ForgotPassword from '../components/forgot-password.component';
+import { StyledPaper, StyledTypography } from 'styles/jss/custom.component';
 
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3, 0, 2),
-    background: "#F7F7F7",
+    background: '#F7F7F7',
   },
   link: {
-    fontWeight: "bold",
-    color: "#434343",
+    fontWeight: 'bold',
+    color: '#434343',
   },
 }));
 
@@ -30,11 +30,14 @@ export default function ForgotPasswordPage() {
   const [isExistEmail, setExistEmail] = React.useState(false);
   return (
     <>
-      <Container component="main" className=".t-forgot-password">
+      <Container component='main' className='main'>
         <CssBaseline />
-        <StyledPaper variant="outlined">
-          <Avatar className="avatar" src={process.env.PUBLIC_URL + 'images/forgot-password.png'}></Avatar>
-          <Typography component="h1" variant="h5">
+        <StyledPaper variant='outlined'>
+          <Avatar
+            className='avatar'
+            src={process.env.PUBLIC_URL + 'images/forgot-password.png'}
+          ></Avatar>
+          <Typography component='h1' variant='h5'>
             Quên mật khẩu
           </Typography>
           {!isExistEmail ? (
@@ -44,10 +47,10 @@ export default function ForgotPasswordPage() {
               </StyledTypography>
 
               <ForgotPassword exist={setExistEmail} />
-              <Grid container justify="flex-end">
+              <Grid container justify='flex-end'>
                 <Grid item>
-                  Bạn đã có tài khoản?{" "}
-                  <Link href="/auth/login" variant="body2">
+                  Bạn đã có tài khoản?{' '}
+                  <Link href='/auth/login' variant='body2'>
                     Đăng nhập
                   </Link>
                 </Grid>
@@ -60,10 +63,10 @@ export default function ForgotPasswordPage() {
                 không thấy mail trong vài phút, hãy kiểm tra hộp thư spam
               </StyledTypography>
 
-              <Button variant="contained" className={classes.button}>
+              <Button variant='contained' className={classes.button}>
                 <Link
-                  href="/auth/login"
-                  variant="body2"
+                  href='/auth/login'
+                  variant='body2'
                   className={classes.link}
                 >
                   Quay lại đăng nhập

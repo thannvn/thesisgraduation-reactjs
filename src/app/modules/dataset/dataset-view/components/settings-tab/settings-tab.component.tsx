@@ -12,6 +12,7 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component'
 import { IMAGE_TYPE } from 'app/modules/dataset/_common/common.const'
+import { useHistory } from 'react-router'
 
 interface SettingsTabsProps {
   index: number,
@@ -40,6 +41,7 @@ export default function SettingsTab(props: SettingsTabsProps) {
   const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false)
   const [currentOption, setCurrentOption] = useState<string>(options[0].title)
   const inputFileRef = useRef<HTMLInputElement>(null)
+  const history = useHistory()
 
   const changeDefaultValues = useMemo(() => {
     const defaultValues: DefaultValuesForm = {
@@ -69,38 +71,41 @@ export default function SettingsTab(props: SettingsTabsProps) {
     setDeleteConfirm(false)
   }
 
-  const acceptDelete = () => {
-
+  const acceptDelete = async () => {
+    const result = await DatasetAPI.deleteDataset(datasetValues.dataset._id)
+    if (result.status === STATUS_OK) {
+      addToast({ message: result.message, type: 'success' })
+      history.push('/dataset')
+    }
   }
 
   const uploadImage = async (imageType: number) => {
     const banner = imageType === IMAGE_TYPE.BANNER
+    const cropperImage = banner ? cropperBanner : cropperThumbnail
 
-    if (cropperThumbnail) {
-      cropperThumbnail.getCroppedCanvas().toBlob(async (blob) => {
-        if (blob) {
-          const formData = new FormData()
-          formData.append('datasetId', datasetValues.dataset._id)
-          formData.append('url', datasetValues.dataset.url)
-          formData.append('username', datasetValues.username)
-          formData.append('imageType', imageType.toString())
-          formData.append('image', blob, banner ? 'banner' : 'thumbnail.png')
+    cropperImage?.getCroppedCanvas().toBlob(async (blob) => {
+      if (blob) {
+        const formData = new FormData()
+        formData.append('datasetId', datasetValues.dataset._id)
+        formData.append('url', datasetValues.dataset.url)
+        formData.append('username', datasetValues.username)
+        formData.append('imageType', imageType.toString())
+        formData.append('image', blob, banner ? 'banner.png' : 'thumbnail.png')
 
-          const result = await DatasetAPI.uploadImage(formData)
+        const result = await DatasetAPI.uploadImage(formData)
 
-          if (result.status === STATUS_OK) {
-            addToast({ message: result.message, type: "success" })
-            banner ? setBannerDataset(result.data) : setThumbnailDataset(result.data)
-            banner ? setBanner('') : setThumbnail('')
-          } else {
-            addToast({ message: result.message, type: "error" })
-          }
+        if (result.status === STATUS_OK) {
+          addToast({ message: result.message, type: "success" })
+          banner ? setBannerDataset(result.data) : setThumbnailDataset(result.data)
+          banner ? setBanner('') : setThumbnail('')
+        } else {
+          addToast({ message: result.message, type: "error" })
         }
-      })
-    }
+      }
+    })
   }
 
-  const onFilechange = (event: React.ChangeEvent<HTMLInputElement>, mode: string) => {
+  const onFilechange = (event: React.ChangeEvent<HTMLInputElement>, mode: number) => {
     /*Selected files data can be collected here.*/
     event.preventDefault()
     if (event.target.files && event.target.files.length > 0) {
@@ -108,7 +113,9 @@ export default function SettingsTab(props: SettingsTabsProps) {
       const reader = new FileReader()
       reader.readAsDataURL(files[0])
       reader.onload = () => {
-        mode === 'banner' ? setBanner(reader.result as any) : setThumbnail(reader.result as any)
+        mode === IMAGE_TYPE.BANNER ?
+          setBanner(reader.result as any) :
+          setThumbnail(reader.result as any)
       }
     }
     event.target.value = ''
@@ -239,8 +246,8 @@ export default function SettingsTab(props: SettingsTabsProps) {
                   ref={inputFileRef}
                   type='file'
                   onChange={currentOption === options[1].title ?
-                    (event) => onFilechange(event, 'banner') :
-                    (event) => onFilechange(event, 'thumbnail')}
+                    (event) => onFilechange(event, IMAGE_TYPE.BANNER) :
+                    (event) => onFilechange(event, IMAGE_TYPE.THUMBNAIL)}
                   accept="image/*"
                 />
 

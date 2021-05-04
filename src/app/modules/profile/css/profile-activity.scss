@@ -1,0 +1,21 @@
+.b-profile-activity {
+  border: 1px solid #dedfe0;
+  color: black !important;
+
+  .MuiTab-root {
+    text-transform: none;
+    min-width: 120px !important;
+  }
+
+  .MuiTab-textColorInherit.Mui-selected {
+    color: rgb(0, 119, 255);
+  }
+
+  .PrivateTabIndicator-colorSecondary-3 {
+    background-color: rgb(0, 119, 255);
+  }
+
+  .MuiTab-textColorInherit {
+    opacity: 1;
+  }
+}

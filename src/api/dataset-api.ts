@@ -1,10 +1,10 @@
 import {
-  DOWNLOAD_DATASET, GET_ALL_TAGS_DATASET, GET_DATASET,
+  CREATE_NEW_VERSION,
+  DELETE_DATASET, DOWNLOAD_DATASET, GET_ALL_TAGS_DATASET, GET_DATASET,
   GET_TRENDING_DATASET_TAGS,
   LIKE_OR_UNLIKE_DATASET, SEARCH_DATASET, UPDATE_DATASET_DESCRIPTION,
   UPDATE_DATASET_TAGS, UPDATE_DATASET_TITLE_SUBTITLE, UPDATE_DATASET_VISIBILITY,
-  UPLOAD_BANNER, UPLOAD_DATASET,
-  UPLOAD_THUMBNAIL, CREATE_NEW_VERSION
+  UPLOAD_DATASET_IMAGE, UPLOAD_DATASET,
 } from 'app/const/api-const/dataset-url.const';
 import axios from 'axios';
 import { createResult, requestAPI } from 'services/axios/handle-api.const';
@@ -15,25 +15,27 @@ export interface DatasetValues {
   email: string,
   username: string,
   accountId: string,
-  dataset: {
-    _id: string,
-    title: string,
-    subtitle: string,
-    url: string,
-    size: number,
-    description: string,
-    visibility: string,
-    path: string,
-    files: Array<string>,
-    like: Array<string>,
-    countLike: number,
-    tags: Array<Tags>,
-    thumbnail: string,
-    banner: string,
-    versions: Array<Version>,
-    createdDate: Date | string,
-    lastUpdate: Date | string,
-  }
+  dataset: Dataset,
+}
+
+export interface Dataset {
+  _id: string,
+  title: string,
+  subtitle: string,
+  url: string,
+  size: number,
+  description: string,
+  visibility: string,
+  path: string,
+  files: Array<string>,
+  like: Array<string>,
+  countLike: number,
+  tags: Array<Tags>,
+  thumbnail: string,
+  banner: string,
+  versions: Array<Version>,
+  createdDate: Date | string,
+  lastUpdate: Date | string,
 }
 
 export interface Version {
@@ -47,7 +49,7 @@ export interface FileVersion {
   status: number,
   changeDetails: {
     add: any,
-    delete: any
+    remove: any
   },
 }
 
@@ -174,25 +176,10 @@ export default class DatasetAPI {
     return await requestAPI(UPDATE_DATASET_TITLE_SUBTITLE, data)
   }
 
-  /* update dataset title and subtitle */
-  static uploadBanner = async (bannerForm: FormData) => {
-    try {
-      const result = await axios.post(UPLOAD_BANNER.URL, bannerForm, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          "auth-token": localStorage.getItem("auth-token"),
-        }
-      })
-      return createResult(result)
-    } catch (error) {
-      return createResult(null, error)
-    }
-  }
-
-  /* update dataset title and subtitle */
+  /* update dataset banner, thumbnail */
   static uploadImage = async (thumbnailForm: FormData) => {
     try {
-      const result = await axios.post(UPLOAD_THUMBNAIL.URL, thumbnailForm, {
+      const result = await axios.post(UPLOAD_DATASET_IMAGE.URL, thumbnailForm, {
         headers: {
           'Content-Type': 'multipart/form-data',
           "auth-token": localStorage.getItem("auth-token"),
@@ -266,5 +253,13 @@ export default class DatasetAPI {
     } catch (error) {
       return createResult(null, error)
     }
+  }
+
+  /* Delete dataset */
+  static deleteDataset = async (datasetId: string) => {
+    const data = {
+      datasetId: datasetId
+    }
+    return await requestAPI(DELETE_DATASET, data)
   }
 }

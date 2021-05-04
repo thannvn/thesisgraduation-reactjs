@@ -10,19 +10,23 @@ import {
 } from '@material-ui/core';
 import {
   Add, AddBox,
-  ExpandMore, History,
+
+
+  Delete, ExpandMore, History,
   InsertDriveFileOutlined,
-  Delete, Remove, TrackChanges,
+  Remove, TrackChanges
 } from '@material-ui/icons';
 import DatasetAPI, { Version } from 'api/dataset-api';
 import { FileInfo } from 'api/file-api';
-import DatasetUpload from 'app/modules/dataset/_common/dataset-upload/dataset-upload.component';
 import 'app/modules/dataset/dataset-view/css/history-tab.scss';
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component';
+import DatasetUpload from 'app/modules/dataset/_common/dataset-upload/dataset-upload.component';
 import clsx from 'clsx';
-import moment from 'moment'
-import React, { useContext, useEffect, useState } from 'react';
+import addToast from 'dataworld/parts/toast/add-toast.component';
+import moment from 'moment';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { STATUS_OK } from 'services/axios/common-services.const';
 
 interface HistoryTabProps {
   index: number,
@@ -76,8 +80,23 @@ export default function HistoryTab(props: HistoryTabProps) {
       formData.append('files', file.file)
     )
     const result = await DatasetAPI.createNewVersion(formData)
-    console.log(result)
+    if (result.status === STATUS_OK) {
+      addToast({ message: 'Cập nhật thành công', type: 'success' })
+      window.location.reload()
+    }
   }
+
+  const countChanges = useMemo(() => {
+    let add = 0, remove = 0;
+    currentVersion?.fileChanges.forEach(file => {
+      add += file.changeDetails.add
+      remove += file.changeDetails.remove
+    })
+    return {
+      totalAdd: add,
+      totalRemove: remove
+    }
+  }, [currentVersion])
 
   useEffect(() => {
     if (datasetValues.dataset.versions.length > 0) {
@@ -91,7 +110,6 @@ export default function HistoryTab(props: HistoryTabProps) {
       hidden={index !== value}
       className="t-history-tab h-mt-32"
     >
-      {console.log(currentVersion)}
       <div className='p-title'>
         <Typography variant='h6' className='h-ml-20'>Lịch sử sửa đổi</Typography>
       </div>
@@ -235,7 +253,18 @@ export default function HistoryTab(props: HistoryTabProps) {
                     className='p-summary-custom'
                     expandIcon={<ExpandMore />}
                   >
-                    <Typography>Có {currentVersion?.fileChanges.length} files thay đổi</Typography>
+                    <div className='h-d_flex'>
+                      <Typography>Có {currentVersion?.fileChanges.length} files thay đổi với </Typography>
+                      <Typography className='h-ml-10'>
+                        <span style={{ color: '#4caf50' }} >
+                          +{countChanges.totalAdd}
+                        </span>
+                        <span style={{ color: 'red' }} className='h-ml-10'>
+                          -{countChanges.totalRemove}
+                        </span>
+                      </Typography>
+                    </div>
+
                   </AccordionSummary>
 
                   <AccordionDetails>
@@ -249,9 +278,11 @@ export default function HistoryTab(props: HistoryTabProps) {
 
                           <div className='h-d_flex'>
                             <span style={{ color: '#4caf50' }}>
-                              {file.status !== 1 ? file.changeDetails.add : file.changeDetails.add.length}
+                              +{file.changeDetails.add}
                             </span>
-                            <span style={{ color: 'red' }} className='h-ml-10'>-54</span>
+                            <span style={{ color: 'red' }} className='h-ml-10'>
+                              -{file.changeDetails.remove}
+                            </span>
                           </div>
                         </li>
                       )}

@@ -150,7 +150,7 @@ export default function TagsDialog(props: TagsDialogProps) {
               <TextField
                 type="search"
                 onChange={(event) => handleSearch(event)}
-                placeholder='Tìm kiếm'
+                placeholder='Tìm kiếm...'
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -187,7 +187,7 @@ export default function TagsDialog(props: TagsDialogProps) {
           <Grid item xs={6} className='b-input-tags'>
             <form className='p-input' onSubmit={handleSubmit(handleAddTag)}>
               <TextField
-                placeholder='Nhập tags'
+                placeholder='Nhập tags...'
                 name='tagsName'
                 required
                 inputRef={register}

@@ -4,12 +4,12 @@
   border-bottom: 1px solid #dedfe0;
 
   background-color: rgb(255, 255, 255) !important;
-  
-  .MuiTab-root { 
+
+  .MuiTab-root {
     text-transform: none;
     min-width: 120px !important;
   }
-  
+
   .MuiTab-textColorInherit.Mui-selected {
     color: rgb(0, 119, 255);
   }
@@ -21,6 +21,7 @@
   .MuiTab-textColorInherit {
     opacity: 1;
   }
+
   color: black !important;
 
   .b-tab {

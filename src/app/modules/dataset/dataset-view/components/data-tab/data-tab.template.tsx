@@ -13,7 +13,7 @@ import {
   Close,
   Edit,
   ExpandMore,
-  LocalOffer
+  LocalOfferOutlined, DescriptionOutlined
 } from '@material-ui/icons'
 import { Skeleton } from '@material-ui/lab'
 import { DatasetVisibility } from 'app/modules/dataset/_common/common.const'
@@ -52,6 +52,8 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
 
   const { datasetValues, ownerDataset, isLoadingData } = useContext(DatasetViewContext)
 
+  const isPrivate = datasetValues.dataset.visibility === DatasetVisibility.PRIVATE_DATASET
+
   return (
     <>
       <div
@@ -63,8 +65,8 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
           <div className='p-icon-text h-ml-20'>
             {!isLoadingData &&
               <>
-                <LocalOffer />
-                <Typography>Tags: </Typography>
+                <LocalOfferOutlined />
+                <Typography className='h-ml-4'>Tags: </Typography>
               </>
             }
             {isLoadingData ?
@@ -128,7 +130,7 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                         color='primary'
                         className='p-button-visibility'
                       >
-                        {datasetValues.dataset.visibility === DatasetVisibility.PRIVATE_DATASET ? 'Public' : 'Private'}
+                        {isPrivate ? 'Công khai' : 'Cá nhân'}
                       </Button>
                     }
                   />
@@ -136,8 +138,11 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                     open={state.openConfirmVisibility}
                     onClose={handleCloseConfirmVisibility}
                     onAccept={handleAcceptChangeVisibility}
-                    title='Chuyển Dataset sang public?'
-                    content='Dataset ở chế độ public, tất cả người dùng trong cộng đồng Data World đều có thể truy cập.'
+                    title={isPrivate ? 'Chuyển Dataset sang công khai?' : 'Chuyển Dataset về cá nhân?'}
+                    content={isPrivate ?
+                      'Dataset ở chế độ công khai, tất cả người dùng trong cộng đồng Data World đều có thể truy cập.' :
+                      'Dataset ở chế độ cá nhân, chỉ mình bạn có quyền truy cập.'
+                    }
                   />
 
                 </AccordionSummary>
@@ -216,7 +221,10 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                 id='description'
               >
 
-                <Typography >Mô tả Dataset</Typography>
+                <Typography className='h-d_flex'>
+                  <DescriptionOutlined />
+                  <span className='h-ml-4'>Mô tả Dataset</span>
+                </Typography>
                 {ownerDataset &&
                   <>
                     {state.isEdit ?

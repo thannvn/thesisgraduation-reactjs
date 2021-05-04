@@ -32,7 +32,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from 'redux/authentication-slice';
 import { RootState } from 'store';
-import { ProfileProps } from '../../pages/profile.template';
+import { ProfileProps } from 'app/modules/profile/pages/profile.template';
 
 
 export default function ProfileInfo({ self }: ProfileProps) {
@@ -78,7 +78,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
         if (blob) {
           const formData = new FormData()
           formData.append('username', user.username)
-          formData.append('mode', 'profile-avatar')
+          formData.append('imageType', 'profile')
           formData.append('image', blob, 'avatar.png')
           const result = await ProfileAPI.updateAvatar(formData)
           if (result.status === STATUS_OK) {
@@ -103,8 +103,8 @@ export default function ProfileInfo({ self }: ProfileProps) {
   }, [state.isLoading, reset, defaultValues])
 
   return (
-    <Paper className='paper'>
-      <form className='b-profile-info' onSubmit={handleSubmit(handleSaveEdit)}>
+    <Paper className='b-profile-info h-mr-10'>
+      <form className='b-profile' onSubmit={handleSubmit(handleSaveEdit)}>
         <div className='p-avatar'>
           <Avatar src={user.avatar} />
 
@@ -115,6 +115,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
             onChange={onFilechange}
             accept="image/*"
           />
+
           <Tooltip title='Upload avatar'>
             <IconButton className='p-edit' onClick={openFileSelect}>
               <PhotoCamera color='inherit' fontSize='large' />
@@ -171,7 +172,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
         <div>
           {state.isEdit &&
             <TextareaAutosize
-              placeholder='Add a bio'
+              placeholder='Thêm tiểu sử'
               ref={register}
               name='bio'
               rowsMin={5}
@@ -311,7 +312,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
           </div>
         }
       </form>
+    </Paper>
 
-    </Paper >
   )
 }

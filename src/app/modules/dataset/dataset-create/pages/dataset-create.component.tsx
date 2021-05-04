@@ -21,6 +21,7 @@ import { RootState } from 'store';
 import DatasetSelectVisibility from '../components/dataset-select-visibility.component';
 import DatasetUpload from '../../_common/dataset-upload/dataset-upload.component';
 import '../css/dataset-create.scss';
+import Footer from 'dataworld/blocks/footer/footer';
 
 interface IUploads {
   files: IFileWithMeta[],
@@ -60,7 +61,7 @@ export default function DatasetCreate() {
     const { title, url, files, visibility } = data
     const formData = new FormData()
     formData.append('username', user.username)
-    formData.append('title', title)
+    formData.append('title', title.trim())
     formData.append('url', url)
     formData.append('description', description)
     formData.append('visibility', visibility)
@@ -87,7 +88,7 @@ export default function DatasetCreate() {
   return (
     <>
       <Container component='main' className='h-mt-100 h-mb-100'>
-        <div className='t-dataset-create'>
+        <div className='t-dataset-create h-mb-40'>
           <div className='-bottom-line'>
             <Typography variant='h5' className='h-mb-4 f-weight-700'>
               Tạo mới Dataset
@@ -121,23 +122,22 @@ export default function DatasetCreate() {
                     maxLength: 50
                   })}
                 />
+
                 <Typography className='p-validate-error h-mt-4'>
                   {errors.title &&
                     'Tiêu đề phải có 5-50 ký tự. Có thể sử dụng chữ và số và các ký tự đặc biệt'
                   }
                 </Typography>
 
-                <Typography className='p-validate-error h-mt-2'>
-                  {errors.url && 'Url có ít nhất 5 ký tự. Có thể sử dụng chữ, số và dấu gạch ngang'}
-                </Typography>
-
                 <div className='b-dataset-url h-mt-32'>
                   <IconButton className='h-mr-24' onClick={handleCopyLink}>
                     <Link />
                   </IconButton>
+
                   <Typography className='h-mt-2'>
                     {`${process.env.REACT_APP_FRONT_END_URL}dataset/${user.username}/`}
                   </Typography>
+
                   <TextField
                     variant="outlined"
                     InputLabelProps={{
@@ -156,6 +156,10 @@ export default function DatasetCreate() {
                       pattern: /^(?=.{5,}$)(?![-])(?!.*[-]{2})[a-zA-Z0-9-]+(?<![-])$/
                     })}
                   />
+
+                  <Typography className='p-validate-error h-mt-2'>
+                    {errors.url && 'Url có ít nhất 5 ký tự. Có thể sử dụng chữ, số và dấu gạch ngang'}
+                  </Typography>
                 </div>
               </div>
 
@@ -177,17 +181,22 @@ export default function DatasetCreate() {
 
             <DatasetSelectVisibility control={control} />
 
-            <Typography ref={apiResult} className='resultAPI h-mt-10 h-ml-2' />
-            <Button
-              className=' p-button-save-color p-round-button'
-              type='submit'
-              disabled={!creatable}
-              variant='outlined'>
-              Tạo dataset
-            </Button>
-          </form>
+            <div className='-top-line'>
+              <Typography ref={apiResult} className='resultAPI h-mt-10 h-ml-2' />
 
+              <Button
+                className=' p-button-save-color p-round-button'
+                type='submit'
+                disabled={!creatable}
+                variant='outlined'>
+                Tạo dataset
+              </Button>
+            </div>
+          </form>
         </div>
+
+        <Footer />
+
       </Container>
     </>
   )

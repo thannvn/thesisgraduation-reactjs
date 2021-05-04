@@ -45,7 +45,7 @@ export default function EditFileDescription(props: EditFileDescriptionProps) {
         FileAPI.updateFileDescription(datasetValues.dataset._id, fileInfo._id, fileDescription) :
         null,
       FileAPI.updateFileColumns(datasetValues.dataset._id, fileInfo._id,
-        newColumns, `${datasetValues.dataset.path}/${fileInfo.name}`)
+        newColumns, `${datasetValues.dataset.path}/files/${fileInfo.name}`)
     ])
 
     if (result[1].status === STATUS_OK) {

@@ -16,9 +16,7 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
   const [numberOfColumn, setNumberOfColumn] = useState<number>(2)
   const [typeChart, setTypeChart] = useState<any>('bar')
 
-  const isHidden = !columnInfo.analysis.countTimeValueAppear || columnInfo.type === COLUMN_TYPE.ID ||
-    (columnInfo.type !== COLUMN_TYPE.NUMBER &&
-      Object.keys(columnInfo.analysis.countTimeValueAppear).length > 10)
+  const isHidden = !columnInfo.analysis.timeValueAppearChunk || columnInfo.type === COLUMN_TYPE.ID
 
   //replace all '\\u002e' to '.'
   const replaceValue = (value: string) => {
@@ -29,26 +27,20 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
     if (!isHidden) {
       const categories: Array<any> = [];
       const data: Array<any> = []
-      const keys = Object.keys(columnInfo.analysis.countTimeValueAppear)
-      //if column is number or date time 
-      if ([COLUMN_TYPE.NUMBER, COLUMN_TYPE.DATE_TIME].includes(columnInfo.type)
-        && keys.length > numberOfColumn) {
+      const timeValueAppearChunk = columnInfo.analysis.timeValueAppearChunk
+      const keys = Object.keys(columnInfo.analysis.timeValueAppearChunk)
 
-        const chunkedArray = splitToChunks(keys, numberOfColumn)
-        chunkedArray.forEach((childArray) => {
-          let count: number = 0
-          const childLength: number = childArray.length
-          childArray.forEach(item => count += columnInfo.analysis.countTimeValueAppear[item])
-          const category: string = `${replaceValue(childArray[0])} ${childLength > 1 ?
-            ` - ${replaceValue(childArray[childLength - 1])}` : null}`
-
-          data.push(count)
-          categories.push(category)
-        });
-      } else {
+      if (columnInfo.type !== COLUMN_TYPE.NUMBER) {
         keys.forEach(key => {
-          data.push(columnInfo.analysis.countTimeValueAppear[key])
+          data.push(timeValueAppearChunk[key])
           categories.push(replaceValue(key))
+        })
+      } else {
+        const columnData = timeValueAppearChunk[numberOfColumn]
+        if (columnData.values[numberOfColumn - 1] === 0) return
+        columnData.labels.forEach((label: any, index: number) => {
+          data.push(columnData.values[index])
+          categories.push(replaceValue(label))
         })
       }
 
@@ -100,15 +92,6 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
     }
   }, [columnInfo])
 
-  //split array to n part
-  function splitToChunks(array: Array<any>, parts: number) {
-    let result = [];
-    for (let i = parts; i > 0; i--) {
-      result.push(array.splice(0, Math.ceil(array.length / i)));
-    }
-    return result;
-  }
-
   const changeNumberOfColumn = (event: React.ChangeEvent<{ value: unknown }>) => {
     setNumberOfColumn(event.target.value as number)
   }
@@ -122,10 +105,10 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
   }
 
   return (
-    <div className='b-column-chart h-d_flex h-mt-20'>
+    <div className='b-column-chart h-d_flex'>
       <div className='b-chart'>
-        <div className='h-d_flex -justify-space-between'>
-          <div className='h-d_flex -align-center h-ml-16'>
+        <div className='h-d_flex -justify-space-between h-mt-20'>
+          <div className='h-d_flex -align-center h-ml-16 '>
             {icons[columnInfo.type]}
             <Typography className='f-weight-700'>{columnInfo.name}</Typography>
           </div>
@@ -177,7 +160,7 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
         </div>
 
         {isHidden ?
-          <div className='h-ml-16'>
+          <div className='h-ml-16 h-mr-16 h-mt-38'>
             <Typography className='f-weight-700 -blue-color'>{columnInfo.analysis.unique} giá trị khác nhau</Typography>
             <div className='h-d_flex -justify-space-between h-mt-20'>
               <Typography variant='body2'>{columnInfo.analysis.mostFrequently}</Typography>
@@ -192,12 +175,15 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
               </Typography>
             </div>
           </div> :
-          <Chart
-            options={chartConfig?.options}
-            series={chartConfig?.series}
-            type={typeChart}
-            width="400"
-          />
+          <div className='h-mt-74'>
+            <Chart
+              options={chartConfig?.options}
+              series={chartConfig?.series}
+              type={typeChart}
+              width="400"
+            />
+          </div>
+
         }
       </div>
 

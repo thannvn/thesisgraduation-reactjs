@@ -1,83 +1,88 @@
 .b-profile-info {
-  display: flex;
-  flex-direction: column;
+  padding: 40px;
+  border: 1px solid #dedfe0;
 
-  .p-avatar {
+  .b-profile {
     display: flex;
-    justify-content: center;
-    position: relative;
+    flex-direction: column;
 
-    div {
-      width: 250px;
-      height: 250px;
+    .p-avatar {
+      display: flex;
+      justify-content: center;
+      position: relative;
+
+      div {
+        width: 250px;
+        height: 250px;
+      }
+
+      .p-edit {
+        position: absolute;
+        bottom: 25px;
+        right: 60px;
+      }
     }
 
-    .p-edit {
-      position: absolute;
-      bottom: 25px;
-      right: 50px;
-    }
-  }
-
-  .p-name {
-    font-size: 26px;
-    font-weight: bold !important;
-  }
-
-  .p-username {
-    font-size: 20px;
-    color: rgb(114, 114, 114);
-  }
-
-  .p-button-edit {
-    background-color: rgb(236, 236, 236);
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    border: 1px solid rgb(129, 129, 129);
-    height: 30px;
-  }
-
-  .p-button-edit:focus {
-    outline: none !important;
-  }
-
-  .date-time-picker {
-    width: 91%;
-  }
-
-  .p-text-area-bio {
-    width: 97.5%;
-    border-radius: 5px;
-  }
-
-  .p-text-area-bio:focus {
-    outline: none;
-    box-shadow: 0 0 0 1.5pt #3f51b5;
-  }
-
-  .p-icon-text-input {
-    display: inline-flex;
-    margin-top: 10px;
-
-    .p-icon {
-      color: rgb(99, 99, 99);
+    .p-name {
+      font-size: 26px;
+      font-weight: bold !important;
     }
 
-    .MuiOutlinedInput-inputMarginDense {
-      font-size: 13px;
-      padding-top: 8px;
-      padding-bottom: 8px;
+    .p-username {
+      font-size: 20px;
+      color: rgb(114, 114, 114);
     }
-  }
 
-  .p-btn-save {
-    width: 60px;
-    background-color: #2ea44f;
-    color: rgb(211, 211, 211);
-  }
+    .p-button-edit {
+      background-color: rgb(236, 236, 236);
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 1px solid rgb(129, 129, 129);
+      height: 30px;
+    }
 
-  .p-btn-cancel {
-    width: 60px;
+    .p-button-edit:focus {
+      outline: none !important;
+    }
+
+    .date-time-picker {
+      width: 91%;
+    }
+
+    .p-text-area-bio {
+      width: 97.5%;
+      border-radius: 5px;
+    }
+
+    .p-text-area-bio:focus {
+      outline: none;
+      box-shadow: 0 0 0 1.5pt #3f51b5;
+    }
+
+    .p-icon-text-input {
+      display: inline-flex;
+      margin-top: 10px;
+
+      .p-icon {
+        color: rgb(99, 99, 99);
+      }
+
+      .MuiOutlinedInput-inputMarginDense {
+        font-size: 13px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    }
+
+    .p-btn-save {
+      width: 60px;
+      background-color: #2ea44f;
+      color: rgb(211, 211, 211);
+    }
+
+    .p-btn-cancel {
+      width: 60px;
+    }
   }
 }

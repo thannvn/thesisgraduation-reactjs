@@ -78,7 +78,7 @@ const DatasetViewProvider = (props: any) => {
       }
       if (user.accountId !== dataset.data.accountId
         && dataset.data.dataset.visibility === DatasetVisibility.PRIVATE_DATASET) {
-        addToast({ message: "Dataset là private", type: "error" })
+        addToast({ message: "Không thể truy cập dataset cá nhân", type: "error" })
         history.push('/dataset')
       }
       document.title = dataset.data.dataset.title

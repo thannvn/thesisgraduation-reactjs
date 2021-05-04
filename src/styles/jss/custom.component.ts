@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Paper, Typography } from "@material-ui/core";
+import { Menu, Paper, Typography } from "@material-ui/core";
 
 //Style paper
 const StyledPaper = styled(Paper)`
@@ -27,4 +27,10 @@ const StyledValidate = styled(Typography)`
   font-size: 0.85rem;
   color: red;
 `;
-export {StyledPaper, StyledTypography, StyledValidate };
+
+const StyledMenu = styled(Menu)`
+  paper {
+    border: 1px solid red;
+  }
+`
+export { StyledPaper, StyledTypography, StyledValidate, StyledMenu };

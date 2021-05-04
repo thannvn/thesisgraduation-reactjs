@@ -1,6 +1,7 @@
 import { GET_PROFILE, UPDATE_AVATAR, UPDATE_PROFILE } from 'app/const/api-const/profile-url.const';
 import axios from 'axios';
 import { createResult, requestAPI } from 'services/axios/handle-api.const';
+import { DatasetValues, datasetDefaultValues } from './dataset-api';
 
 export interface ProfileValues {
   _id: string,
@@ -13,6 +14,7 @@ export interface ProfileValues {
   location: string,
   website: string,
   github: string,
+  datasets: Array<DatasetValues>
 }
 
 export const defaultProfileValues: ProfileValues = {
@@ -26,6 +28,7 @@ export const defaultProfileValues: ProfileValues = {
   location: '',
   website: '',
   github: '',
+  datasets: Array(5).fill(datasetDefaultValues),
 }
 
 export default class ProfileAPI {

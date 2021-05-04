@@ -1,0 +1,15 @@
+.b-info-dataset {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .b-info {
+    display: flex;
+    .p-avatar {
+      cursor: pointer;
+      border-radius: 10px;
+      width: 60px;
+      height: 60px;
+    }
+  }
+}

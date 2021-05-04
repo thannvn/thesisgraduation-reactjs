@@ -20,14 +20,9 @@ const SEARCH_DATASET: ApiTemplate = {
   URL: `dataset/search`
 }
 
-const UPLOAD_BANNER: ApiTemplate = {
+const UPLOAD_DATASET_IMAGE: ApiTemplate = {
   method: "POST",
-  URL: `${process.env.REACT_APP_BASE_URL_API}dataset/update/banner`
-}
-
-const UPLOAD_THUMBNAIL: ApiTemplate = {
-  method: "POST",
-  URL: `${process.env.REACT_APP_BASE_URL_API}dataset/update/thumbnail`
+  URL: `${process.env.REACT_APP_BASE_URL_API}dataset/update/image`
 }
 
 const GET_DATASET: ApiTemplate = {
@@ -70,19 +65,24 @@ const CREATE_NEW_VERSION: ApiTemplate = {
   URL: `${process.env.REACT_APP_BASE_URL_API}dataset/new-version`
 }
 
+const DELETE_DATASET: ApiTemplate = {
+  method: "POST",
+  URL: `dataset/delete`
+}
+
 export {
   UPLOAD_DATASET,
-  UPLOAD_BANNER,
+  UPLOAD_DATASET_IMAGE,
   GET_DATASET,
   UPDATE_DATASET_DESCRIPTION,
   UPDATE_DATASET_VISIBILITY,
   UPDATE_DATASET_TITLE_SUBTITLE,
-  UPLOAD_THUMBNAIL,
   GET_ALL_TAGS_DATASET,
   UPDATE_DATASET_TAGS,
   GET_TRENDING_DATASET_TAGS,
   SEARCH_DATASET,
   LIKE_OR_UNLIKE_DATASET,
   DOWNLOAD_DATASET,
-  CREATE_NEW_VERSION
+  CREATE_NEW_VERSION,
+  DELETE_DATASET
 };

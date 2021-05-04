@@ -4,6 +4,7 @@ import HandleCommon from 'utils/handle-common'
 import { STATUS_OK } from 'services/axios/common-services.const'
 import { RouteComponentProps } from "react-router-dom";
 import ProfileTemplate from './profile.template'
+import { Dataset } from 'api/dataset-api';
 
 interface ProfileState {
   isLoading: boolean,
@@ -21,8 +22,30 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
     isEdit: false,
     userInfo: { ...defaultProfileValues },
   }
-
   defaultValues: ProfileValues = { ...defaultProfileValues }
+
+  componentDidMount = async () => {
+    const { username } = this.props.match.params;
+    const result = await ProfileAPI.getProfile(username)
+    if (result.status !== STATUS_OK) {
+      return this.props.history.push('/404')
+    }
+    document.title = result.data ? result.data.name : 'Thông tin tài khoản'
+    this.defaultValues = result.data
+    if (result.data) {
+      result.data.dateOfBirth = HandleCommon.handleDateOfBirth(result.data.dateOfBirth)
+      result.data.datasets = result.data.datasets.map((dataset: Dataset) =>
+        this.createDatasetObject(dataset, result.data)
+      );
+    }
+    this.setState({ ...this.state, userInfo: result.data, isLoading: false })
+  }
+
+  render() {
+    return (
+      <ProfileTemplate self={this} />
+    )
+  }
 
   handleChangeEditMode = () => {
     this.setState({ ...this.state, isEdit: !this.state.isEdit })
@@ -45,23 +68,34 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
     this.handleChangeEditMode()
   }
 
-  componentDidMount = async () => {
-    const { username } = this.props.match.params;
-    const result = await ProfileAPI.getProfile(username)
-    if (result.status !== STATUS_OK) {
-      return this.props.history.push('/404')
+  handleChangeLike = async (index: number, accountId: string, isLike: boolean) => {
+    const tempDatasets = [...this.state.userInfo.datasets]
+    if (isLike) {
+      ++tempDatasets[index].dataset.countLike
+      tempDatasets[index].dataset.like = [...tempDatasets[index].dataset.like, accountId]
     }
-    document.title = result.data ? result.data.name : 'Thông tin tài khoản'
-    this.defaultValues = result.data
-    if (result.data) {
-      result.data.dateOfBirth = HandleCommon.handleDateOfBirth(result.data.dateOfBirth)
+    else {
+      --tempDatasets[index].dataset.countLike
+      tempDatasets[index].dataset.like = tempDatasets[index].dataset.like.filter(id => id !== accountId)
     }
-    this.setState({ ...this.state, userInfo: result.data, isLoading: false })
+    this.setState({
+      userInfo: {
+        ...this.state.userInfo,
+        datasets: tempDatasets
+      }
+    })
   }
 
-  render() {
-    return (
-      <ProfileTemplate self={this} />
-    )
+  //Create dataset object from result database
+  private createDatasetObject = (dataset: object, user: any) => {
+    const { _id, avatar, name, username, email } = user;
+    return {
+      accountId: _id,
+      avatar: avatar,
+      name: name,
+      email: email,
+      username: username,
+      dataset: dataset,
+    };
   }
 }

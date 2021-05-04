@@ -28,10 +28,10 @@
       height: 120px;
     }
   }
-}
 
-.b-card-post:hover {
-  box-shadow: 1px 1px #dedfe0, 2px 2px #dedfe0, 3px 3px #dedfe0;
-  -webkit-transform: translateX(-3px);
-  transform: translateX(-3px);
+  &:hover {
+    box-shadow: 1px 1px #dedfe0, 2px 2px #dedfe0, 3px 3px #dedfe0;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+  }
 }

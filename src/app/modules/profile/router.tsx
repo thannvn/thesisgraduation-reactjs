@@ -3,7 +3,6 @@ import NotFoundPage from "dataworld/blocks/not-found-page/not-found-page";
 import { Switch, useRouteMatch } from "react-router-dom";
 import DefaultRoute from "routes/default-router.component";
 import PrivateRoute from "../../../routes/private-route";
-import './css/style.scss';
 import ProfilePage from './pages/profile.component';
 
 export default function ProfileRouter() {
