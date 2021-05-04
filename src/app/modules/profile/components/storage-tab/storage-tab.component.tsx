@@ -1,20 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { Button, IconButton, Menu, MenuItem, TextField, Typography } from '@material-ui/core'
+import { Button, IconButton, Menu, MenuItem, TextField, Typography, withStyles } from '@material-ui/core';
 import {
   ArrowDropDown,
-  PostAddOutlined, Close
+  Close, PostAddOutlined
 } from '@material-ui/icons';
-import { ProfileProps } from 'app/modules/profile/pages/profile.template'
-import DatasetItem from 'dataworld/blocks/dataset-item/dataset-item.component'
-import 'app/modules/profile/css/storage-tab.scss'
-import { useHistory } from 'react-router';
 import { DatasetValues } from 'api/dataset-api';
-import { StyledMenu } from 'styles/jss/custom.component'
+import 'app/modules/profile/css/storage-tab.scss';
+import { ProfileProps } from 'app/modules/profile/pages/profile.template';
+import DatasetItem from 'dataworld/blocks/dataset-item/dataset-item.component';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props: any) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+));
 
 interface StorageTabProps extends ProfileProps {
   index: number,
   value: number,
 }
+
+const menuDisplay = [
+  { label: 'Tất cả', value: 0 },
+  { label: 'Cộng đồng', value: 1 },
+  { label: 'Cá nhân', value: 2 },
+]
+
+const menuFileType = [
+  { label: 'Tất cả', value: 0 },
+  { label: 'CSV', value: 1 },
+  { label: 'JSON', value: 2 },
+]
+
+const menuSort = [
+  { label: 'Ngày cập nhật', value: 0 },
+  { label: 'Lượt thích', value: 1 },
+]
 
 export default function StorageTab({
   index,
@@ -74,39 +110,30 @@ export default function StorageTab({
 
         <StyledMenu
           id='menu-display'
-          disableScrollLock
-          className='h-mt-50 custom-popover'
+          className='h-mt-40'
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
           keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
           open={isOpen(0)}
           onClose={() => handlePopover(0, null)}
         >
-          <div className='h-d_flex -align-center -justify-space-between h-ml-10 h-mr-10' style={{ width: '300px' }}>
+          <div
+            className='h-d_flex -align-center -justify-space-between p-title-filter'
+          >
             <Typography className='f-weight-700'>Chọn chế độ hiển thị</Typography>
+
             <IconButton onClick={() => handlePopover(0, null)}>
               <Close color='action' fontSize='small' />
             </IconButton>
           </div>
 
-          <MenuItem >
-            Tất cả
-          </MenuItem>
-
-          <MenuItem >
-            Cộng đồng
-          </MenuItem>
-
-          <MenuItem >
-            Cá nhân
-          </MenuItem>
+          {menuDisplay.map((item, index) =>
+            <MenuItem
+              className='-top-line'
+              key={index}
+            >
+              {item.label}
+            </MenuItem>
+          )}
         </StyledMenu>
 
         <Button
@@ -121,32 +148,30 @@ export default function StorageTab({
 
         <StyledMenu
           id='file-type'
-          disableScrollLock
-          className='h-mt-50 custom-popover'
+          className='h-mt-40'
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
           keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
           open={isOpen(1)}
           onClose={() => handlePopover(1, null)}
         >
-          <MenuItem >
-            Tất cả
-          </MenuItem>
+          <div
+            className='h-d_flex -align-center -justify-space-between p-title-filter'
+          >
+            <Typography className='f-weight-700'>Chọn kiểu file</Typography>
 
-          <MenuItem >
-            CSV
-          </MenuItem>
+            <IconButton onClick={() => handlePopover(1, null)}>
+              <Close color='action' fontSize='small' />
+            </IconButton>
+          </div>
 
-          <MenuItem >
-            JSON
-          </MenuItem>
+          {menuFileType.map((item, index) =>
+            <MenuItem
+              className='-top-line'
+              key={index}
+            >
+              {item.label}
+            </MenuItem>
+          )}
         </StyledMenu>
 
         <Button
@@ -159,31 +184,33 @@ export default function StorageTab({
           Sắp xếp
         </Button>
 
-        <Menu
+        <StyledMenu
           id='file-type'
-          disableScrollLock
-          className='h-mt-50 custom-popover'
+          className='h-mt-40'
           anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
           keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
           open={isOpen(2)}
           onClose={() => handlePopover(2, null)}
         >
-          <MenuItem >
-            Ngày cập nhật
-          </MenuItem>
+          <div
+            className='h-d_flex -align-center -justify-space-between p-title-filter'
+          >
+            <Typography className='f-weight-700'>Chọn kiểu sắp xếp</Typography>
 
-          <MenuItem >
-            Số lượt thích
-          </MenuItem>
-        </Menu>
+            <IconButton onClick={() => handlePopover(2, null)}>
+              <Close color='action' fontSize='small' />
+            </IconButton>
+          </div>
+
+          {menuSort.map((item, index) =>
+            <MenuItem
+              className='-top-line'
+              key={index}
+            >
+              {item.label}
+            </MenuItem>
+          )}
+        </StyledMenu>
 
         <Button
           variant='contained'

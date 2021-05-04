@@ -6,7 +6,8 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Typography
+  Typography,
+  withStyles
 } from '@material-ui/core';
 import {
   AccountCircleOutlined,
@@ -20,6 +21,26 @@ import { RootState } from 'store';
 import AuthenticationAPI from "api/authentication-api";
 import { logoutSuccess } from 'redux/authentication-slice';
 import './menu-bar.scss';
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props: any) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+));
 
 export default function MenuBar() {
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
@@ -72,20 +93,12 @@ export default function MenuBar() {
             >
               <Avatar src={user.avatar} />
             </IconButton>
-            <Menu
+            <StyledMenu
               id='menu-appbar'
               className='h-mt-38'
               disableScrollLock
               anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
               keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
               open={open}
               onClose={() => handleMenu(null)}
             >
@@ -113,7 +126,7 @@ export default function MenuBar() {
                 <ExitToApp className='h-mr-10' />
                 Đăng xuất
               </MenuItem>
-            </Menu>
+            </StyledMenu>
           </Toolbar>
         </AppBar>
       )}
