@@ -4,6 +4,7 @@ import {
   Close, PostAddOutlined
 } from '@material-ui/icons';
 import { DatasetValues } from 'api/dataset-api';
+import ProfileAPI from 'api/profile-api';
 import 'app/modules/profile/css/storage-tab.scss';
 import { ProfileProps } from 'app/modules/profile/pages/profile.template';
 import DatasetItem from 'dataworld/blocks/dataset-item/dataset-item.component';
@@ -14,10 +15,13 @@ const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
   },
+
 })((props: any) => (
   <Menu
     elevation={0}
+    className='h-mt-40'
     getContentAnchorEl={null}
+    keepMounted
     anchorOrigin={{
       vertical: 'top',
       horizontal: 'right',
@@ -36,32 +40,45 @@ interface StorageTabProps extends ProfileProps {
 }
 
 const menuDisplay = [
-  { label: 'Tất cả', value: 0 },
+  { label: 'Tất cả', value: '' },
   { label: 'Cộng đồng', value: 1 },
-  { label: 'Cá nhân', value: 2 },
+  { label: 'Cá nhân', value: 0 },
 ]
 
 const menuFileType = [
-  { label: 'Tất cả', value: 0 },
-  { label: 'CSV', value: 1 },
-  { label: 'JSON', value: 2 },
+  { label: 'Tất cả', value: '' },
+  { label: 'CSV', value: 'csv' },
+  { label: 'JSON', value: 'json' },
 ]
 
 const menuSort = [
-  { label: 'Ngày cập nhật', value: 0 },
-  { label: 'Lượt thích', value: 1 },
+  { label: 'Ngày cập nhật mới nhất', value: 1 },
+  { label: 'Lượt thích nhiều nhất', value: 2 },
 ]
+
+interface SelectMenu {
+  isSelected: boolean,
+  display: number,
+  fileType: number,
+  sort: number,
+}
 
 export default function StorageTab({
   index,
   value,
   self
 }: StorageTabProps) {
-  const { state, handleChangeLike } = self
+  const { state, handleChangeLike, handleFilterDataset } = self
   const history = useHistory()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [popoverId, setPopoverId] = useState<number>(0)
   const [datasetsFilter, setDatasetsFilter] = useState<Array<DatasetValues>>(state.userInfo.datasets)
+  const [selectMenu, setSelectMenu] = useState<SelectMenu>({
+    isSelected: false,
+    display: 0,
+    fileType: 0,
+    sort: 0,
+  })
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setDatasetsFilter(state.userInfo.datasets.filter(dataset =>
@@ -82,9 +99,35 @@ export default function StorageTab({
     return Boolean(id === popoverId) && Boolean(anchorEl)
   }
 
+  const handleSelectFilter = (display: boolean, fileType: boolean, sort: boolean, selectIndex: number) => {
+    setSelectMenu({
+      isSelected: true,
+      display: display ? selectIndex : selectMenu.display,
+      fileType: fileType ? selectIndex : selectMenu.fileType,
+      sort: sort ? selectIndex : selectMenu.sort,
+    })
+    setAnchorEl(null)
+  }
+
   useEffect(() => {
     setDatasetsFilter(state.userInfo.datasets)
   }, [state.userInfo.datasets])
+
+  useEffect(() => {
+    const filterDataset = async () => {
+      if (selectMenu.isSelected) {
+        const result = await ProfileAPI.filterDataset(
+          state.userInfo._id,
+          menuDisplay[selectMenu.display].value,
+          menuFileType[selectMenu.fileType].value,
+          menuSort[selectMenu.sort].value
+        )
+        await handleFilterDataset(result.data)
+      }
+    }
+    filterDataset()
+
+  }, [selectMenu, state.userInfo._id, handleFilterDataset])
 
   return (
     <div hidden={value !== index} className='b-storage-tab'>
@@ -110,9 +153,8 @@ export default function StorageTab({
 
         <StyledMenu
           id='menu-display'
-          className='h-mt-40'
+          disableScrollLock
           anchorEl={anchorEl}
-          keepMounted
           open={isOpen(0)}
           onClose={() => handlePopover(0, null)}
         >
@@ -129,6 +171,8 @@ export default function StorageTab({
           {menuDisplay.map((item, index) =>
             <MenuItem
               className='-top-line'
+              selected={index === selectMenu.display}
+              onClick={() => handleSelectFilter(true, false, false, index)}
               key={index}
             >
               {item.label}
@@ -148,9 +192,8 @@ export default function StorageTab({
 
         <StyledMenu
           id='file-type'
-          className='h-mt-40'
+          disableScrollLock
           anchorEl={anchorEl}
-          keepMounted
           open={isOpen(1)}
           onClose={() => handlePopover(1, null)}
         >
@@ -167,6 +210,8 @@ export default function StorageTab({
           {menuFileType.map((item, index) =>
             <MenuItem
               className='-top-line'
+              selected={index === selectMenu.fileType}
+              onClick={() => handleSelectFilter(false, true, false, index)}
               key={index}
             >
               {item.label}
@@ -186,9 +231,8 @@ export default function StorageTab({
 
         <StyledMenu
           id='file-type'
-          className='h-mt-40'
+          disableScrollLock
           anchorEl={anchorEl}
-          keepMounted
           open={isOpen(2)}
           onClose={() => handlePopover(2, null)}
         >
@@ -205,6 +249,8 @@ export default function StorageTab({
           {menuSort.map((item, index) =>
             <MenuItem
               className='-top-line'
+              selected={index === selectMenu.sort}
+              onClick={() => handleSelectFilter(false, false, true, index)}
               key={index}
             >
               {item.label}
@@ -222,27 +268,32 @@ export default function StorageTab({
         >
           Tạo mới
         </Button>
-
       </div>
 
       <div className='b-dataset-list'>
-        <ul className='b-list'>
-          {datasetsFilter.map((dataset, index) => (
-            <li
-              className='b-item'
-              key={index}
-            >
-              <DatasetItem
-                isLoading={state.isLoading}
-                handleChangeLike={handleChangeLike}
-                datasetValues={dataset}
-                isHiddenDatasetVisibility={false}
-                position={index}
-              />
-            </li>
-          ))}
-        </ul>
+        {datasetsFilter.length === 0 ?
+          <Typography className='f-weight-700 h-mt-20' style={{ textAlign: 'center' }}>
+            Không có dataset nào được tìm thấy
+          </Typography> :
+          <ul className='b-list'>
+            {datasetsFilter.map((dataset, index) => (
+              <li
+                className='b-item'
+                key={index}
+              >
+                <DatasetItem
+                  isLoading={state.isLoading}
+                  handleChangeLike={handleChangeLike}
+                  datasetValues={dataset}
+                  isHiddenDatasetVisibility={false}
+                  position={index}
+                />
+              </li>
+            ))}
+          </ul>
+        }
+
       </div>
-    </div>
+    </div >
   )
 }

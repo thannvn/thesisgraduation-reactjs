@@ -4,20 +4,26 @@ import { STATUS_OK } from "services/axios/common-services.const";
 import { AppDispatch } from "store";
 
 const fetchLogin = async (dispatch: AppDispatch) => {
-  const result = await AuthenticationAPI.getLoginStatus()
-  if (result.status === STATUS_OK) dispatch(loginSuccess(result.data))
-  else {
-    const newResult = await AuthenticationAPI.getNewAccessToken()
-    if (newResult.status === STATUS_OK) {
-      localStorage.setItem('auth-token', newResult.token)
-      dispatch(loginSuccess(newResult.data))
-    }
-    else {
-      await AuthenticationAPI.logout()
-      dispatch(logoutSuccess());
-    }
+  //check login status
+  const loginResult = await AuthenticationAPI.getLoginStatus()
+  if (loginResult.status === STATUS_OK) {
+    dispatch(loginSuccess(loginResult.data))
+    return true
   }
-};
+
+  //if access token expired, get new access token by refresh token
+  const newLoginResult = await AuthenticationAPI.getNewAccessToken()
+  if (newLoginResult.status === STATUS_OK) {
+    localStorage.setItem('auth-token', newLoginResult.token)
+    dispatch(loginSuccess(newLoginResult.data))
+    return true
+  }
+
+  //if refresh token expired => logout
+  await AuthenticationAPI.logout()
+  dispatch(logoutSuccess());
+  return false
+}
 
 interface User {
   accountId: string,

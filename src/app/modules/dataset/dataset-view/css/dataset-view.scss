@@ -1,3 +1,9 @@
 .t-dataset-view {
-  padding: 0px 20px 0px 20px;
+  .t-dataset-content {
+    width: 70%;
+  }
+
+  .t-dataset-recommend {
+    width: 30%;
+  }
 }

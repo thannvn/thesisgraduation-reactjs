@@ -121,14 +121,14 @@ export default function TagsDialog(props: TagsDialogProps) {
 
   useEffect(() => {
     const getTags = async () => {
-      if (open && !allTags) {
+      if (open) {
         const result = await DatasetAPI.getAllTags()
         setAllTags(result.data)
         setSearchTags(result.data)
       }
     }
     getTags()
-  }, [open, allTags])
+  }, [open])
 
   return (
     <Dialog

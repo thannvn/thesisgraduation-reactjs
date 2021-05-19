@@ -1,11 +1,11 @@
 /*eslint-disable*/
-import React from "react";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+import React from 'react';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import styles from "../../../../styles/jss/material-kit-react/components/headerLinksStyle";
-import CustomButton from "../../../../dataworld/parts/button/custom-button.component";
+import { makeStyles } from '@material-ui/core/styles';
+import styles from 'styles/jss/material-kit-react/components/headerLinksStyle';
+import CustomButton from 'dataworld/parts/button/custom-button.component';
 
 const useStyles = makeStyles(styles);
 
@@ -15,8 +15,8 @@ export default function HeaderLinks(props) {
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
         <CustomButton
-          href="/auth/login"
-          color="transparent"
+          href='/auth/login'
+          color='transparent'
           className={classes.navLink}
         >
           Đăng nhập
@@ -24,8 +24,8 @@ export default function HeaderLinks(props) {
       </ListItem>
       <ListItem className={classes.listItem}>
         <CustomButton
-          href="/auth/register"
-          color="transparent"
+          href='/auth/register'
+          color='transparent'
           className={classes.navLink}
         >
           Đăng ký

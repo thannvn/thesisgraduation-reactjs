@@ -7,13 +7,13 @@ import {
   RESET_PASSWORD, VERIFY_ACCOUNT
 } from 'app/const/api-const/authentication-url.const';
 import axios from 'axios';
-import { createResult, requestAPI } from 'services/axios/handle-api.const';
+import { configAPI, createResult, requestAPI, requestApiNotCheckLogin } from 'services/axios/handle-api.const';
 
 
 export default class AuthenticationAPI {
   /* login */
   static login = async (account: any) => {
-    return await requestAPI(LOGIN, account)
+    return await requestApiNotCheckLogin(LOGIN, account)
   };
 
   /* Register account */
@@ -23,7 +23,7 @@ export default class AuthenticationAPI {
 
   /* Get login status: logged or not */
   static getLoginStatus = async () => {
-    return await requestAPI(CHECK_LOGIN)
+    return requestApiNotCheckLogin(CHECK_LOGIN)
   };
 
   /* Send verify code to backend */
@@ -70,7 +70,7 @@ export default class AuthenticationAPI {
       accessToken: accessToken,
       profile: profile,
     };
-    return await requestAPI(LOGIN_GOOGLE, data)
+    return await requestApiNotCheckLogin(LOGIN_GOOGLE, data)
   };
 
   /* Login with google */
@@ -79,7 +79,7 @@ export default class AuthenticationAPI {
       accessToken: accessToken,
       profile: profile,
     };
-    return await requestAPI(LOGIN_FACEBOOK, data)
+    return await requestApiNotCheckLogin(LOGIN_FACEBOOK, data)
   };
 
   /* Get new access token */
@@ -87,7 +87,7 @@ export default class AuthenticationAPI {
     const data = {
       refreshToken: localStorage.getItem('refresh-token'),
     }
-    return await requestAPI(GET_NEW_ACCESS_TOKEN, data)
+    return requestApiNotCheckLogin(GET_NEW_ACCESS_TOKEN, data)
   };
 
   /* Logout */
@@ -95,9 +95,13 @@ export default class AuthenticationAPI {
     const data = {
       refreshToken: localStorage.getItem('refresh-token'),
     }
-    const result = await requestAPI(LOGOUT, data)
-    localStorage.removeItem('auth-token');
-    localStorage.removeItem('refresh-token');
-    return result
+    try {
+      const result = await axios.request(configAPI(LOGOUT, data))
+      localStorage.removeItem('auth-token');
+      localStorage.removeItem('refresh-token');
+      return createResult(result)
+    } catch (error) {
+      return createResult(null, error)
+    }
   };
 }

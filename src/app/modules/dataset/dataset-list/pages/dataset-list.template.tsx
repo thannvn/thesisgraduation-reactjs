@@ -19,6 +19,10 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
     <>
       <Container component='main' className='h-mt-100 h-mb-100'>
         <div className='t-dataset-list'>
+          <div className='h-mb-50'>
+            <Typography variant='h4' className='f-weight-700'>Datasets</Typography>
+          </div>
+
           <div className='b-header'>
             <Button
               variant='contained'

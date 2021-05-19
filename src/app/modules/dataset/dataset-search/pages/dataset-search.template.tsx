@@ -17,7 +17,17 @@ export default function DatasetSearchTemplate({ self }: DatasetSearchProps) {
   return (
     <Container component='main' className='h-mt-100 h-mb-100'>
       <div className='t-dataset-search'>
+        <div className='b-header'>
+          <Typography
+            variant='h4'
+            className='f-weight-700'
+          >
+            Tìm kiếm
+          </Typography>
+        </div>
+
         <SearchBar />
+
         <div className='b-dataset-list'>
           <div className='p-title h-mt-32 -bottom-line'>
             <FormatListNumbered />

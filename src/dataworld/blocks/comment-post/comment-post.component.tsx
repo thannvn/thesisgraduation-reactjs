@@ -3,7 +3,8 @@ import { Avatar, Button, ButtonGroup, IconButton, Popover, Typography } from '@m
 import {
   ThumbUp,
   ThumbUpOutlined,
-  MoreHoriz,
+  MoreHoriz, Reply,
+  DeleteOutline, Edit
 } from '@material-ui/icons';
 import moment from 'moment'
 import 'moment/locale/vi'
@@ -14,7 +15,7 @@ import './comment-post.scss'
 import { useHistory } from 'react-router';
 import TinyMCEEditor from '../tinymce-editor/tinymce-editor.component';
 import clsx from 'clsx';
-import AlertDialog from '../alert-dialog/alert-dialog.component';
+import ConfirmDialog from '../confirm-dialog/confirm-dialog.component';
 
 interface CommentProps {
   accountId: string,
@@ -152,16 +153,32 @@ export default function CommentPost(props: CommentProps) {
                   }}
                 >
                   <ButtonGroup
-                    color='primary'
                     variant='outlined'
                     orientation='vertical'
                   >
-                    <Button onClick={replyComment}>Trả lời</Button>
+                    <Button
+                      startIcon={<Reply />}
+                      onClick={replyComment}
+                    >
+                      Trả lời
+                    </Button>
+
                     {accountId === comment.commentator._id &&
-                      <Button onClick={() => handleEditComment(true)}>Chỉnh sửa</Button>
+                      <Button
+                        startIcon={<Edit />}
+                        onClick={() => handleEditComment(true)}
+                      >
+                        Chỉnh sửa
+                      </Button>
                     }
+
                     {accountId === comment.commentator._id &&
-                      <Button onClick={() => handleDeleteDialog(true)}>Xóa bình luận</Button>
+                      <Button
+                        startIcon={<DeleteOutline />}
+                        onClick={() => handleDeleteDialog(true)}
+                      >
+                        Xóa bình luận
+                      </Button>
                     }
                   </ButtonGroup>
                 </Popover>
@@ -170,7 +187,7 @@ export default function CommentPost(props: CommentProps) {
           }
         </div>
 
-        <AlertDialog
+        <ConfirmDialog
           open={deleteComment}
           title='Xóa bình luận'
           content='Bạn có chắc chắn muốn xóa bình luận này không?'

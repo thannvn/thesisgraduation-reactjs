@@ -1,29 +1,33 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import {useAppDispatch} from 'redux/hooks'
-import { Redirect, Route } from 'react-router-dom';
-import {fetchLogin} from '../redux/authentication-slice'
+import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { fetchLogin } from '../redux/authentication-slice';
 
-function PrivateRoute({ component: Component, ...rest }) {
+interface PrivateRouteProps extends RouteProps {
+  component: any,
+}
+
+function PrivateRoute(props: PrivateRouteProps) {
+  const { component: Component, ...rest } = props
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     async function fetLoginAPI() {
-      await dispatch(fetchLogin)
+      await fetchLogin(dispatch)
       setIsLoading(false)
     }
     fetLoginAPI()
   }, [dispatch])
-  
-  const login = useSelector((state) => state.auth);
+
+  const user = useAppSelector((state) => state.auth.user);
   return (
     <>
       {!isLoading && (
         <Route
           {...rest}
           render={(props) =>
-            login.user.accountId !== '' ? (
+            user.accountId !== '' ? (
               <Component {...props}></Component>
             ) : (
               <Redirect to='/auth/login'></Redirect>

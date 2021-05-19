@@ -5,7 +5,7 @@ import { STATUS_OK } from 'services/axios/common-services.const'
 import 'app/modules/dataset/dataset-view/css/settings-tab.scss'
 import clsx from 'clsx'
 import "cropperjs/dist/cropper.css"
-import AlertDialog from 'dataworld/blocks/alert-dialog/alert-dialog.component'
+import ConfirmDialog from 'dataworld/blocks/confirm-dialog/confirm-dialog.component'
 import CropImage from 'dataworld/blocks/crop-image/crop-image.component'
 import addToast from 'dataworld/parts/toast/add-toast.component'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
@@ -63,12 +63,8 @@ export default function SettingsTab(props: SettingsTabsProps) {
     }
   }
 
-  const openDeleteConfirm = () => {
-    setDeleteConfirm(true)
-  }
-
-  const closeDeleteConfirm = () => {
-    setDeleteConfirm(false)
+  const openDeleteConfirm = (isOpen: boolean) => {
+    setDeleteConfirm(isOpen)
   }
 
   const acceptDelete = async () => {
@@ -208,20 +204,22 @@ export default function SettingsTab(props: SettingsTabsProps) {
                     className='h-ml-4 p-round-button'
                     color='secondary'
                     startIcon={<Delete />}
-                    onClick={openDeleteConfirm}
+                    onClick={() => openDeleteConfirm(true)}
                     type="button"
                   >
                     Xóa dataset
                   </Button>
 
-                  <AlertDialog
+                  <ConfirmDialog
                     open={deleteConfirm}
-                    onClose={closeDeleteConfirm}
+                    onClose={() => openDeleteConfirm(false)}
                     onAccept={acceptDelete}
                     acceptTheme='secondary'
                     title='Xóa dataset'
-                    content='Toàn bộ dữ liệu của dataset sẽ bị xóa. Bạn có chắc chắn muốn xóa?'
+                    content='Toàn bộ dữ liệu của dataset và các dữ liệu liên quan sẽ bị xóa. 
+                    Bạn có muốn tiếp tục?'
                   />
+
                   <Button
                     variant='contained'
                     className='p-round-button p-button-save-color'

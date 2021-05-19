@@ -3,7 +3,7 @@ import Header from 'app/modules/introduce/components/header.component'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'store'
-import Footer from '../footer/footer'
+import Footer from '../footer/footer.component'
 import './not-found-page.scss'
 
 export default function NotFoundPage() {

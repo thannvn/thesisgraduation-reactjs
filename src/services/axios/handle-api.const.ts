@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { ApiTemplate } from './common-services.const'
+import addToast from 'dataworld/parts/toast/add-toast.component';
+import { fetchLogin } from 'redux/authentication-slice';
+import store from 'store';
+import { ApiTemplate } from './common-services.const';
 
 const BASE_URL_API = process.env.REACT_APP_BASE_URL_API;
 
@@ -16,7 +19,6 @@ const configAPI = (API: any, data?: any) => {
     url: BASE_URL_API + API.URL,
     headers: {
       "auth-token": localStorage.getItem("auth-token"),
-      "reset-password-token": localStorage.getItem("resetPassword-token"),
     },
     data: data,
   };
@@ -51,6 +53,20 @@ const createResult = <T>(result?: any, errors?: any, dataType?: T): Result<T> =>
 
 const requestAPI = async <T>(URL: ApiTemplate, data?: any): Promise<Result<T>> => {
   try {
+    const isLogin = await fetchLogin(store.dispatch)
+    if (!isLogin) {
+      addToast({ message: 'Phiên đăng nhập đã hết hạn, hãy đăng nhập lại', type: 'error' })
+      window.location.href = '/auth/login'
+    }
+    const result = await axios.request(configAPI(URL, data))
+    return createResult<T>(result)
+  } catch (error) {
+    return createResult(null, error)
+  }
+}
+
+const requestApiNotCheckLogin = async <T>(URL: ApiTemplate, data?: any): Promise<Result<T>> => {
+  try {
     const result = await axios.request(configAPI(URL, data))
     return createResult<T>(result)
   } catch (error) {
@@ -61,6 +77,7 @@ const requestAPI = async <T>(URL: ApiTemplate, data?: any): Promise<Result<T>> =
 export {
   configAPI,
   createResult,
-  requestAPI
+  requestAPI,
+  requestApiNotCheckLogin
 };
 

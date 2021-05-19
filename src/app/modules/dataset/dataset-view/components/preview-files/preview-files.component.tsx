@@ -15,7 +15,7 @@ import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/conte
 import clsx from 'clsx'
 import React, { useContext, useState } from 'react'
 import HandleCommon from 'utils/handle-common'
-import ColumnTab from '../file-info-tab/file-info-tab.component'
+import FileInfoTab from '../file-info-tab/file-info-tab.component'
 import { DataTabState } from '../data-tab/data-tab.component'
 import AnalysisTab from '../statistic-tab/statistic-tab.component'
 
@@ -38,9 +38,9 @@ export default function PreviewFile(props: PreviewFileProps) {
   }
 
   const downloadFile = async () => {
-
-    const path = state.currentFile.info.path
-    const result = await FileAPI.downloadFileByPath(path)
+    const { path } = state.currentFile.info
+    const { _id } = datasetValues.dataset
+    const result = await FileAPI.downloadFileByPath(path, _id)
     let url = window.URL.createObjectURL(result.data);
     let link = document.createElement('a');
     link.href = url;
@@ -115,7 +115,7 @@ export default function PreviewFile(props: PreviewFileProps) {
               </div>
             }
 
-            <ColumnTab
+            <FileInfoTab
               value={value}
               index={0}
               rowsData={state.currentFile.content.content}

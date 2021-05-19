@@ -1,4 +1,10 @@
-import { GET_PROFILE, UPDATE_AVATAR, UPDATE_PROFILE } from 'app/const/api-const/profile-url.const';
+import { ApiTemplate } from './../services/axios/common-services.const';
+import {
+  GET_PROFILE, UPDATE_AVATAR,
+  UPDATE_PROFILE,
+  FILTER_DATASET_IN_PROFILE,
+  UPDATE_ACCOUNT_MODE, DELETE_ACCOUNT
+} from 'app/const/api-const/profile-url.const';
 import axios from 'axios';
 import { createResult, requestAPI } from 'services/axios/handle-api.const';
 import { DatasetValues, datasetDefaultValues } from './dataset-api';
@@ -14,7 +20,16 @@ export interface ProfileValues {
   location: string,
   website: string,
   github: string,
-  datasets: Array<DatasetValues>
+  accountMode: number,
+  datasets: Array<DatasetValues>,
+  createdDate: string | Date,
+}
+
+interface Filter {
+  userId: string,
+  visibility: number | string,
+  fileType: string,
+  sort: number,
 }
 
 export const defaultProfileValues: ProfileValues = {
@@ -28,7 +43,9 @@ export const defaultProfileValues: ProfileValues = {
   location: '',
   website: '',
   github: '',
+  accountMode: 0,
   datasets: Array(5).fill(datasetDefaultValues),
+  createdDate: new Date(),
 }
 
 export default class ProfileAPI {
@@ -60,4 +77,30 @@ export default class ProfileAPI {
       return createResult(null, error)
     }
   }
+
+  static filterDataset = async (userId: string, visibility: number | string, fileType: string, sort: number) => {
+    const data: Filter = {
+      userId: userId,
+      visibility: visibility,
+      fileType: fileType,
+      sort: sort
+    }
+    return await requestAPI(FILTER_DATASET_IN_PROFILE, data)
+  }
+
+  static updateAccountMode = async (mode: number) => {
+    const data = {
+      mode: mode
+    }
+    const request: ApiTemplate = {
+      method: UPDATE_ACCOUNT_MODE.method,
+      URL: `${UPDATE_ACCOUNT_MODE.URL}/${mode}`
+    }
+    return await requestAPI(request, data)
+  }
+
+  static deleteAccount = async () => {
+    return await requestAPI(DELETE_ACCOUNT)
+  }
 }
+

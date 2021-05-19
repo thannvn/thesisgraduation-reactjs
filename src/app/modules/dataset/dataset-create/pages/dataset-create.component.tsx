@@ -21,7 +21,7 @@ import { RootState } from 'store';
 import DatasetSelectVisibility from '../components/dataset-select-visibility.component';
 import DatasetUpload from '../../_common/dataset-upload/dataset-upload.component';
 import '../css/dataset-create.scss';
-import Footer from 'dataworld/blocks/footer/footer';
+import Footer from 'dataworld/blocks/footer/footer.component';
 
 interface IUploads {
   files: IFileWithMeta[],
@@ -42,7 +42,7 @@ export default function DatasetCreate() {
       files: [],
       title: '',
       url: '',
-      visibility: DatasetVisibility.PRIVATE_DATASET
+      visibility: DatasetVisibility.PRIVATE_DATASET.toString()
     }
   })
   const handleCopyLink = () => {
@@ -64,7 +64,7 @@ export default function DatasetCreate() {
     formData.append('title', title.trim())
     formData.append('url', url)
     formData.append('description', description)
-    formData.append('visibility', visibility)
+    formData.append('visibility', visibility.toString())
     formData.append('accountId', user.accountId)
     files.forEach((file: any) =>
       formData.append('files', file.file)
@@ -95,7 +95,7 @@ export default function DatasetCreate() {
             </Typography>
 
             <Typography className='h-mb-24 p-gray-color-typography -italic-style'>
-              Dataset bao gồm 1 hoặc nhiều file. Các file chỉ có thể có các định dạng: csv, json, zip
+              Dataset bao gồm 1 hoặc nhiều file. Các file chỉ có thể có các định dạng: csv, json
             </Typography>
           </div>
 
@@ -129,12 +129,12 @@ export default function DatasetCreate() {
                   }
                 </Typography>
 
-                <div className='b-dataset-url h-mt-32'>
+                <div className='b-dataset-url h-mt-32 -align-center'>
                   <IconButton className='h-mr-24' onClick={handleCopyLink}>
                     <Link />
                   </IconButton>
 
-                  <Typography className='h-mt-2'>
+                  <Typography>
                     {`${process.env.REACT_APP_FRONT_END_URL}dataset/${user.username}/`}
                   </Typography>
 

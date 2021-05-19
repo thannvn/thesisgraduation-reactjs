@@ -13,9 +13,8 @@ import './footer.scss';
 
 const useStyles = makeStyles(styles);
 
-export default function Footer(props) {
+export default function Footer() {
   const classes = useStyles();
-  const { whiteFont } = props;
 
   return (
     <footer className='b-footer'>
@@ -24,22 +23,24 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href='https://www.creative-tim.com/presentation?ref=mkr-footer'
+                href='https://github.com/thann1999'
                 className={classes.block}
                 target='_blank'
               >
-                About us
+                Về chúng tôi
               </a>
             </ListItem>
+
             <ListItem className={classes.inlineBlock}>
               <a
                 href='http://blog.creative-tim.com/?ref=mkr-footer'
                 className={classes.block}
                 target='_blank'
               >
-                Blog
+                Mục tiêu
               </a>
             </ListItem>
+
             <ListItem className={classes.inlineBlock}>
               <a
                 href='https://www.creative-tim.com/license?ref=mkr-footer'
@@ -49,10 +50,27 @@ export default function Footer(props) {
                 Licenses
               </a>
             </ListItem>
+
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href='https://www.creative-tim.com/license?ref=mkr-footer'
+                className={classes.block}
+                target='_blank'
+              >
+                Liên hệ
+              </a>
+            </ListItem>
           </List>
         </div>
-        <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()}
+
+        <div className={classes.right} style={{ paddingTop: '8px' }}>
+          <List className='h-d_flex list'>
+            <ListItem className='item'>
+              <span>&copy; {1900 + new Date().getYear()}</span>
+
+              <span className='h-ml-6'>DataWord</span>
+            </ListItem>
+          </List>
         </div>
       </div>
     </footer>

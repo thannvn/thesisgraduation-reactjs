@@ -1,8 +1,11 @@
 .b-card-post {
   border: 1px solid #dedfe0;
   position: relative;
-  width: 100%;
   height: 340px;
+
+  .MuiCardHeader-root {
+    height: 60px;
+  }
 
   .MuiCardHeader-avatar {
     cursor: pointer;

@@ -35,8 +35,8 @@ export default function DatasetTab() {
   };
 
   const downloadDataset = async () => {
-    const path = datasetValues.dataset.path
-    const result = await DatasetAPI.downloadDatasetByPath(path)
+    const { path, _id } = datasetValues.dataset
+    const result = await DatasetAPI.downloadDatasetByPath(path, _id)
     let url = window.URL.createObjectURL(new Blob([result.data]));
     let link = document.createElement('a');
     link.href = url;

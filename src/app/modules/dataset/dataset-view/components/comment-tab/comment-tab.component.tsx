@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
 import { Avatar, Button, Typography } from '@material-ui/core'
-import {
-  ArrowDropDown
-} from '@material-ui/icons'
 import CommentAPI, { Comment, commentDefault } from 'api/comment-api'
-import { STATUS_OK } from 'services/axios/common-services.const'
 import 'app/modules/dataset/dataset-view/css/comment-tab.scss'
 import CommentPost from 'dataworld/blocks/comment-post/comment-post.component'
 import TinyMCEEditor from 'dataworld/blocks/tinymce-editor/tinymce-editor.component'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { STATUS_OK } from 'services/axios/common-services.const'
 import { RootState } from 'store'
 import { DatasetViewContext } from '../../pages/context.component'
 import { TabProps } from '../dataset-tab/dataset-tab.component'
@@ -65,17 +62,9 @@ export default function CommentTabTemplate({ index, value }: TabProps) {
   return (
     <div
       id='t-comment-tab'
-      className='t-comment-tab h-mt-32'
+      className='t-comment-tab h-mt-32 h-mb-20'
       hidden={index !== value}
     >
-      <div className='b-info-options'>
-        <Button
-          startIcon={<ArrowDropDown />}
-        >
-          Mới nhất
-        </Button>
-      </div>
-
       <div className='b-list-comment'>
         {listComment.map((comment, index) =>
           <CommentPost
@@ -131,7 +120,6 @@ export default function CommentTabTemplate({ index, value }: TabProps) {
           </div>
         </div>
       }
-
     </div>
   )
 }

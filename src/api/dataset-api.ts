@@ -25,8 +25,10 @@ export interface Dataset {
   url: string,
   size: number,
   description: string,
-  visibility: string,
+  visibility: number,
   path: string,
+  downloads: number,
+  views: number,
   files: Array<string>,
   like: Array<string>,
   countLike: number,
@@ -70,7 +72,7 @@ export interface QueryString {
   title?: string,
   like?: 'asc' | 'desc',
   tags?: Array<string>,
-  fileTypes?: string,
+  fileType?: string,
   minSize?: string,
   maxSize?: string,
   date?: string,
@@ -94,8 +96,10 @@ export const datasetDefaultValues: DatasetValues = {
     url: '',
     size: 0,
     description: '',
-    visibility: '',
+    visibility: 0,
     path: '',
+    downloads: 0,
+    views: 0,
     banner: '',
     like: [],
     countLike: 0,
@@ -158,7 +162,7 @@ export default class DatasetAPI {
   }
 
   /* update dataset visibility */
-  static updateVisibility = async (datasetId: string, visibility: string) => {
+  static updateVisibility = async (datasetId: string, visibility: number) => {
     const data = {
       datasetId: datasetId,
       visibility: visibility
@@ -225,9 +229,10 @@ export default class DatasetAPI {
   }
 
   /* Download dataset by path */
-  static downloadDatasetByPath = async (path: string) => {
+  static downloadDatasetByPath = async (path: string, datasetId: string) => {
     const data = {
-      pathDataset: path
+      pathDataset: path,
+      datasetId: datasetId,
     }
     return await axios.request({
       method: 'POST',

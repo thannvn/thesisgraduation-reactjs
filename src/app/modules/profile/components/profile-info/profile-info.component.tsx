@@ -156,7 +156,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
 
         <Typography className='p-name h-mt-32' >{state.userInfo.name}</Typography>
 
-        <Typography className='p-username'>{state.userInfo.username}</Typography>
+        <Typography className='p-username'>@{state.userInfo.username}</Typography>
 
         <Typography className='h-mt-20'>{state.userInfo.bio}</Typography>
 

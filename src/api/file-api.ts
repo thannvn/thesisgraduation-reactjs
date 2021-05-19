@@ -128,9 +128,10 @@ export default class FileAPI {
     return await requestAPI<Array<ColumnInfo>>(UPDATE_FILE_COLUMNS, data)
   }
 
-  static downloadFileByPath = async (path: string) => {
+  static downloadFileByPath = async (path: string, datasetId: string) => {
     const data = {
-      path: path
+      path: path,
+      datasetId: datasetId,
     }
     return await axios.request({
       method: 'POST',

@@ -52,7 +52,7 @@ export default function DatasetItem({
   }, [datasetValues.dataset.like, user.accountId])
 
   return (
-    <div className='b-info-dataset'>
+    <div className='b-dataset-item'>
       <div className='b-info'>
         {isLoading ?
           <Skeleton animation="wave" variant="rect" className='p-avatar' /> :
@@ -97,14 +97,15 @@ export default function DatasetItem({
             {isLoading ?
               <>
                 <Skeleton width={50} height={10} />
-                <Skeleton height={10} width={100} className='h-ml-10' />
+                <Skeleton height={10} width={100} className='h-ml-8' />
               </>
               :
               <>
                 <Typography variant="body2" className='p-gray-color-typography'>
                   <a href={`/profile/${datasetValues.username}`}>{datasetValues.name}</a>
                 </Typography>
-                <Typography variant="body2" className='p-gray-color-typography h-ml-10'>
+                <Typography variant="body2" className='p-gray-color-typography h-ml-6'>
+                  <span className='h-mr-6'>•</span>
                   Cập nhật {moment(datasetValues.dataset.lastUpdate).fromNow()}
                 </Typography>
               </>
@@ -116,14 +117,15 @@ export default function DatasetItem({
             {isLoading ?
               <>
                 <Skeleton width={50} height={10} />
-                <Skeleton height={10} width={100} className='h-ml-10' />
+                <Skeleton height={10} width={100} className='h-ml-8' />
               </>
               :
               <>
                 <Typography variant="body2" className='p-gray-color-typography'>
                   Số lượng file: {datasetValues.dataset.files.length}
                 </Typography>
-                <Typography variant="body2" className='p-gray-color-typography h-ml-10'>
+                <Typography variant="body2" className='p-gray-color-typography h-ml-6'>
+                  <span className='h-mr-6'>•</span>
                   Dung lượng: {HandleCommon.formatBytes(datasetValues.dataset.size)}
                 </Typography>
               </>

@@ -1,7 +1,7 @@
 import { IconButton, Typography } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import {
-  Edit
+  EditOutlined
 } from '@material-ui/icons';
 import { FileInfo } from 'api/file-api';
 import Parser from 'html-react-parser';
@@ -19,7 +19,7 @@ interface ColumnTabProps {
   fileInfo: FileInfo
 }
 
-export default function ColumnTab({ rowsData, value, index, fileInfo, isLoadingFile }: ColumnTabProps) {
+export default function FileInfoTab({ rowsData, value, index, fileInfo, isLoadingFile }: ColumnTabProps) {
   const { ownerDataset } = useContext(DatasetViewContext)
   const [openFileDescription, setOpenFileDescription] = useState<boolean>(false)
 
@@ -53,7 +53,7 @@ export default function ColumnTab({ rowsData, value, index, fileInfo, isLoadingF
           {ownerDataset &&
             <>
               <IconButton className='p-edit-button' onClick={handleOpenFileDescription}>
-                <Edit />
+                <EditOutlined />
               </IconButton>
               <EditFileDescription
                 open={openFileDescription}

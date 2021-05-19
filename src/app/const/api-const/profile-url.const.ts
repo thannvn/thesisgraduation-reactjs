@@ -15,8 +15,26 @@ const UPDATE_AVATAR: ApiTemplate = {
   URL: `${process.env.REACT_APP_BASE_URL_API}profile/update-avatar`
 }
 
+const FILTER_DATASET_IN_PROFILE: ApiTemplate = {
+  method: "POST",
+  URL: "profile/filter-dataset"
+}
+
+const UPDATE_ACCOUNT_MODE: ApiTemplate = {
+  method: 'GET',
+  URL: 'profile/update-mode'
+}
+
+const DELETE_ACCOUNT: ApiTemplate = {
+  method: 'GET',
+  URL: 'profile/delete'
+}
+
 export {
   GET_PROFILE,
   UPDATE_PROFILE,
-  UPDATE_AVATAR
+  UPDATE_AVATAR,
+  FILTER_DATASET_IN_PROFILE,
+  UPDATE_ACCOUNT_MODE,
+  DELETE_ACCOUNT
 };

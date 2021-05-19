@@ -1,8 +1,12 @@
-import { Paper, Tab, Tabs, Typography } from '@material-ui/core'
-import React, { useState } from 'react'
-import { ImportContactsTwoTone, StorageOutlined } from '@material-ui/icons';
-import { ProfileProps } from 'app/modules/profile/pages/profile.template'
-import 'app/modules/profile/css/profile-activity.scss'
+import { Paper, Tab, Tabs, Typography } from '@material-ui/core';
+import {
+  SettingsOutlined, StorageRounded, ImportContactsTwoTone
+} from '@material-ui/icons';
+import 'app/modules/profile/css/profile-activity.scss';
+import { ProfileProps } from 'app/modules/profile/pages/profile.template';
+import React, { useState } from 'react';
+import AccountSettings from '../account-setting-tab/account-settings.component';
+import OverviewTab from '../overview-tab/overview-tab';
 import StorageTab from '../storage-tab/storage-tab.component';
 
 interface ProfileActivityProps extends ProfileProps {
@@ -25,20 +29,42 @@ export default function ProfileActivity({ self, tabIndex }: ProfileActivityProps
             <span className='h-ml-4'>
               Tổng quan
             </span>
-          </Typography>} />
+          </Typography>}
+        />
 
         <Tab label={
           <Typography variant='body2' className='h-d_flex -align-center'>
-            <StorageOutlined />
+            <StorageRounded />
             <span className='h-ml-4'>
               Kho lưu trữ
             </span>
           </Typography>}
         />
+
+        <Tab label={
+          <Typography variant='body2' className='h-d_flex -align-center'>
+            <SettingsOutlined />
+            <span className='h-ml-4'>
+              Cài đặt
+            </span>
+          </Typography>}
+        />
       </Tabs>
+
+      <OverviewTab
+        index={0}
+        value={value}
+        self={self}
+      />
 
       <StorageTab
         index={1}
+        value={value}
+        self={self}
+      />
+
+      <AccountSettings
+        index={2}
         value={value}
         self={self}
       />

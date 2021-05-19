@@ -1,9 +1,9 @@
 export enum DatasetVisibility {
   /*Create dataset */
-  PUBLIC_DATASET = 'public',
+  PUBLIC_DATASET = 1,
 
   /*Update dataset */
-  PRIVATE_DATASET = 'private'
+  PRIVATE_DATASET = 0
 }
 
 export enum FILE_STATUS {
@@ -15,4 +15,12 @@ export enum FILE_STATUS {
 export enum IMAGE_TYPE {
   BANNER = 0,
   THUMBNAIL = 1,
+}
+
+export enum AccountMode {
+  /*Create dataset */
+  PUBLIC_ACCOUNT = 1,
+
+  /*Update dataset */
+  PRIVATE_ACCOUNT = 0
 }

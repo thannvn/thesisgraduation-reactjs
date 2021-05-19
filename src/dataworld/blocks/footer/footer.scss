@@ -1,4 +1,17 @@
 .b-footer {
   padding-top: 10px;
   border-top: 1px solid #dedfe0;
+
+  .list {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+  }
+
+  .item {
+    font-size: 12px;
+    display: inline-block;
+    font-weight: 500;
+    width: auto;
+  }
 }

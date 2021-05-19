@@ -1,27 +1,33 @@
 import { useEffect, useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, RouteProps } from 'react-router-dom';
 import { fetchLogin } from '../redux/authentication-slice';
-import {useAppDispatch} from 'redux/hooks';
+import { useAppDispatch } from 'redux/hooks';
 
-export default function DefaultRoute({ component: Component, ...rest }) {
+interface DefaultRouteProps extends RouteProps {
+  component: any,
+}
+
+export default function DefaultRoute(props: DefaultRouteProps) {
+  const { component: Component, ...rest } = props
+
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     async function fetLoginAPI() {
-      await dispatch(fetchLogin)
+      await fetchLogin(dispatch)
       setIsLoading(false)
     }
     fetLoginAPI()
   }, [dispatch])
-  
+
   return (
     <>
       {!isLoading && (
         <Route
           {...rest}
           render={(props) =>
-              <Component {...props}></Component>
+            <Component {...props}></Component>
           }
         />
       )}

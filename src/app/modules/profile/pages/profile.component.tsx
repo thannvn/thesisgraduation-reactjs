@@ -4,7 +4,8 @@ import HandleCommon from 'utils/handle-common'
 import { STATUS_OK } from 'services/axios/common-services.const'
 import { RouteComponentProps } from "react-router-dom";
 import ProfileTemplate from './profile.template'
-import { Dataset } from 'api/dataset-api';
+import { Dataset, DatasetValues } from 'api/dataset-api';
+import addToast from 'dataworld/parts/toast/add-toast.component';
 
 interface ProfileState {
   isLoading: boolean,
@@ -54,12 +55,14 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
   handleSaveEdit = async (data: ProfileValues) => {
     const result = await ProfileAPI.updateProfile(data)
     if (result.status === STATUS_OK) {
-      const { avatar, username } = this.state.userInfo
+      const { avatar, username, datasets } = this.state.userInfo
       data.avatar = avatar
       data.username = username
       data.dateOfBirth = HandleCommon.handleDateOfBirth(data.dateOfBirth)
+      data.datasets = datasets
       this.defaultValues = data
       this.handleChangeEditMode()
+      addToast({ message: result.message, type: 'success' })
       this.setState({ ...this.state, userInfo: data })
     }
   }
@@ -86,8 +89,29 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
     })
   }
 
+  //handle change account mode
+  setAccountMode = (mode: number) => {
+    this.setState({
+      userInfo: {
+        ...this.state.userInfo,
+        accountMode: mode
+      }
+    })
+  }
+
+  handleFilterDataset = async (datasets: Array<Dataset>) => {
+    this.setState({
+      userInfo: {
+        ...this.state.userInfo,
+        datasets: datasets.map((dataset: Dataset) =>
+          this.createDatasetObject(dataset, this.state.userInfo)
+        )
+      },
+    })
+  }
+
   //Create dataset object from result database
-  private createDatasetObject = (dataset: object, user: any) => {
+  private createDatasetObject = (dataset: Dataset, user: any): DatasetValues => {
     const { _id, avatar, name, username, email } = user;
     return {
       accountId: _id,

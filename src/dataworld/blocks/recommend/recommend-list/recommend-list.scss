@@ -1,23 +1,14 @@
-.t-dataset-search {
-  padding: 0px 100px 0px 100px;
-
-  .b-header {
-  }
-
-  .b-dataset-list {
-    .p-title {
-      display: flex;
-      align-items: center;
-      padding-bottom: 20px;
-    }
-
+.b-recommend-list {
+  .b-details {
+    display: block;
+    padding: 0px;
     .b-list {
       list-style: none;
       margin: 0px;
       padding: 0px;
 
       .b-item {
-        padding: 20px;
+        padding: 8px 10px;
         border-bottom: 1px solid #dedfe0;
 
         &:hover {

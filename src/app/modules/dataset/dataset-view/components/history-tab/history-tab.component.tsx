@@ -26,6 +26,7 @@ import addToast from 'dataworld/parts/toast/add-toast.component';
 import moment from 'moment';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 import { STATUS_OK } from 'services/axios/common-services.const';
 
 interface HistoryTabProps {
@@ -51,6 +52,7 @@ export default function HistoryTab(props: HistoryTabProps) {
   const [updatable, setUpdatable] = useState<boolean>(false)
   const [previousFiles, setPreviousFiles] = useState<Array<FileInfo>>([])
   const lengthVersions = datasetValues.dataset.versions.length
+  const history = useHistory()
 
   const defaultValues = {
     version: '',
@@ -82,7 +84,7 @@ export default function HistoryTab(props: HistoryTabProps) {
     const result = await DatasetAPI.createNewVersion(formData)
     if (result.status === STATUS_OK) {
       addToast({ message: 'Cập nhật thành công', type: 'success' })
-      window.location.reload()
+      history.push(window.location.href)
     }
   }
 
@@ -269,8 +271,8 @@ export default function HistoryTab(props: HistoryTabProps) {
 
                   <AccordionDetails>
                     <ul className='b-list'>
-                      {currentVersion?.fileChanges.map(file =>
-                        <li className='h-d_flex -justify-space-between p-item'>
+                      {currentVersion?.fileChanges.map((file, index) =>
+                        <li className='h-d_flex -justify-space-between p-item' key={index}>
                           <div className='h-d_flex'>
                             {iconStatus[file.status]}
                             <Typography className='h-ml-10'>{file.fileName}</Typography>

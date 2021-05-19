@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core'
-import Footer from 'dataworld/blocks/footer/footer'
+import Footer from 'dataworld/blocks/footer/footer.component'
 import Loading from 'dataworld/blocks/loading/loading-page.component'
 import React from 'react'
 import { useLocation } from 'react-router'
@@ -34,7 +34,7 @@ export default function ProfileTemplate({ self }: ProfileProps) {
             <Grid item xs={8}>
               <ProfileActivity
                 self={self}
-                tabIndex={location.state.tabIndex ? location.state.tabIndex : 0}
+                tabIndex={location.state?.tabIndex || 0}
               />
             </Grid>
           </Grid>

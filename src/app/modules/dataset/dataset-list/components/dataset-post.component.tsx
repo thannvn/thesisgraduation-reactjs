@@ -119,14 +119,15 @@ export default function DatasetPost({ datasetValues, self, tagsIndex, datasetsIn
           {state.isLoading ?
             <Skeleton height={10} width="40%" /> :
             <Typography variant="body2" className='p-color-content'>
-              Lượt thích: {datasetValues.dataset.countLike}
+              {datasetValues.dataset.countLike} lượt thích
+              • {datasetValues.dataset.downloads} lượt tải về
             </Typography>
           }
 
           {state.isLoading ?
             <Skeleton height={10} width="45%" /> :
             <Typography variant="body2" className='p-color-content'>
-              Số lượng file: {datasetValues.dataset.files.length}
+              Số lượng file: {datasetValues.dataset.files.length} (csv, json)
             </Typography>
           }
 

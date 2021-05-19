@@ -12,14 +12,15 @@ import {
 import {
   AccountCircleOutlined,
   ExitToApp,
-  SettingsOutlined,
+  SettingsOutlined
 } from '@material-ui/icons';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { RootState } from 'store';
 import AuthenticationAPI from "api/authentication-api";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { logoutSuccess } from 'redux/authentication-slice';
+import { useAppDispatch } from 'redux/hooks';
+import { RootState } from 'store';
 import './menu-bar.scss';
 
 const StyledMenu = withStyles({
@@ -45,7 +46,7 @@ const StyledMenu = withStyles({
 export default function MenuBar() {
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const open = Boolean(anchorEl);
 
@@ -57,9 +58,6 @@ export default function MenuBar() {
     handleMenu(null);
     history.push({
       pathname: `/profile/${user.username}`,
-      state: {
-        tabIndex: 1,
-      }
     });
   };
 
@@ -67,12 +65,16 @@ export default function MenuBar() {
     await AuthenticationAPI.logout()
     dispatch(logoutSuccess());
     handleMenu(null);
-    history.push('/auth/login')
   };
 
-  const handleChangePassword = () => {
+  const handleSettingsAccount = () => {
     setAnchorEl(null);
-    history.push('/auth/reset-password/code');
+    history.push({
+      pathname: `/profile/${user.username}`,
+      state: {
+        tabIndex: 2
+      }
+    });
   };
 
   return (
@@ -81,8 +83,7 @@ export default function MenuBar() {
         <AppBar position='fixed' className='t-app-bar'>
           <Toolbar className='b-tool-bar'>
             <div>
-              <Link href='/home' className='p-redirect-page' color='inherit'>Data World</Link>
-              <Link href='/dataset' className='h-ml-24 p-redirect-page' color='inherit'>Dataset</Link>
+              <Link href='/dataset' className='p-redirect-page' color='inherit'>Data World</Link>
             </div>
 
             <IconButton
@@ -108,7 +109,7 @@ export default function MenuBar() {
               >
                 <div >
                   <Typography className='f-weight-700'>{user.name}</Typography>
-                  <Typography>@{user.username}</Typography>
+                  <Typography className='p-gray-color-typography' variant='body2'>@{user.username}</Typography>
                 </div>
               </MenuItem>
 
@@ -117,9 +118,9 @@ export default function MenuBar() {
                 Hồ sơ cá nhân
               </MenuItem>
 
-              <MenuItem onClick={handleChangePassword}>
+              <MenuItem onClick={handleSettingsAccount}>
                 <SettingsOutlined className='h-mr-10' />
-                Tài khoản
+                Cài đặt tài khoản
               </MenuItem>
 
               <MenuItem onClick={handleLogout}>

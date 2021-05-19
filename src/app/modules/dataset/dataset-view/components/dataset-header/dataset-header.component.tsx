@@ -1,8 +1,8 @@
-import { Avatar, IconButton, Typography } from '@material-ui/core';
+import { Avatar, IconButton, Tooltip, Typography } from '@material-ui/core';
 import {
   ThumbUp, ThumbUpOutlined,
   VisibilityOffOutlined,
-  VisibilityOutlined
+  VisibilityOutlined, EventNoteOutlined
 } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
 import DatasetAPI from 'api/dataset-api';
@@ -13,7 +13,26 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { RootState } from 'store';
+import moment from 'moment';
 
+interface DescriptionUpdateProps {
+  createdDate: Date | string,
+  lastUpdate: Date | string
+}
+
+const DescriptionUpdate = ({ createdDate, lastUpdate }: DescriptionUpdateProps) => {
+  return (
+    <>
+      <Typography variant='body2'>
+        Ngày tạo: {moment(createdDate).locale('vi').format('MMMM Do YYYY, hh:mm a')}
+      </Typography>
+
+      <Typography variant='body2'>
+        Cập nhật gần nhất: {moment(lastUpdate).locale('vi').format('MMMM Do YYYY, hh:mm a')}
+      </Typography>
+    </>
+  )
+}
 
 export default function DatasetHeader() {
   const { datasetValues, isLoadingData, handleChangeLike } = useContext(DatasetViewContext)
@@ -29,6 +48,7 @@ export default function DatasetHeader() {
   const gotoProfileOwner = () => {
     history.push(`/profile/${datasetValues.username}`)
   }
+
 
   useEffect(() => {
     const index = datasetValues.dataset.like.findIndex(item => item === user.accountId)
@@ -49,11 +69,11 @@ export default function DatasetHeader() {
             {datasetValues.dataset.visibility === DatasetVisibility.PRIVATE_DATASET ?
               <>
                 <VisibilityOffOutlined />
-                <Typography className='h-ml-4'>Private Dataset</Typography>
+                <Typography className='h-ml-4'>Dataset cá nhân</Typography>
               </> :
               <>
                 <VisibilityOutlined />
-                <Typography className='h-ml-4'>Public Dataset</Typography>
+                <Typography className='h-ml-4'>Dataset cộng đồng</Typography>
               </>
             }
           </>
@@ -85,9 +105,22 @@ export default function DatasetHeader() {
 
         {isLoadingData ?
           <Skeleton width={150} className='h-ml-10' /> :
-          <Typography className='h-ml-10 h-mr-20' >
-            <a href={`/profile/${datasetValues.username}`}>{datasetValues.name}</a>
-          </Typography>
+          <div className='h-d_flex '>
+            <Typography className='h-ml-10 h-mr-20' >
+              <a href={`/profile/${datasetValues.username}`}>{datasetValues.name}</a>
+            </Typography>
+
+            <Tooltip
+              title={
+                <DescriptionUpdate
+                  createdDate={datasetValues.dataset.createdDate}
+                  lastUpdate={datasetValues.dataset.lastUpdate}
+                />
+              }
+              arrow>
+              <EventNoteOutlined />
+            </Tooltip>
+          </div>
         }
       </div>
 

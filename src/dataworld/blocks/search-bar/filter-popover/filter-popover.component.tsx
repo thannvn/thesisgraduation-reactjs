@@ -54,7 +54,7 @@ export default function FilterPopover({ anchorEl, onClose, applyFilter }: Filter
     let queryString: QueryString = {}
 
     if (selectedTags.length > 0) queryString.tags = selectedTags.map(tags => tags.name)
-    if (fileType) queryString.fileTypes = fileType
+    if (fileType) queryString.fileType = fileType
     if (maxSizeKB !== 0 || minSizeKB !== 0) {
       queryString = {
         ...queryString,
@@ -88,13 +88,13 @@ export default function FilterPopover({ anchorEl, onClose, applyFilter }: Filter
 
   useEffect(() => {
     const getTags = async () => {
-      if (Boolean(anchorEl) && allTags.length === 0) {
+      if (Boolean(anchorEl)) {
         const result = await DatasetAPI.getAllTags()
         setAllTags(result.data)
       }
     }
     getTags()
-  }, [anchorEl, allTags])
+  }, [anchorEl])
 
   return (
     <Popover

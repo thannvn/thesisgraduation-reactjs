@@ -1,5 +1,5 @@
 import React from 'react';
-import clsx from 'clsx'
+import clsx from 'clsx';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../../../styles/jss/material-kit-react/views/components';
@@ -11,8 +11,8 @@ import Header from '../components/header.component';
 // sections for this page
 import HeaderLinks from '../components/header-links.component';
 import Parallax from '../components/parallax.component';
-import Footer from '../../../../dataworld/blocks/footer/footer';
-import '../css/introduce.scss'
+import Footer from '../../../../dataworld/blocks/footer/footer.component';
+import '../css/introduce.scss';
 
 const useStyles = makeStyles(styles);
 
@@ -32,17 +32,16 @@ export default function IntroducePage(props) {
         />
       )}
 
-      <Parallax 
-        image={process.env.PUBLIC_URL + '/images/introduce2.jpg'} 
-        className={clsx({'margin-header': user.user.accountId})}>
+      <Parallax
+        image={process.env.PUBLIC_URL + '/images/introduce2.jpg'}
+        className={clsx({ 'margin-header': user.user.accountId })}
+      >
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
               <div className={classes.brand}>
                 <h1 className={classes.title}>Data world</h1>
-                <h3 className={classes.subtitle}>
-                  Quản lý và chia sẻ Dataset
-                </h3>
+                <h3 className={classes.subtitle}>Quản lý và chia sẻ Dataset</h3>
               </div>
             </GridItem>
           </GridContainer>

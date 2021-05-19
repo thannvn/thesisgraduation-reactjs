@@ -11,7 +11,7 @@ import {
 import {
   Check,
   Close,
-  Edit,
+  EditOutlined,
   ExpandMore,
   LocalOfferOutlined, DescriptionOutlined
 } from '@material-ui/icons'
@@ -20,13 +20,14 @@ import { DatasetVisibility } from 'app/modules/dataset/_common/common.const'
 import 'app/modules/dataset/dataset-view/css/data-tab.scss'
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component'
 import clsx from 'clsx'
-import AlertDialog from 'dataworld/blocks/alert-dialog/alert-dialog.component'
+import ConfirmDialog from 'dataworld/blocks/confirm-dialog/confirm-dialog.component'
 import TinyMCEEditor from 'dataworld/blocks/tinymce-editor/tinymce-editor.component'
 import Parser from 'html-react-parser'
 import React, { useContext } from 'react'
 import PreviewFile from '../preview-files/preview-files.component'
 import TagsDialog from '../tags-dialog/tags-dialog.component'
 import { DataTabState } from './data-tab.component'
+import Footer from 'dataworld/blocks/footer/footer.component'
 
 
 interface DataTabTemplateProps {
@@ -53,13 +54,17 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
   const { datasetValues, ownerDataset, isLoadingData } = useContext(DatasetViewContext)
 
   const isPrivate = datasetValues.dataset.visibility === DatasetVisibility.PRIVATE_DATASET
+  const privateDialogTitle = isPrivate ? 'Chuyển sang Dataset công khai?' : 'Chuyển sang Dataset cá nhân?'
+  const privateDialogContent = isPrivate ?
+    'Dataset ở chế độ công khai, tất cả người dùng trong cộng đồng Data World đều có thể truy cập.' :
+    'Dataset ở chế độ cá nhân, chỉ mình bạn có quyền truy cập.'
 
   return (
     <>
       <div
         id='data-tab'
         hidden={value !== index}
-        className='t-data-tab h-mt-32'>
+        className='t-data-tab h-mt-32 h-mb-20'>
 
         <div className='b-info'>
           <div className='p-icon-text h-ml-20'>
@@ -94,7 +99,7 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                 <>
                   <Button
                     variant="outlined"
-                    startIcon={<Edit />}
+                    startIcon={<EditOutlined />}
                     onClick={handleOpenTags}>
                     Chỉnh sửa
                   </Button>
@@ -134,15 +139,12 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                       </Button>
                     }
                   />
-                  <AlertDialog
+                  <ConfirmDialog
                     open={state.openConfirmVisibility}
                     onClose={handleCloseConfirmVisibility}
                     onAccept={handleAcceptChangeVisibility}
-                    title={isPrivate ? 'Chuyển Dataset sang công khai?' : 'Chuyển Dataset về cá nhân?'}
-                    content={isPrivate ?
-                      'Dataset ở chế độ công khai, tất cả người dùng trong cộng đồng Data World đều có thể truy cập.' :
-                      'Dataset ở chế độ cá nhân, chỉ mình bạn có quyền truy cập.'
-                    }
+                    title={privateDialogTitle}
+                    content={privateDialogContent}
                   />
 
                 </AccordionSummary>
@@ -257,7 +259,7 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                         onClick={(event) => handleEdit(event)}
                         control={
                           <IconButton >
-                            <Edit />
+                            <EditOutlined />
                           </IconButton>
                         }
                       />

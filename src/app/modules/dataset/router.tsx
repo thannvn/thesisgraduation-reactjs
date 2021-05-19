@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, useRouteMatch } from "react-router-dom";
-import PrivateRoute from "../../../routes/private-route";
+import PrivateRoute from "routes/private-route";
 import DatasetList from "./dataset-list/pages/dataset-list.component";
 import DatasetCreate from "./dataset-create/pages/dataset-create.component"
 import DatasetFilter from "./dataset-search/pages/dataset-search.component"

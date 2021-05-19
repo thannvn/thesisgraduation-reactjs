@@ -18,7 +18,7 @@ interface ContextProps {
   handleChangeComment: (comment: boolean) => void,
   setDatasetTags: (tags: Array<Tags>) => void,
   setFileInfo: (fileId: string, columns: Array<ColumnInfo>, fileDescription: string) => void,
-  setVisibilityDataset: (visibility: string) => void,
+  setVisibilityDataset: (visibility: number) => void,
   files: Array<FileInfo>,
   setTitleAndSubtitle: (title: string, subtitle: string) => void,
   setBannerDataset: (banner: string) => void,
@@ -49,7 +49,7 @@ const DatasetViewContext = createContext<ContextProps>({
   setDatasetDescription: (description: string) => { },
   handleChangeComment: (comment: boolean) => { },
   setFileInfo: (fileId: string, columns: Array<ColumnInfo>, fileDescription: string) => { },
-  setVisibilityDataset: (visibility: string) => { },
+  setVisibilityDataset: (visibility: number) => { },
   setTitleAndSubtitle: (title: string, subtitle: string) => { },
   setBannerDataset: (banner: string) => { },
   setThumbnailDataset: (thumbnail: string) => { },
@@ -97,7 +97,7 @@ const DatasetViewProvider = (props: any) => {
       }))
     }
     getDatasetValues()
-  }, [history, match.params, user]);
+  }, [history, match.params]) //eslint-disable-line react-hooks/exhaustive-deps
 
 
   const setDatasetDescription = (description: string) => {
@@ -124,7 +124,7 @@ const DatasetViewProvider = (props: any) => {
     })
   }
 
-  const setVisibilityDataset = (visibility: string) => {
+  const setVisibilityDataset = (visibility: number) => {
     setState({
       ...state,
       datasetValues: {
