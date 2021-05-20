@@ -11,14 +11,16 @@ import {
 import {
   Check,
   Close,
-  EditOutlined,
+
+
+  DescriptionOutlined, EditOutlined,
   ExpandMore,
-  LocalOfferOutlined, DescriptionOutlined
+  LocalOfferOutlined
 } from '@material-ui/icons'
 import { Skeleton } from '@material-ui/lab'
-import { DatasetVisibility } from 'app/modules/dataset/_common/common.const'
 import 'app/modules/dataset/dataset-view/css/data-tab.scss'
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component'
+import { DatasetVisibility } from 'app/modules/dataset/_common/common.const'
 import clsx from 'clsx'
 import ConfirmDialog from 'dataworld/blocks/confirm-dialog/confirm-dialog.component'
 import TinyMCEEditor from 'dataworld/blocks/tinymce-editor/tinymce-editor.component'
@@ -27,7 +29,6 @@ import React, { useContext } from 'react'
 import PreviewFile from '../preview-files/preview-files.component'
 import TagsDialog from '../tags-dialog/tags-dialog.component'
 import { DataTabState } from './data-tab.component'
-import Footer from 'dataworld/blocks/footer/footer.component'
 
 
 interface DataTabTemplateProps {

@@ -1,7 +1,6 @@
 .b-recommend-post {
   align-items: center;
   display: flex;
-  justify-content: space-between;
 
   .p-thumbnail {
     height: 100px;
@@ -9,8 +8,7 @@
 
   .b-info {
     .p-title {
-      width: auto;
-      width: 200px;
+      width: max-content;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;

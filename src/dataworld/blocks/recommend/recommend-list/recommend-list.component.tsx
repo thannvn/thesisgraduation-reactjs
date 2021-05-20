@@ -16,9 +16,11 @@ export default function RecommendList() {
       >
         <Typography className='h-d_flex'>
           <StarsOutlined />
+
           <span className='h-ml-4'>Gợi ý của bạn</span>
         </Typography>
       </AccordionSummary>
+
       <AccordionDetails className='b-details' >
         <ul className='b-list'>
           {array.map((item, index) =>
@@ -27,7 +29,6 @@ export default function RecommendList() {
             </li>
           )}
         </ul>
-
       </AccordionDetails>
     </Accordion>
   )
