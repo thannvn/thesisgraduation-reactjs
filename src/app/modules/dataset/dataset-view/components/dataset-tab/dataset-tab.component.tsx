@@ -106,10 +106,12 @@ export default function DatasetTab() {
         </>
       }
       <DataTab value={value} index={0} />
-      <CommentTab value={value} index={1} />
-      <HistoryTab value={value} index={2} />
-      {ownerDataset && <SettingsTab value={value} index={3} />}
 
+      <CommentTab value={value} index={1} />
+
+      <HistoryTab value={value} index={2} />
+
+      {ownerDataset && <SettingsTab value={value} index={3} />}
     </div>
   )
 }

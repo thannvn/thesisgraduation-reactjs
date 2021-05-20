@@ -1,26 +1,42 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core'
-import { ExpandMore, StarsOutlined } from '@material-ui/icons'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+
+  Typography
+} from '@material-ui/core'
+import { StarsOutlined } from '@material-ui/icons'
+import React from 'react'
 import RecommendPost from '../recommend-post/recommend-post.component'
 import './recommend-list.scss'
-import React from 'react'
 
 export default function RecommendList() {
-  const array = [{ a: 1 }, { a: 2 }, { a: 3 }]
+  const array = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }]
+
+  const handleViewAllRecommend = () => {
+    console.log('view all')
+  }
 
   return (
     <Accordion expanded={true} className='b-recommend-list'>
       <AccordionSummary
         className='p-summary'
-        expandIcon={<ExpandMore />}
+        style={{ cursor: 'default' }}
         id='description'
       >
-        <Typography className='h-d_flex'>
+        <Typography className='-align-center h-d_flex' >
           <StarsOutlined />
 
-          <span className='h-ml-4'>Gợi ý của bạn</span>
+          <span className='h-ml-4 f-weight-700'>Gợi ý của bạn</span>
+        </Typography>
+
+        <Typography
+          className='f-weight-700 -cursor-pointer'
+          onClick={handleViewAllRecommend}
+        >
+          Xem tất cả
         </Typography>
       </AccordionSummary>
-
       <AccordionDetails className='b-details' >
         <ul className='b-list'>
           {array.map((item, index) =>

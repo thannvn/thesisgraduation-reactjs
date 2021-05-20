@@ -180,7 +180,7 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
               options={chartConfig?.options}
               series={chartConfig?.series}
               type={typeChart}
-              width="400"
+              width="97%"
             />
           </div>
 
@@ -192,17 +192,20 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
           options={validChartConfig.options}
           series={validChartConfig.series}
           type='donut'
-          width='295'
-          height='295'
+          width='300'
+          height='300'
         />
-        <div className='h-ml-32 '>
+
+        <div className='h-ml-20 h-mr-20'>
           <div className='h-d_flex -justify-space-between h-mt-2'>
             <Typography variant='body2'>Hợp lệ</Typography>
+
             <Typography variant='body2'>{columnInfo.analysis.valid}</Typography>
           </div>
 
           <div className='h-d_flex -justify-space-between h-mt-2'>
             <Typography variant='body2'>Bỏ trống</Typography>
+
             <Typography variant='body2'>{columnInfo.analysis.missing}</Typography>
           </div>
 
@@ -210,11 +213,13 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
             <>
               <div className='h-d_flex -justify-space-between h-mt-2'>
                 <Typography variant='body2'>Sai kiểu giá trị</Typography>
+
                 <Typography variant='body2'>{columnInfo.analysis.wrongType}</Typography>
               </div>
 
               <div className='h-d_flex -justify-space-between h-mt-2'>
                 <Typography variant='body2'>Duy nhất</Typography>
+
                 <Typography variant='body2'>{columnInfo.analysis.unique}</Typography>
               </div>
             </>

@@ -14,7 +14,7 @@ export default function RecommendPost({ isLoading }: RecommendPostProps) {
   }
 
   return (
-    <div className='b-recommend-post'>
+    <div className='b-recommend-post h-mt-6'>
       {isLoading ?
         <Skeleton animation="wave" variant="rect" className='p-avatar' /> :
         <img

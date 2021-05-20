@@ -13,7 +13,7 @@ export default function AnalysisTab(props: AnalysisTabProps) {
   const { value, index, columns } = props
 
   return (
-    <div hidden={value !== index} className='b-analysis-tab'>
+    <div hidden={value !== index} className='b-statistic-tab'>
       {columns.map((column, index) =>
         <ColumnChart
           key={index}

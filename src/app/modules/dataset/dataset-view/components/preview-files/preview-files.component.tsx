@@ -110,6 +110,7 @@ export default function PreviewFile(props: PreviewFileProps) {
               <div className='p-preview-tab h-mt-12'>
                 <Tabs value={value} onChange={handleChange}>
                   <Tab label="Thông tin" id='column' />
+
                   <Tab label="Thống kê" id='statistic' />
                 </Tabs>
               </div>

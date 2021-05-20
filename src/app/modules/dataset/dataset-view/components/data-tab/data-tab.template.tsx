@@ -11,8 +11,6 @@ import {
 import {
   Check,
   Close,
-
-
   DescriptionOutlined, EditOutlined,
   ExpandMore,
   LocalOfferOutlined
@@ -75,6 +73,7 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                 <Typography className='h-ml-4'>Tags: </Typography>
               </>
             }
+
             {isLoadingData ?
               <Skeleton width={500} height={50} /> :
               <div className='h-ml-10' style={{ display: 'flex' }}>
@@ -88,10 +87,8 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                   </Typography>
                 ))}
               </div>
-
             }
           </div>
-
 
           {ownerDataset &&
             <div className='p-icon-text h-mr-10'>

@@ -1,6 +1,12 @@
 .b-recommend-list {
   width: 100%;
 
+  .MuiAccordionSummary-content.Mui-expanded {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .b-details {
     display: block;
     padding: 0px;
