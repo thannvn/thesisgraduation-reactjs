@@ -1,6 +1,7 @@
 import { Paper, Tab, Tabs, Typography } from '@material-ui/core';
 import {
-  SettingsOutlined, StorageRounded, ImportContactsTwoTone
+  SettingsOutlined, StorageRounded,
+  ImportContactsTwoTone, StorefrontRounded
 } from '@material-ui/icons';
 import 'app/modules/profile/css/profile-activity.scss';
 import { ProfileProps } from 'app/modules/profile/pages/profile.template';
@@ -34,7 +35,7 @@ export default function ProfileActivity({ self, tabIndex }: ProfileActivityProps
 
         <Tab label={
           <Typography variant='body2' className='h-d_flex -align-center'>
-            <StorageRounded />
+            <StorefrontRounded />
             <span className='h-ml-4'>
               Kho lưu trữ
             </span>

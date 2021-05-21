@@ -2,7 +2,8 @@ import { Avatar, IconButton, Tooltip, Typography } from '@material-ui/core';
 import {
   ThumbUp, ThumbUpOutlined,
   VisibilityOffOutlined,
-  VisibilityOutlined, EventNoteOutlined
+  VisibilityOutlined, EventNoteOutlined,
+  CloudDownloadOutlined,
 } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
 import DatasetAPI from 'api/dataset-api';
@@ -124,19 +125,59 @@ export default function DatasetHeader() {
         }
       </div>
 
-      <div className='p-like'>
+      <div className='b-action'>
         {isLoadingData ?
           <Skeleton width={40} /> :
           <>
-            {like ?
-              <IconButton onClick={() => changeLike(false)}>
-                <ThumbUp color='primary' />
-              </IconButton> :
-              <IconButton onClick={() => changeLike(true)}>
-                <ThumbUpOutlined />
-              </IconButton>
-            }
-            <Typography className='h-ml-4'>{datasetValues.dataset.countLike}</Typography>
+            <div className='p-item h-d_flex -align-content'>
+              <div className='h-d_flex p-info-item'>
+                <VisibilityOffOutlined fontSize='small' />
+                <Typography variant='body2' className='h-ml-4 h-mr-2'>Lượt xem</Typography>
+              </div>
+
+              <div className='p-number-item'>
+                <Typography variant='body2' className='h-ml-2 h-mr-2'>{datasetValues.dataset.views}</Typography>
+              </div>
+            </div>
+
+            <div className='p-item h-d_flex -align-content h-ml-10'>
+              <div className='h-d_flex p-info-item'>
+                <CloudDownloadOutlined fontSize='small' />
+                <Typography variant='body2' className='h-ml-4 h-mr-2'>Tải về</Typography>
+              </div>
+
+              <div className='p-number-item'>
+                <Typography variant='body2' className='h-ml-2 h-mr-2'>{datasetValues.dataset.downloads}</Typography>
+              </div>
+            </div>
+
+            <div className='p-item h-d_flex -align-content h-ml-10'>
+              <div
+                onClick={like ? () => changeLike(false) : () => changeLike(true)}
+                className='h-d_flex p-info-item -cursor-pointer'>
+                {like ?
+                  <ThumbUp fontSize='small' /> :
+                  <ThumbUpOutlined fontSize='small' />
+                }
+                <Typography variant='body2' className='h-ml-4 h-mr-2'>Lượt thích</Typography>
+              </div>
+
+              <div className='p-number-item'>
+                <Typography variant='body2' className='h-ml-2 h-mr-2'>{datasetValues.dataset.countLike}</Typography>
+              </div>
+            </div>
+
+            {/* <div className='p-like'>
+              {like ?
+                <IconButton onClick={() => changeLike(false)}>
+                  <ThumbUp color='primary' />
+                </IconButton> :
+                <IconButton onClick={() => changeLike(true)}>
+                  <ThumbUpOutlined />
+                </IconButton>
+              }
+              <Typography className='h-ml-4'>{datasetValues.dataset.countLike}</Typography>
+            </div> */}
           </>
         }
       </div>

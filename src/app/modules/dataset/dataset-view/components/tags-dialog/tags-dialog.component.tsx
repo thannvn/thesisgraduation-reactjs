@@ -141,8 +141,10 @@ export default function TagsDialog(props: TagsDialogProps) {
         <IconButton onClick={handleClose} className='p-icon-close'>
           <Close />
         </IconButton>
+
         <Typography variant='h6' className='f-weight-700'>Cập nhật tags</Typography>
       </DialogTitle>
+
       <DialogContent className='b-content'>
         <Grid container spacing={0}>
           <Grid item xs={6} className='b-select-tags'>

@@ -126,12 +126,18 @@ export default function DatasetPost({ datasetValues, self, tagsIndex, datasetsIn
 
           {state.isLoading ?
             <Skeleton height={10} width="45%" /> :
-            <Typography variant="body2" className='p-color-content'>
-              Số lượng file: {datasetValues.dataset.files.length}
-              ({datasetValues.dataset.fileTypes.map((item, index) =>
-              <span key={index}>{item}</span>)
-              })
-            </Typography>
+            <div className='h-d_flex -align-center'>
+              <Typography variant="body2" className='p-color-content'>
+                Số lượng file: {datasetValues.dataset.files.length}
+              </Typography>
+
+              <Typography variant='body2' className='h-ml-4'>
+                ({datasetValues.dataset.fileTypes.map((item, index) =>
+                <span key={index}>{item}</span>)
+                })
+              </Typography>
+            </div>
+
           }
 
           {state.isLoading ?

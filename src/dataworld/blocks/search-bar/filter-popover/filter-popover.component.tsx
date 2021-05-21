@@ -116,6 +116,7 @@ export default function FilterPopover({ anchorEl, onClose, applyFilter }: Filter
         <div className='b-content'>
           <div className='p-field-item'>
             <Typography>Tags</Typography>
+
             <Autocomplete
               multiple
               className='h-mt-6 p-search-tags'
@@ -128,7 +129,7 @@ export default function FilterPopover({ anchorEl, onClose, applyFilter }: Filter
               renderInput={(params) =>
                 <TextField
                   {...params}
-                  placeholder="Tìm Tags"
+                  placeholder="Tìm Tags.."
                   variant="outlined"
                   InputProps={{
                     ...params.InputProps,

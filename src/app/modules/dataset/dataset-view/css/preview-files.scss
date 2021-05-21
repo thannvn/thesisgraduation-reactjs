@@ -8,6 +8,8 @@
     .b-files {
       padding: 20px;
       border-bottom: 1px solid #dedfe0;
+      overflow-x: auto;
+      height: 500px;
 
       .MuiTypography-h6 {
         font-weight: bold;
