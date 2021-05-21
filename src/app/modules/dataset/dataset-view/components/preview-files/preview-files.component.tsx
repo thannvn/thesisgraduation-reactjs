@@ -15,6 +15,7 @@ import FileAPI, { FileInfo } from 'api/file-api'
 import 'app/modules/dataset/dataset-view/css/preview-files.scss'
 import { DatasetViewContext } from 'app/modules/dataset/dataset-view/pages/context.component'
 import clsx from 'clsx'
+import SearchField from 'dataworld/parts/search-field/search-field.component'
 import React, { useContext, useEffect, useState } from 'react'
 import HandleCommon from 'utils/handle-common'
 import { DataTabState } from '../data-tab/data-tab.component'
@@ -77,20 +78,11 @@ export default function PreviewFile(props: PreviewFileProps) {
 
             {isLoadingData ?
               <Skeleton width={200} height={50} /> :
-              <TextField
-                type="search"
-                onChange={(event) => handleSearch(event)}
-                placeholder='Tìm kiếm files...'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  )
-                }}
+              <SearchField
+                placeHolder='Tìm kiếm files...'
                 className='h-mt-6 h-mb-6'
-                variant="outlined"
-                size="small" />
+                onChange={handleSearch}
+              />
             }
 
             {isLoadingData ?

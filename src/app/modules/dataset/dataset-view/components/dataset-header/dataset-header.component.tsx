@@ -156,7 +156,7 @@ export default function DatasetHeader() {
                 onClick={like ? () => changeLike(false) : () => changeLike(true)}
                 className='h-d_flex p-info-item -cursor-pointer'>
                 {like ?
-                  <ThumbUp fontSize='small' /> :
+                  <ThumbUp fontSize='small' color='primary' /> :
                   <ThumbUpOutlined fontSize='small' />
                 }
                 <Typography variant='body2' className='h-ml-4 h-mr-2'>Lượt thích</Typography>
@@ -166,18 +166,6 @@ export default function DatasetHeader() {
                 <Typography variant='body2' className='h-ml-2 h-mr-2'>{datasetValues.dataset.countLike}</Typography>
               </div>
             </div>
-
-            {/* <div className='p-like'>
-              {like ?
-                <IconButton onClick={() => changeLike(false)}>
-                  <ThumbUp color='primary' />
-                </IconButton> :
-                <IconButton onClick={() => changeLike(true)}>
-                  <ThumbUpOutlined />
-                </IconButton>
-              }
-              <Typography className='h-ml-4'>{datasetValues.dataset.countLike}</Typography>
-            </div> */}
           </>
         }
       </div>

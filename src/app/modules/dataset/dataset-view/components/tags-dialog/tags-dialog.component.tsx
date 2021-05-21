@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import {
   Button,
   Checkbox,
@@ -11,24 +12,21 @@ import {
   FormGroup,
   Grid,
   IconButton,
-  InputAdornment,
   TextField,
   Typography
 } from '@material-ui/core'
 import {
-  Close,
-  Search,
-  AddCircle
+  AddCircle, Close
 } from '@material-ui/icons'
-import 'app/modules/dataset/dataset-view/css/tags-dialog.scss'
 import DatasetAPI, { Tags } from 'api/dataset-api'
-import React, { useContext, useEffect, useState } from 'react'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import { DatasetViewContext } from '../../pages/context.component'
-import { STATUS_OK } from 'services/axios/common-services.const'
+import 'app/modules/dataset/dataset-view/css/tags-dialog.scss'
+import SearchField from 'dataworld/parts/search-field/search-field.component'
 import addToast from 'dataworld/parts/toast/add-toast.component'
+import React, { useContext, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { STATUS_OK } from 'services/axios/common-services.const'
+import * as yup from 'yup'
+import { DatasetViewContext } from '../../pages/context.component'
 
 export interface TagsDialogProps {
   open: boolean;
@@ -149,19 +147,10 @@ export default function TagsDialog(props: TagsDialogProps) {
         <Grid container spacing={0}>
           <Grid item xs={6} className='b-select-tags'>
             <div className='p-search-bar'>
-              <TextField
-                type="search"
-                onChange={(event) => handleSearch(event)}
-                placeholder='Tìm kiếm...'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  )
-                }}
-                variant="outlined"
-                size="small" />
+              <SearchField
+                placeHolder='Tìm kiếm tags...'
+                onChange={handleSearch}
+              />
             </div>
 
             <FormControl component="fieldset" className='p-select'>
@@ -196,6 +185,7 @@ export default function TagsDialog(props: TagsDialogProps) {
                 variant="outlined"
                 size="small"
               />
+
               <IconButton
                 className='h-ml-10 p-button-add-tag'
                 type='submit'

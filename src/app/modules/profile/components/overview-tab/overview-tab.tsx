@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ProfileProps } from 'app/modules/profile/pages/profile.template';
 import 'app/modules/profile/css/overview-tab.scss'
-import { IconButton, Typography } from '@material-ui/core';
+import { Button, IconButton, Typography } from '@material-ui/core';
 import { EditOutlined } from '@material-ui/icons'
 interface OverviewTabProps extends ProfileProps {
   index: number,
@@ -9,6 +9,11 @@ interface OverviewTabProps extends ProfileProps {
 }
 
 export default function OverviewTab({ index, value, self }: OverviewTabProps) {
+  const [openRecommendModal, setOpenRecommendModal] = useState<boolean>(false)
+
+  const handleOpenRecommendModal = (isOpen: boolean) => {
+    setOpenRecommendModal(isOpen)
+  }
 
   return (
     <div hidden={index !== value} className='b-overview-tab'>
@@ -16,6 +21,7 @@ export default function OverviewTab({ index, value, self }: OverviewTabProps) {
         <div className='p-current-status'>
           <div className='h-d_flex h-mb-20 -align-center'>
             <Typography className='h-mr-6'>Bạn đang nghĩ gì?</Typography>
+
             <IconButton>
               <EditOutlined fontSize='small' color='action' />
             </IconButton>
@@ -42,6 +48,12 @@ export default function OverviewTab({ index, value, self }: OverviewTabProps) {
               📫 How to reach me ...
             </Typography>
           </div>
+        </div>
+
+        <div>
+          <Button onClick={() => handleOpenRecommendModal(true)}>
+            Yêu thích
+          </Button>
         </div>
       </div>
     </div>
