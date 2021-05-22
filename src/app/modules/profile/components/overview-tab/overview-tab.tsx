@@ -3,6 +3,7 @@ import { ProfileProps } from 'app/modules/profile/pages/profile.template';
 import 'app/modules/profile/css/overview-tab.scss'
 import { Button, IconButton, Typography } from '@material-ui/core';
 import { EditOutlined } from '@material-ui/icons'
+import RecommendDialog from 'dataworld/blocks/recommend/recommend-dialog/recommend-dialog.component';
 interface OverviewTabProps extends ProfileProps {
   index: number,
   value: number,
@@ -10,7 +11,6 @@ interface OverviewTabProps extends ProfileProps {
 
 export default function OverviewTab({ index, value, self }: OverviewTabProps) {
   const [openRecommendModal, setOpenRecommendModal] = useState<boolean>(false)
-
   const handleOpenRecommendModal = (isOpen: boolean) => {
     setOpenRecommendModal(isOpen)
   }
@@ -54,6 +54,13 @@ export default function OverviewTab({ index, value, self }: OverviewTabProps) {
           <Button onClick={() => handleOpenRecommendModal(true)}>
             Yêu thích
           </Button>
+
+          <RecommendDialog
+            isOpen={openRecommendModal}
+            onClose={() => handleOpenRecommendModal(false)}
+            currentRecommend={self.state.userInfo.recommend}
+            onSubmit={() => handleOpenRecommendModal(false)}
+          />
         </div>
       </div>
     </div>

@@ -101,6 +101,7 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                     onClick={handleOpenTags}>
                     Chỉnh sửa
                   </Button>
+
                   <TagsDialog
                     open={state.openTags}
                     onClose={handleCloseTags}

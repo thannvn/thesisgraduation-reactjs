@@ -28,17 +28,21 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
   componentDidMount = async () => {
     const { username } = this.props.match.params;
     const result = await ProfileAPI.getProfile(username)
+
     if (result.status !== STATUS_OK) {
       return this.props.history.push('/404')
     }
+
     document.title = result.data ? result.data.name : 'Thông tin tài khoản'
     this.defaultValues = result.data
+
     if (result.data) {
       result.data.dateOfBirth = HandleCommon.handleDateOfBirth(result.data.dateOfBirth)
       result.data.datasets = result.data.datasets.map((dataset: Dataset) =>
         this.createDatasetObject(dataset, result.data)
       );
     }
+
     this.setState({ ...this.state, userInfo: result.data, isLoading: false })
   }
 

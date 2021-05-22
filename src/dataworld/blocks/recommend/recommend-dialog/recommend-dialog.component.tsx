@@ -11,23 +11,29 @@ import {
   FormGroup,
   Grid,
   IconButton,
-  TextField,
+
   Typography
 } from '@material-ui/core'
 import { Close } from '@material-ui/icons'
-import DatasetAPI, { Tags } from 'api/dataset-api'
+import CommonAPI from 'api/common-api'
+import { Tags } from 'api/dataset-api'
 import SearchField from 'dataworld/parts/search-field/search-field.component'
 import React, { useEffect, useState } from 'react'
+import './recommend-dialog.scss'
 
-interface RecommendModal {
+interface RecommendModalProps {
   isOpen: boolean,
   onClose: () => void,
+  onSubmit: () => void,
+  currentRecommend: Array<Tags>,
 }
 
-export default function RecommendModal({ isOpen, onClose }: RecommendModal) {
+export default function RecommendDialog(props: RecommendModalProps) {
+  const { isOpen, onClose, onSubmit, currentRecommend } = props
   const [searchTags, setSearchTags] = useState<Array<Tags>>([])
-  const [allTags, setAllTags] = useState<Array<Tags> | undefined>(undefined)
-  const [checkedTags, setCheckedTags] = useState<Array<Tags>>([])
+  const [allTags, setAllTags] = useState<Array<Tags>>([])
+  const [checkedTags, setCheckedTags] = useState<Array<Tags>>(currentRecommend)
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (allTags) {
       setSearchTags(allTags.filter(tags => tags.name.includes(event.target.value)))
@@ -54,14 +60,16 @@ export default function RecommendModal({ isOpen, onClose }: RecommendModal) {
   };
 
   const saveRecommendTags = () => {
-
+    onSubmit()
+    onClose()
   }
 
 
   useEffect(() => {
     const getTags = async () => {
       if (isOpen) {
-        const result = await DatasetAPI.getAllTags()
+        const result = await CommonAPI.getAllTags()
+        console.log(result)
         setAllTags(result.data)
         setSearchTags(result.data)
       }
@@ -69,56 +77,64 @@ export default function RecommendModal({ isOpen, onClose }: RecommendModal) {
     getTags()
   }, [isOpen])
 
+  const LabelTags = (tags: Tags) => {
+    return (
+      <Typography>
+        <span>{tags.name}</span>
+      </Typography>
+    )
+  }
+
   return (
     <Dialog
       className='b-dialog-tags'
       open={isOpen}
       fullWidth={true}
-      maxWidth='sm'
+      maxWidth='md'
     >
       <DialogTitle id="add-tags-title" className='b-title'>
         <IconButton onClick={onClose} className='p-icon-close'>
           <Close />
         </IconButton>
 
-        <Typography variant='h6' className='f-weight-700'>Cập nhật tags</Typography>
+        <Typography variant='h6' className='f-weight-700'>Gợi ý của bạn</Typography>
       </DialogTitle>
 
       <DialogContent className='b-content'>
         <Grid container spacing={0}>
-          <Grid item xs={6} className='b-select-tags'>
+          <Grid item xs={5} className='b-select-tags'>
             <div className='p-search-bar'>
               <SearchField
                 placeHolder='Tìm tags yêu thích...'
                 onChange={handleSearch}
               />
-
             </div>
 
             <FormControl component="fieldset" className='p-select'>
-              <Typography className='h-mb-10 f-weight-700'>Tags hay dùng</Typography>
+              <Typography className='h-mb-8 f-weight-700'>Tags được yêu thích</Typography>
 
-              <FormGroup>
+              <FormGroup className='h-ml-10'>
                 {searchTags.map((tags, index) => (
                   <FormControlLabel
                     key={index}
                     control={
                       <Checkbox
-                        className='h-mr-16'
+                        className='h-mt-2'
                         checked={!isCheckedTag(tags.name)}
                         onChange={(event) => handleSelect(event)}
                         color='primary'
                         name={tags.name}
                       />
                     }
-                    label={tags.name}
+                    label={`$tags.name`}
                   />
                 ))}
               </FormGroup>
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} className='b-input-tags'>
+          <Grid item xs={7} className='b-input-tags'>
+            <Typography></Typography>
             <ul className='p-display-list-tags'>
               {checkedTags.map((tags, index) => (
                 <li key={index} className='h-mb-4'>

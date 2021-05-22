@@ -11,14 +11,16 @@ interface SearchFieldProps {
 }
 
 const StyledTextField = styled(TextField)`
-  height: 35px;
-  border-radius: 10px;
+  .MuiOutlinedInput-root {
+    border-radius: 10px;
+  }
 `;
 
 export default function SearchField({ onChange, placeHolder, className }: SearchFieldProps) {
   return (
     <StyledTextField
       type="search"
+      fullWidth
       onChange={(event) => onChange(event)}
       placeholder={placeHolder}
       InputProps={{

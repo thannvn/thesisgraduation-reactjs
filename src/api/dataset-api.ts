@@ -1,10 +1,9 @@
 import {
   CREATE_NEW_VERSION,
-  DELETE_DATASET, DOWNLOAD_DATASET, GET_ALL_TAGS_DATASET, GET_DATASET,
-  GET_TRENDING_DATASET_TAGS,
+  DELETE_DATASET, DOWNLOAD_DATASET, GET_DATASET,
   LIKE_OR_UNLIKE_DATASET, SEARCH_DATASET, UPDATE_DATASET_DESCRIPTION,
   UPDATE_DATASET_TAGS, UPDATE_DATASET_TITLE_SUBTITLE, UPDATE_DATASET_VISIBILITY,
-  UPLOAD_DATASET_IMAGE, UPLOAD_DATASET,
+  UPLOAD_DATASET_IMAGE, UPLOAD_DATASET, GET_TRENDING_DATASET_TAGS,
 } from 'app/const/api-const/dataset-url.const';
 import axios from 'axios';
 import { createResult, requestAPI } from 'services/axios/handle-api.const';
@@ -64,6 +63,7 @@ export interface DatasetValuesList {
 export interface Tags {
   _id?: string,
   datasetsLength?: number,
+  followers?: number,
   datasets?: Array<DatasetValues>,
   name: string,
   createdDate?: Date | string,
@@ -149,11 +149,6 @@ export default class DatasetAPI {
     return await requestAPI<DatasetValues>(GET_DATASET)
   }
 
-  /* Get all tags from database */
-  static getAllTags = async () => {
-    return await requestAPI<Array<Tags>>(GET_ALL_TAGS_DATASET)
-  }
-
   /* update dataset description */
   static updateDescription = async (datasetId: string, description: string | undefined) => {
     const data = {
@@ -182,6 +177,11 @@ export default class DatasetAPI {
     return await requestAPI(UPDATE_DATASET_TITLE_SUBTITLE, data)
   }
 
+  /* get trending dataset and tags dataset */
+  static getTrending = async () => {
+    return await requestAPI<DatasetValuesList>(GET_TRENDING_DATASET_TAGS)
+  }
+
   /* update dataset banner, thumbnail */
   static uploadImage = async (thumbnailForm: FormData) => {
     try {
@@ -205,11 +205,6 @@ export default class DatasetAPI {
       newTags: newTags,
     }
     return await requestAPI(UPDATE_DATASET_TAGS, data)
-  }
-
-  /* get trending dataset and tags dataset */
-  static getTrending = async () => {
-    return await requestAPI<DatasetValuesList>(GET_TRENDING_DATASET_TAGS)
   }
 
   /* get trending dataset and tags dataset */

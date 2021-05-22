@@ -1,14 +1,14 @@
 import {
   Grid,
-  IconButton, InputAdornment, Tab,
+  IconButton, Tab,
   Tabs,
-  TextField,
+
   Tooltip,
   Typography
 } from '@material-ui/core'
 import {
   GetApp,
-  GridOn, Search
+  GridOn
 } from '@material-ui/icons'
 import { Skeleton } from '@material-ui/lab'
 import FileAPI, { FileInfo } from 'api/file-api'

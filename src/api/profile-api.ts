@@ -3,11 +3,11 @@ import {
   GET_PROFILE, UPDATE_AVATAR,
   UPDATE_PROFILE,
   FILTER_DATASET_IN_PROFILE,
-  UPDATE_ACCOUNT_MODE, DELETE_ACCOUNT
+  UPDATE_ACCOUNT_MODE, DELETE_ACCOUNT, GET_RECOMMEND_ARRAY
 } from 'app/const/api-const/profile-url.const';
 import axios from 'axios';
 import { createResult, requestAPI } from 'services/axios/handle-api.const';
-import { DatasetValues, datasetDefaultValues } from './dataset-api';
+import { DatasetValues, datasetDefaultValues, Tags, tagsDefaultValues } from './dataset-api';
 
 export interface ProfileValues {
   _id: string,
@@ -21,6 +21,7 @@ export interface ProfileValues {
   website: string,
   github: string,
   accountMode: number,
+  recommend: Array<Tags>,
   datasets: Array<DatasetValues>,
   createdDate: string | Date,
 }
@@ -45,6 +46,7 @@ export const defaultProfileValues: ProfileValues = {
   github: '',
   accountMode: 0,
   datasets: Array(5).fill(datasetDefaultValues),
+  recommend: Array(5).fill(tagsDefaultValues),
   createdDate: new Date(),
 }
 
@@ -101,6 +103,13 @@ export default class ProfileAPI {
 
   static deleteAccount = async () => {
     return await requestAPI(DELETE_ACCOUNT)
+  }
+
+  static updateRecommend = async (newRecommend: Array<Tags>) => {
+    const data = {
+      newRecommend
+    }
+    return await requestAPI(GET_RECOMMEND_ARRAY, data)
   }
 }
 

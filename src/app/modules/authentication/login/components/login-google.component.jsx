@@ -14,7 +14,6 @@ export default function LoginGoogle(props) {
       success.profileObj
     );
     if (result.status === STATUS_OK) {
-      console.log(result.data);
       dispatch(loginSuccess(result.data));
       localStorage.setItem('auth-token', result.token.accessToken);
       localStorage.setItem('refresh-token', result.token.refreshToken);

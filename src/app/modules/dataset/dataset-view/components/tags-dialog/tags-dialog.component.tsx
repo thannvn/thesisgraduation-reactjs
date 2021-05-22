@@ -19,6 +19,7 @@ import {
   AddCircle, Close
 } from '@material-ui/icons'
 import DatasetAPI, { Tags } from 'api/dataset-api'
+import CommonAPI from 'api/common-api'
 import 'app/modules/dataset/dataset-view/css/tags-dialog.scss'
 import SearchField from 'dataworld/parts/search-field/search-field.component'
 import addToast from 'dataworld/parts/toast/add-toast.component'
@@ -120,7 +121,7 @@ export default function TagsDialog(props: TagsDialogProps) {
   useEffect(() => {
     const getTags = async () => {
       if (open) {
-        const result = await DatasetAPI.getAllTags()
+        const result = await CommonAPI.getAllTags()
         setAllTags(result.data)
         setSearchTags(result.data)
       }

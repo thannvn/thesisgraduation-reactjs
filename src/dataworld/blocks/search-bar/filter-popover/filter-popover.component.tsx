@@ -9,10 +9,11 @@ import {
 } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { Autocomplete, ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
-import DatasetAPI, { QueryString, Tags } from 'api/dataset-api';
-import './filter-popover.scss';
+import CommonAPI from 'api/common-api';
+import { QueryString, Tags } from 'api/dataset-api';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import './filter-popover.scss';
 
 interface FilterPopoverProps {
   anchorEl: HTMLButtonElement | null,
@@ -89,7 +90,7 @@ export default function FilterPopover({ anchorEl, onClose, applyFilter }: Filter
   useEffect(() => {
     const getTags = async () => {
       if (Boolean(anchorEl)) {
-        const result = await DatasetAPI.getAllTags()
+        const result = await CommonAPI.getAllTags()
         setAllTags(result.data)
       }
     }
