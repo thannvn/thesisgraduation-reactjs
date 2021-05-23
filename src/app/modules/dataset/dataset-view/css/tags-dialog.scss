@@ -19,7 +19,6 @@
 
       .p-search-bar {
         display: flex;
-        justify-content: center;
         padding: 12px 20px;
         border-bottom: 1px solid #dedfe0;
       }
@@ -40,7 +39,7 @@
         align-items: center;
 
         .MuiInputBase-root {
-          border-radius: 10px;
+          border-radius: 15px;
         }
 
         .p-button-add-tag {

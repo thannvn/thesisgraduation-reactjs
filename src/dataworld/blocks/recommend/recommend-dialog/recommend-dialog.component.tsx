@@ -152,7 +152,7 @@ export default function RecommendDialog(props: RecommendModalProps) {
                     key={index}
                     control={
                       <Checkbox
-                        className='h-mt-2'
+                        className='h-mt-2 h-mr-8'
                         checked={!isCheckedTag(tags.name)}
                         onChange={(event) => handleSelect(event)}
                         color='primary'

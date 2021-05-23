@@ -44,11 +44,12 @@ interface LabelTagsProps {
 
 const LabelTags = ({ tags }: LabelTagsProps) => {
   return (
-    <div className='h-d_flex'>
+    <div className='h-d_flex -align-center'>
       <Typography>{tags.name}</Typography>
 
       <Typography
         style={{ fontStyle: 'italic' }}
+        variant='body2'
         className='p-gray-color-typography h-ml-4'
       >
         ({tags.followersLength} người theo dõi • {tags.datasetsLength} datasets )
@@ -175,15 +176,15 @@ export default function TagsDialog(props: TagsDialogProps) {
             </div>
 
             <FormControl component="fieldset" className='p-select'>
-              <Typography className='h-mb-10 f-weight-700'>Tags hay dùng</Typography>
+              <Typography className='h-mb-8 f-weight-700'>Tags hay dùng</Typography>
 
-              <FormGroup>
+              <FormGroup className='h-ml-10'>
                 {searchTags.map((tags, index) => (
                   <FormControlLabel
                     key={index}
                     control={
                       <Checkbox
-                        className='h-mr-16'
+                        className='h-mr-8 h-mt-2'
                         checked={!isCheckedTag(tags.name)}
                         onChange={(event) => handleSelect(event)}
                         color='primary'
@@ -198,7 +199,7 @@ export default function TagsDialog(props: TagsDialogProps) {
           </Grid>
 
           <Grid item xs={7} className='b-input-tags'>
-            <form className='p-input' onSubmit={handleSubmit(handleAddTag)}>
+            <form className='p-input h-mb-20' onSubmit={handleSubmit(handleAddTag)}>
               <TextField
                 placeholder='Nhập tags...'
                 name='tagsName'
@@ -206,7 +207,6 @@ export default function TagsDialog(props: TagsDialogProps) {
                 inputRef={register}
                 fullWidth
                 variant="outlined"
-                className='h-mb-20'
                 size="small"
               />
 

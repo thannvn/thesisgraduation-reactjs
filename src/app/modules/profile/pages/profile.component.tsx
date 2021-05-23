@@ -59,11 +59,12 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
   handleSaveEdit = async (data: ProfileValues) => {
     const result = await ProfileAPI.updateProfile(data)
     if (result.status === STATUS_OK) {
-      const { avatar, username, datasets } = this.state.userInfo
+      const { avatar, username, datasets, recommend } = this.state.userInfo
       data.avatar = avatar
       data.username = username
       data.dateOfBirth = HandleCommon.handleDateOfBirth(data.dateOfBirth)
       data.datasets = datasets
+      data.recommend = recommend
       this.defaultValues = data
       this.handleChangeEditMode()
       addToast({ message: result.message, type: 'success' })
