@@ -3,7 +3,7 @@ import {
   GET_PROFILE, UPDATE_AVATAR,
   UPDATE_PROFILE,
   FILTER_DATASET_IN_PROFILE,
-  UPDATE_ACCOUNT_MODE, DELETE_ACCOUNT, GET_RECOMMEND_ARRAY
+  UPDATE_ACCOUNT_MODE, DELETE_ACCOUNT, UPDATE_RECOMMEND
 } from 'app/const/api-const/profile-url.const';
 import axios from 'axios';
 import { createResult, requestAPI } from 'services/axios/handle-api.const';
@@ -105,11 +105,12 @@ export default class ProfileAPI {
     return await requestAPI(DELETE_ACCOUNT)
   }
 
-  static updateRecommend = async (newRecommend: Array<Tags>) => {
+  static updateRecommend = async (oldRecommend: Array<Tags>, newRecommend: Array<Tags>) => {
     const data = {
+      oldRecommend,
       newRecommend
     }
-    return await requestAPI(GET_RECOMMEND_ARRAY, data)
+    return await requestAPI(UPDATE_RECOMMEND, data)
   }
 }
 

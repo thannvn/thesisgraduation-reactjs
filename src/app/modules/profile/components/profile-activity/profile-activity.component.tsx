@@ -1,6 +1,6 @@
 import { Paper, Tab, Tabs, Typography } from '@material-ui/core';
 import {
-  SettingsOutlined, StorageRounded,
+  SettingsOutlined,
   ImportContactsTwoTone, StorefrontRounded
 } from '@material-ui/icons';
 import 'app/modules/profile/css/profile-activity.scss';

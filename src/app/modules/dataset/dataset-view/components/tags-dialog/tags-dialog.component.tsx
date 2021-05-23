@@ -38,6 +38,26 @@ interface FormValues {
   tagsName: string
 }
 
+interface LabelTagsProps {
+  tags: Tags
+}
+
+const LabelTags = ({ tags }: LabelTagsProps) => {
+  return (
+    <div className='h-d_flex'>
+      <Typography>{tags.name}</Typography>
+
+      <Typography
+        style={{ fontStyle: 'italic' }}
+        className='p-gray-color-typography h-ml-4'
+      >
+        ({tags.followersLength} người theo dõi • {tags.datasetsLength} datasets )
+      </Typography>
+    </div>
+
+  )
+}
+
 export default function TagsDialog(props: TagsDialogProps) {
   const { open, onClose } = props
   const { datasetValues, setDatasetTags } = useContext(DatasetViewContext)
@@ -134,7 +154,7 @@ export default function TagsDialog(props: TagsDialogProps) {
       className='b-dialog-tags'
       open={open}
       fullWidth={true}
-      maxWidth='sm'
+      maxWidth='md'
     >
       <DialogTitle id="add-tags-title" className='b-title'>
         <IconButton onClick={handleClose} className='p-icon-close'>
@@ -146,7 +166,7 @@ export default function TagsDialog(props: TagsDialogProps) {
 
       <DialogContent className='b-content'>
         <Grid container spacing={0}>
-          <Grid item xs={6} className='b-select-tags'>
+          <Grid item xs={5} className='b-select-tags'>
             <div className='p-search-bar'>
               <SearchField
                 placeHolder='Tìm kiếm tags...'
@@ -156,6 +176,7 @@ export default function TagsDialog(props: TagsDialogProps) {
 
             <FormControl component="fieldset" className='p-select'>
               <Typography className='h-mb-10 f-weight-700'>Tags hay dùng</Typography>
+
               <FormGroup>
                 {searchTags.map((tags, index) => (
                   <FormControlLabel
@@ -169,20 +190,21 @@ export default function TagsDialog(props: TagsDialogProps) {
                         name={tags.name}
                       />
                     }
-                    label={tags.name}
+                    label={<LabelTags tags={tags} />}
                   />
                 ))}
               </FormGroup>
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} className='b-input-tags'>
+          <Grid item xs={7} className='b-input-tags'>
             <form className='p-input' onSubmit={handleSubmit(handleAddTag)}>
               <TextField
                 placeholder='Nhập tags...'
                 name='tagsName'
                 required
                 inputRef={register}
+                fullWidth
                 variant="outlined"
                 size="small"
               />

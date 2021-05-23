@@ -63,8 +63,9 @@ export interface DatasetValuesList {
 export interface Tags {
   _id?: string,
   datasetsLength?: number,
-  followers?: number,
   datasets?: Array<DatasetValues>,
+  followers?: Array<any>,
+  followersLength?: number,
   name: string,
   createdDate?: Date | string,
 }

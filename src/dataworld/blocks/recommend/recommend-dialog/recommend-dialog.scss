@@ -31,27 +31,10 @@
     }
 
     .b-input-tags {
-      .p-input {
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .MuiInputBase-root {
-          border-radius: 15px;
-        }
-
-        .p-button-add-tag {
-          height: 30px;
-        }
-
-        .p-button-add-tag:disabled {
-          opacity: 0.6;
-        }
-      }
+      padding: 10px 20px;
 
       .p-display-list-tags {
-        padding: 15px;
+        padding: 0px !important;
         margin-top: 0px !important;
         margin-bottom: 0px !important;
         list-style-type: none;

@@ -40,7 +40,6 @@ const UPDATE_RECOMMEND: ApiTemplate = {
   URL: 'profile/update-recommend'
 }
 
-
 export {
   GET_PROFILE,
   UPDATE_PROFILE,
