@@ -206,6 +206,7 @@ export default function TagsDialog(props: TagsDialogProps) {
                 inputRef={register}
                 fullWidth
                 variant="outlined"
+                className='h-mb-20'
                 size="small"
               />
 

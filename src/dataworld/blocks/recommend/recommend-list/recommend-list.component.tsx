@@ -6,7 +6,8 @@ import {
   Typography
 } from '@material-ui/core'
 import { StarsOutlined } from '@material-ui/icons'
-import React from 'react'
+import CommonAPI from 'api/common-api'
+import React, { useEffect } from 'react'
 import RecommendPost from '../recommend-post/recommend-post.component'
 import './recommend-list.scss'
 
@@ -16,6 +17,14 @@ export default function RecommendList() {
   const handleViewAllRecommend = () => {
     console.log('view all')
   }
+
+  useEffect(() => {
+    async function getRecommendList() {
+      const result = await CommonAPI.getRecommendList()
+      console.log(result)
+    }
+    getRecommendList()
+  }, [])
 
   return (
     <Accordion expanded={true} className='b-recommend-list'>

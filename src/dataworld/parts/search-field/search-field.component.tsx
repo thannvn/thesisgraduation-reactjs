@@ -12,7 +12,7 @@ interface SearchFieldProps {
 
 const StyledTextField = styled(TextField)`
   .MuiOutlinedInput-root {
-    border-radius: 10px;
+    border-radius: 15px;
   }
 `;
 

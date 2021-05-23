@@ -5,6 +5,12 @@ const GET_ALL_TAGS_DATASET: ApiTemplate = {
   URL: `common/all-tags`
 }
 
+const GET_RECOMMEND_LIST: ApiTemplate = {
+  method: "GET",
+  URL: `common/recommend-list`
+}
+
 export {
   GET_ALL_TAGS_DATASET,
+  GET_RECOMMEND_LIST
 };

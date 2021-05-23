@@ -30,11 +30,6 @@ const DELETE_ACCOUNT: ApiTemplate = {
   URL: 'profile/delete'
 }
 
-const GET_RECOMMEND_ARRAY: ApiTemplate = {
-  method: 'GET',
-  URL: 'profile/recommend'
-}
-
 const UPDATE_RECOMMEND: ApiTemplate = {
   method: 'POST',
   URL: 'profile/update-recommend'
@@ -47,6 +42,5 @@ export {
   FILTER_DATASET_IN_PROFILE,
   UPDATE_ACCOUNT_MODE,
   DELETE_ACCOUNT,
-  GET_RECOMMEND_ARRAY,
   UPDATE_RECOMMEND,
 };
