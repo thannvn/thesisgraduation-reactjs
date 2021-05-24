@@ -1,21 +1,21 @@
 .t-app-bar {
-  background-color: #24292e !important;
+  background-color: #1976d2 !important;
+
   .b-tool-bar {
     display: inline-flex;
     justify-content: space-between;
-  
+
     .MuiIconButton-root {
       padding: 0px;
     }
-  
+
     .p-redirect-page {
       font-weight: 600;
     }
-  
+
     .MuiLink-underlineHover:hover {
       color: rgb(128, 128, 128);
       text-decoration: none;
     }
   }
 }
-

@@ -57,7 +57,6 @@ export default function RecommendPost({ isLoading, dataset }: RecommendPostProps
                 </Typography>
               </Tooltip>
 
-
               <div className='-cursor-pointer h-d_flex -align-center h-mt-4'>
                 <Typography
                   variant="body2"

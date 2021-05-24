@@ -4,7 +4,7 @@ import HandleCommon from 'utils/handle-common'
 import { STATUS_OK } from 'services/axios/common-services.const'
 import { RouteComponentProps } from "react-router-dom";
 import ProfileTemplate from './profile.template'
-import { Dataset, DatasetValues } from 'api/dataset-api';
+import { Dataset, DatasetValues, Tags } from 'api/dataset-api';
 import addToast from 'dataworld/parts/toast/add-toast.component';
 
 interface ProfileState {
@@ -104,6 +104,18 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
     })
   }
 
+  //Handle set new recommend
+  setRecommend = (recommend: Array<Tags>) => {
+    console.log(recommend)
+    this.setState({
+      userInfo: {
+        ...this.state.userInfo,
+        recommend: recommend,
+      }
+    })
+  }
+
+  //Set new filter dataset
   handleFilterDataset = async (datasets: Array<Dataset>) => {
     this.setState({
       userInfo: {

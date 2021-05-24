@@ -49,7 +49,6 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
   const { state, value, index, changeVisibility, handleCloseConfirmVisibility,
     handleOpenTags, handleCloseTags, handleSave, handleEdit, handleClickTags,
     setChangeDescription, setCurrentFileAndContent, handleAcceptChangeVisibility } = props
-
   const { datasetValues, ownerDataset, isLoadingData } = useContext(DatasetViewContext)
 
   const isPrivate = datasetValues.dataset.visibility === DatasetVisibility.PRIVATE_DATASET
@@ -76,7 +75,7 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
 
             {isLoadingData ?
               <Skeleton width={500} height={50} /> :
-              <div className='h-ml-10' style={{ display: 'flex' }}>
+              <div className='h-ml-10 h-d_flex'>
                 {datasetValues.dataset.tags.map((item, index) => (
                   < Typography
                     className='h-ml-2 p-text'

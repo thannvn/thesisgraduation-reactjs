@@ -21,11 +21,12 @@ export default function RecommendList() {
     console.log('view all')
   }
 
+
+
   useEffect(() => {
     async function getRecommendList() {
       const result = await CommonAPI.getRecommendList()
-      console.log(result)
-      setRecommendList(result.data)
+      setRecommendList(result.data || [])
       setIsLoading(false)
     }
     getRecommendList()

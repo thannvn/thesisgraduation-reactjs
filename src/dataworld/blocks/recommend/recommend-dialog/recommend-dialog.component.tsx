@@ -28,7 +28,7 @@ import './recommend-dialog.scss'
 interface RecommendModalProps {
   isOpen: boolean,
   onClose: () => void,
-  onSubmit: () => void,
+  onSubmit: (tags: Array<Tags>) => void,
   currentRecommend: Array<Tags>,
 }
 
@@ -88,7 +88,7 @@ export default function RecommendDialog(props: RecommendModalProps) {
     const result = await ProfileAPI.updateRecommend(currentRecommend, checkedTags)
     if (result.status === STATUS_OK) {
       addToast({ message: result.message, type: 'success' })
-      onSubmit()
+      onSubmit(checkedTags)
       onClose()
     }
   }
@@ -101,11 +101,6 @@ export default function RecommendDialog(props: RecommendModalProps) {
     }
     return true
   }
-
-  const randomColor = () => {
-    return Math.floor(Math.random() * 2) === 0 ? 'primary' : 'secondary'
-  }
-
 
   useEffect(() => {
     const getTags = async () => {
@@ -174,7 +169,7 @@ export default function RecommendDialog(props: RecommendModalProps) {
                 <li key={index} className='h-mb-4'>
                   <Chip
                     label={tags.name}
-                    color={randomColor()}
+                    color='secondary'
                     icon={<FavoriteBorder />}
                     variant='outlined'
                     onDelete={handleDelete(tags)} />
