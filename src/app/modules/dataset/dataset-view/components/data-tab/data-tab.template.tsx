@@ -225,6 +225,7 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                   <DescriptionOutlined />
                   <span className='h-ml-4'>Mô tả Dataset</span>
                 </Typography>
+
                 {ownerDataset &&
                   <>
                     {state.isEdit ?
@@ -265,7 +266,8 @@ export default function DataTabTemplate(props: DataTabTemplateProps) {
                   </>
                 }
               </AccordionSummary>
-              <AccordionDetails className='b-details'>
+
+              <AccordionDetails className='b-details' style={{ display: 'block' }}>
                 {
                   Parser(datasetValues.dataset.description ?
                     datasetValues.dataset.description :

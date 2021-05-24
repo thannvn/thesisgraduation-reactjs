@@ -74,7 +74,7 @@ export default function OverviewTab({ index, value, self }: OverviewTabProps) {
           </IconButton>
         </div>
 
-        <div className='h-d_flex h-ml-10'>
+        <div className='h-d_flex h-ml-20'>
           {state.userInfo.recommend.map((item, index) => (
             < Typography
               style={{ color: '#539bfa' }}

@@ -199,7 +199,7 @@ export default function TagsDialog(props: TagsDialogProps) {
           </Grid>
 
           <Grid item xs={7} className='b-input-tags'>
-            <form className='p-input h-mb-4' onSubmit={handleSubmit(handleAddTag)}>
+            <form className='p-input h-mb-16' onSubmit={handleSubmit(handleAddTag)}>
               <TextField
                 placeholder='Nhập tags...'
                 name='tagsName'
@@ -220,7 +220,7 @@ export default function TagsDialog(props: TagsDialogProps) {
             </form>
 
             {errors.tagsName && watch('tagsName') !== '' &&
-              <Typography className='p-validate-error h-mb-16'>
+              <Typography className='p-validate-error h-mb-6'>
                 {errors.tagsName.message}
               </Typography>
             }

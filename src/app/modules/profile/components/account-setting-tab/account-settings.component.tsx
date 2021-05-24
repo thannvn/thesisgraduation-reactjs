@@ -1,7 +1,7 @@
 import { Button, Tooltip, Typography } from '@material-ui/core';
 import React, { useState } from 'react'
 import {
-  HelpOutline, DeleteForeverOutlined,
+  Block, DeleteForeverOutlined,
   VpnLockOutlined, Public
 } from '@material-ui/icons';
 import { ProfileProps } from 'app/modules/profile/pages/profile.template'
@@ -84,7 +84,7 @@ export default function AccountSettings({ index, value, self }: AccountSettingsP
             </Typography>
 
             <Tooltip title='Tên tài khoản không thể chỉnh sửa' arrow >
-              <HelpOutline fontSize='small' color='action' />
+              <Block fontSize='small' color='action' />
             </Tooltip>
           </div>
 

@@ -6,13 +6,14 @@ import {
   Menu,
   MenuItem,
   Toolbar,
+  Tooltip,
   Typography,
   withStyles
 } from '@material-ui/core';
 import {
   AccountCircleOutlined,
-  ExitToApp,
-  MenuRounded, SettingsOutlined, StorefrontRounded
+  ExitToApp, AddCircleOutline,
+  SettingsOutlined, StorefrontRounded
 } from '@material-ui/icons';
 import AuthenticationAPI from "api/authentication-api";
 import React from 'react';
@@ -55,10 +56,13 @@ export default function MenuBar() {
     setAnchorEl(event ? event.currentTarget : null);
   };
 
-  const handleGotoProfile = () => {
+  const handleGotoProfile = (tabIndex?: number) => {
     handleMenu(null, 0);
     history.push({
       pathname: `/profile/${user.username}`,
+      state: {
+        tabIndex: tabIndex
+      }
     });
   };
 
@@ -72,25 +76,9 @@ export default function MenuBar() {
     return Boolean(id === popoverId) && Boolean(anchorEl)
   }
 
-  const handleGotoProfile = () => {
-    setAnchorEl(null);
-    history.push({
-      pathname: `/profile/${user.username}`,
-      state: {
-        tabIndex: 2
-      }
-    });
-  };
-
-  const handleSettingsAccount = () => {
-    setAnchorEl(null);
-    history.push({
-      pathname: `/profile/${user.username}`,
-      state: {
-        tabIndex: 2
-      }
-    });
-  };
+  const handleGotoCreateDataset = () => {
+    history.push('/dataset/create')
+  }
 
   return (
     <>
@@ -102,13 +90,24 @@ export default function MenuBar() {
             </div>
 
             <div className='h-d_flex'>
-              <IconButton
-                className='h-mr-20'
-                color='inherit'
-                onClick={(event) => handleMenu(event, 0)}
-              >
-                <MenuRounded fontSize='large' />
-              </IconButton>
+              <Tooltip title='Kho lưu trữ' className='h-mr-16'>
+                <IconButton
+                  color='inherit'
+                  onClick={() => handleGotoProfile(1)}
+                >
+                  <StorefrontRounded fontSize='default' />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip className='h-mr-16' title='Tạo dataset'>
+                <IconButton
+                  color='inherit'
+                  className='h-mr-16'
+                  onClick={handleGotoCreateDataset}
+                >
+                  <AddCircleOutline fontSize='default' />
+                </IconButton>
+              </Tooltip>
 
               <IconButton
                 aria-label='account of current user'
@@ -126,39 +125,11 @@ export default function MenuBar() {
               disableScrollLock
               anchorEl={anchorEl}
               keepMounted
-              open={isOpenModal(0)}
-              onClose={() => handleMenu(null, 0)}
-            >
-              <MenuItem onClick={handleGotoProfile}>
-                <Typography variant='body2' className='h-d_flex -align-center'>
-                  <StorefrontRounded />
-                  <span className='h-ml-4'>
-                    Kho lưu trữ
-                  </span>
-                </Typography>
-              </MenuItem>
-
-              <MenuItem onClick={handleGotoProfile}>
-                <Typography variant='body2' className='h-d_flex -align-center'>
-                  <StorefrontRounded />
-                  <span className='h-ml-4'>
-                    Kho lưu trữ
-                  </span>
-                </Typography>
-              </MenuItem>
-            </StyledMenu>
-
-            <StyledMenu
-              id='menu-appbar'
-              className='h-mt-38'
-              disableScrollLock
-              anchorEl={anchorEl}
-              keepMounted
               open={isOpenModal(1)}
               onClose={() => handleMenu(null, 1)}
             >
               <MenuItem
-                onClick={handleGotoProfile}
+                onClick={() => handleGotoProfile(0)}
                 style={{ borderBottom: '1px solid #dedfe0' }}
               >
                 <div >
@@ -167,12 +138,12 @@ export default function MenuBar() {
                 </div>
               </MenuItem>
 
-              <MenuItem onClick={handleGotoProfile}>
+              <MenuItem onClick={() => handleGotoProfile(0)}>
                 <AccountCircleOutlined className='h-mr-10' />
                 Hồ sơ cá nhân
               </MenuItem>
 
-              <MenuItem onClick={handleSettingsAccount}>
+              <MenuItem onClick={() => handleGotoProfile(2)}>
                 <SettingsOutlined className='h-mr-10' />
                 Cài đặt tài khoản
               </MenuItem>
