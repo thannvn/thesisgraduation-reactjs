@@ -5,11 +5,6 @@ const UPLOAD_DATASET: ApiTemplate = {
   URL: `${process.env.REACT_APP_BASE_URL_API}dataset/new-dataset`
 }
 
-const GET_TRENDING_DATASET_TAGS: ApiTemplate = {
-  method: "GET",
-  URL: `dataset/trending`
-}
-
 const SEARCH_DATASET: ApiTemplate = {
   method: "POST",
   URL: `dataset/search`
@@ -73,7 +68,6 @@ export {
   UPDATE_DATASET_VISIBILITY,
   UPDATE_DATASET_TITLE_SUBTITLE,
   UPDATE_DATASET_TAGS,
-  GET_TRENDING_DATASET_TAGS,
   SEARCH_DATASET,
   LIKE_OR_UNLIKE_DATASET,
   DOWNLOAD_DATASET,

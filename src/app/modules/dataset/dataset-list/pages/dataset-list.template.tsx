@@ -7,6 +7,7 @@ import DatasetPost from 'app/modules/dataset/dataset-list/components/dataset-pos
 import { Skeleton } from '@material-ui/lab';
 import SearchBar from 'dataworld/blocks/search-bar/search-bar.component';
 import clsx from 'clsx';
+import { ListIndex } from '../const/list-index.const'
 
 export interface DatasetListProps {
   self: DatasetList
@@ -72,12 +73,13 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
 
               <div className='h-mt-32'>
                 <Grid container spacing={3}>
-                  {state.datasetValuesList.datasets.map((dataset, index) =>
+                  {state.datasetValuesList.topDatasets.map((dataset, index) =>
                     <Grid item xs={3} key={index}>
                       <DatasetPost
                         datasetValues={dataset}
                         self={self}
-                        tagsIndex={-1}
+                        listIndex={ListIndex.TOP_DATASET}
+                        isTagsList={false}
                         datasetsIndex={index}
                       />
                     </Grid>
@@ -85,6 +87,67 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                 </Grid>
               </div>
             </div>
+
+            <div className='b-list-by-tags h-mt-32'>
+              <div className='p-title'>
+                {state.isLoading ?
+                  <Skeleton width={200} height={30} /> :
+                  <Typography variant='h5' className='f-weight-700'>Mới</Typography>
+                }
+                {!state.isLoading &&
+                  <Button className='p-round-button' onClick={() => handleSearchAlls({ like: 'desc' })}>
+                    <Typography className='f-weight-700'>Tất cả</Typography>
+                  </Button>
+                }
+              </div>
+
+              <div className='h-mt-32'>
+                <Grid container spacing={3}>
+                  {state.datasetValuesList.topDatasets.map((dataset, index) =>
+                    <Grid item xs={3} key={index}>
+                      <DatasetPost
+                        datasetValues={dataset}
+                        self={self}
+                        listIndex={ListIndex.NEW_DATASET}
+                        isTagsList={false}
+                        datasetsIndex={index}
+                      />
+                    </Grid>
+                  )}
+                </Grid>
+              </div>
+            </div>
+
+            <div className='b-list-by-tags h-mt-32'>
+              <div className='p-title'>
+                {state.isLoading ?
+                  <Skeleton width={200} height={30} /> :
+                  <Typography variant='h5' className='f-weight-700'>Gợi ý của bạn</Typography>
+                }
+                {!state.isLoading &&
+                  <Button className='p-round-button' onClick={() => handleSearchAlls({ like: 'desc' })}>
+                    <Typography className='f-weight-700'>Tất cả</Typography>
+                  </Button>
+                }
+              </div>
+
+              <div className='h-mt-32'>
+                <Grid container spacing={3}>
+                  {state.datasetValuesList.topDatasets.map((dataset, index) =>
+                    <Grid item xs={3} key={index}>
+                      <DatasetPost
+                        datasetValues={dataset}
+                        self={self}
+                        listIndex={ListIndex.RECOMMEND}
+                        isTagsList={false}
+                        datasetsIndex={index}
+                      />
+                    </Grid>
+                  )}
+                </Grid>
+              </div>
+            </div>
+
             <div className='h-mt-32'>
               {state.isLoading ?
                 <Skeleton width={300} height={30} /> :
@@ -92,9 +155,8 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
               }
             </div>
 
-
-            {state.datasetValuesList.tagsDatasets.map((tags, TagsIndex) =>
-              <div className='b-list-by-tags h-mt-32' key={TagsIndex}>
+            {state.datasetValuesList.tagsDatasets.map((tags, tagsIndex) =>
+              <div className='b-list-by-tags h-mt-32' key={tagsIndex}>
                 <div className='p-title'>
                   <div className='h-ml-8'>
                     {!state.isLoading && <TrendingUp />}
@@ -117,7 +179,8 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                         <DatasetPost
                           datasetValues={dataset}
                           self={self}
-                          tagsIndex={TagsIndex}
+                          isTagsList={true}
+                          listIndex={tagsIndex}
                           datasetsIndex={datasetsIndex}
                         />
                       </Grid>

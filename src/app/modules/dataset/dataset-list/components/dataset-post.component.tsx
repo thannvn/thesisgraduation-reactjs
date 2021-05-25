@@ -24,12 +24,14 @@ import { RootState } from 'store';
 import { DatasetListProps } from '../pages/dataset-list.template';
 
 interface DatasetPostProps extends DatasetListProps {
-  tagsIndex: number,
+  isTagsList: boolean,
+  listIndex: number,
   datasetsIndex: number,
   datasetValues: DatasetValues
 }
 
-export default function DatasetPost({ datasetValues, self, tagsIndex, datasetsIndex }: DatasetPostProps) {
+export default function DatasetPost(props: DatasetPostProps) {
+  const { datasetValues, self, isTagsList, listIndex, datasetsIndex } = props
   const { state, handleChangeLike } = self
   const [like, setLike] = useState<boolean>(false)
   const history = useHistory()
@@ -37,7 +39,7 @@ export default function DatasetPost({ datasetValues, self, tagsIndex, datasetsIn
 
   const changeLike = async (isLike: boolean) => {
     await DatasetAPI.likeOrUnLikeDataset(datasetValues.dataset._id)
-    handleChangeLike(tagsIndex, datasetsIndex, user.accountId, isLike)
+    handleChangeLike(isTagsList, listIndex, datasetsIndex, user.accountId, isLike)
   }
 
   const gotoProfileOwner = () => {
