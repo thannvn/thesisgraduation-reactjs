@@ -61,7 +61,9 @@ const requestAPI = async <T>(URL: ApiTemplate, data?: any): Promise<Result<T>> =
     const result = await axios.request(configAPI(URL, data))
     return createResult<T>(result)
   } catch (error) {
-    return createResult(null, error)
+    const result = createResult(null, error)
+    addToast({ message: result.message, type: 'error' })
+    return result
   }
 }
 

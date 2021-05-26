@@ -215,6 +215,7 @@ export default function SettingsTab(props: SettingsTabsProps) {
                     onClose={() => openDeleteConfirm(false)}
                     onAccept={acceptDelete}
                     acceptTheme='secondary'
+                    dialogTheme='warning'
                     title='Xóa dataset'
                     content='Toàn bộ dữ liệu của dataset và các dữ liệu liên quan sẽ bị xóa. 
                     Bạn có muốn tiếp tục?'

@@ -33,10 +33,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from 'redux/authentication-slice';
 import { RootState } from 'store';
 import { ProfileProps } from 'app/modules/profile/pages/profile.template';
+import LoadingApi from 'dataworld/blocks/loading-api/loading-api.component';
 
 
 export default function ProfileInfo({ self }: ProfileProps) {
   const { state, handleChangeEditMode, handleSaveEdit, handleCancelEdit, defaultValues } = self
+  const [loadingImage, setLoadingImage] = useState<boolean>(false)
   const { handleSubmit, register, control, setValue, reset } = useForm({ defaultValues })
   const user = useSelector((state: RootState) => state.auth.user)
   const dispatch = useDispatch()
@@ -80,6 +82,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
           formData.append('username', user.username)
           formData.append('imageType', 'profile')
           formData.append('image', blob, 'avatar.png')
+          setLoadingImage(true)
           const result = await ProfileAPI.updateAvatar(formData)
           if (result.status === STATUS_OK) {
             addToast({ message: result.message, type: "success" })
@@ -87,10 +90,8 @@ export default function ProfileInfo({ self }: ProfileProps) {
             updateUser.avatar = result.data
             dispatch(loginSuccess(updateUser))
             closeAvatarDialog()
-
-          } else {
-            addToast({ message: result.message, type: "error" })
           }
+          setLoadingImage(false)
         }
       })
     }
@@ -116,7 +117,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
             accept="image/*"
           />
 
-          <Tooltip title='Upload avatar'>
+          <Tooltip title='Cập nhật ảnh đại diện'>
             <IconButton className='p-edit' onClick={openFileSelect}>
               <PhotoCamera color='inherit' fontSize='large' />
             </IconButton>
@@ -135,7 +136,7 @@ export default function ProfileInfo({ self }: ProfileProps) {
               }}>
               <Close />
             </IconButton>
-             Change Avatar
+             Cập nhật ảnh đại diện
           </DialogTitle>
 
           <DialogContent>
@@ -148,8 +149,9 @@ export default function ProfileInfo({ self }: ProfileProps) {
               className='p-round-button p-button-save-color'
               type="submit"
               onClick={uploadAvatar}
+              disabled={loadingImage}
               size='small'>
-              Upload
+              {loadingImage ? 'Tải lên' : <LoadingApi />}
             </Button>
           </DialogActions>
         </Dialog>

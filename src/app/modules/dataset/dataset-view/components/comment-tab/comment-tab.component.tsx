@@ -19,7 +19,7 @@ export default function CommentTabTemplate({ index, value }: TabProps) {
   const [listComment, setListComment] = useState<Array<Comment>>(Array(4).fill(commentDefault))
 
   const postComment = async () => {
-    const result = await CommentAPI.postComment(datasetValues.dataset._id, comment, reply ? listComment[reply]._id : '')
+    const result = await CommentAPI.postComment(datasetValues.dataset._id, comment, reply !== null ? listComment[reply]._id : '')
     if (result.status === STATUS_OK) {
       setListComment([
         ...listComment,

@@ -158,6 +158,7 @@ export default function CommentPost(props: CommentProps) {
                   >
                     <Button
                       startIcon={<Reply />}
+                      color='primary'
                       onClick={replyComment}
                     >
                       Trả lời
@@ -166,6 +167,7 @@ export default function CommentPost(props: CommentProps) {
                     {accountId === comment.commentator._id &&
                       <Button
                         startIcon={<Edit />}
+                        color='primary'
                         onClick={() => handleEditComment(true)}
                       >
                         Chỉnh sửa
@@ -175,6 +177,7 @@ export default function CommentPost(props: CommentProps) {
                     {accountId === comment.commentator._id &&
                       <Button
                         startIcon={<DeleteOutline />}
+                        color='secondary'
                         onClick={() => handleDeleteDialog(true)}
                       >
                         Xóa bình luận
@@ -190,6 +193,8 @@ export default function CommentPost(props: CommentProps) {
         <ConfirmDialog
           open={deleteComment}
           title='Xóa bình luận'
+          dialogTheme='warning'
+          acceptTheme='secondary'
           content='Bạn có chắc chắn muốn xóa bình luận này không?'
           onClose={() => handleDeleteDialog(false)}
           onAccept={acceptDeleteComment}
