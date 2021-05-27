@@ -1,7 +1,10 @@
 import { Button, Container, Grid, Link, Typography } from '@material-ui/core'
 import React from 'react'
 import DatasetList from './dataset-list.component'
-import { TrendingUp } from '@material-ui/icons';
+import {
+  TrendingUp, StarsOutlined,
+  FiberNewOutlined, Add
+} from '@material-ui/icons';
 import 'app/modules/dataset/dataset-list/css/dataset-list.scss'
 import DatasetPost from 'app/modules/dataset/dataset-list/components/dataset-post.component';
 import { Skeleton } from '@material-ui/lab';
@@ -14,22 +17,29 @@ export interface DatasetListProps {
 }
 
 export default function DatasetListTemplate({ self }: DatasetListProps) {
-  const { state, handleSearchAlls } = self
+  const { state, handleSearchAlls, handleCreateDataset } = self
 
   return (
     <>
       <Container style={{ maxWidth: '100%' }} className='h-mt-100 h-mb-100'>
         <div className='t-dataset-list'>
-          <div className='h-mb-50'>
+          <div className='h-mb-16'>
             <Typography variant='h4' className='f-weight-700'>Datasets</Typography>
+
+            <Typography className='h-mt-16' style={{ width: '400px' }}>
+              Tìm kiếm, chia sẻ và quản lý datasets của bạn tốt hơn cùng DataWorld.
+            </Typography>
           </div>
 
           <div className='b-header'>
             <Button
               variant='contained'
               color='primary'
+              className='h-mb-32 p-round-button'
+              onClick={handleCreateDataset}
+              startIcon={<Add />}
             >
-              <Link href='/dataset/create' color='inherit'>Tạo Dataset</Link>
+              Tạo Dataset
             </Button>
 
             <SearchBar />
@@ -60,10 +70,16 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
           <div className='b-list h-mt-100'>
             <div className='b-list-by-tags h-mt-32'>
               <div className='p-title'>
-                {state.isLoading ?
-                  <Skeleton width={200} height={30} /> :
-                  <Typography variant='h5' className='f-weight-700'>Top lượt thích</Typography>
-                }
+                <div>
+                  {!state.isLoading && <TrendingUp className='h-mr-20' />}
+
+                  {state.isLoading ?
+                    <Skeleton width={200} height={30} /> :
+                    <Typography variant='h5' className='f-weight-700'>
+                      Top lượt thích
+                  </Typography>}
+                </div>
+
                 {!state.isLoading &&
                   <Button className='p-round-button' onClick={() => handleSearchAlls({ like: 'desc' })}>
                     <Typography className='f-weight-700'>Tất cả</Typography>
@@ -90,10 +106,15 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
 
             <div className='b-list-by-tags h-mt-32'>
               <div className='p-title'>
-                {state.isLoading ?
-                  <Skeleton width={200} height={30} /> :
-                  <Typography variant='h5' className='f-weight-700'>Mới</Typography>
-                }
+                <div>
+                  {!state.isLoading && <FiberNewOutlined className='h-mr-20' />}
+
+                  {state.isLoading ?
+                    <Skeleton width={200} height={30} /> :
+                    <Typography variant='h5' className='f-weight-700'>Mới cập nhật</Typography>
+                  }
+                </div>
+
                 {!state.isLoading &&
                   <Button className='p-round-button' onClick={() => handleSearchAlls({ like: 'desc' })}>
                     <Typography className='f-weight-700'>Tất cả</Typography>
@@ -120,10 +141,14 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
 
             <div className='b-list-by-tags h-mt-32'>
               <div className='p-title'>
-                {state.isLoading ?
-                  <Skeleton width={200} height={30} /> :
-                  <Typography variant='h5' className='f-weight-700'>Gợi ý của bạn</Typography>
-                }
+                <div>
+                  {!state.isLoading && <StarsOutlined className='h-mr-20' />}
+                  {state.isLoading ?
+                    <Skeleton width={200} height={30} /> :
+                    <Typography variant='h5' className='f-weight-700'>Gợi ý của bạn</Typography>
+                  }
+                </div>
+
                 {!state.isLoading &&
                   <Button className='p-round-button' onClick={() => handleSearchAlls({ like: 'desc' })}>
                     <Typography className='f-weight-700'>Tất cả</Typography>

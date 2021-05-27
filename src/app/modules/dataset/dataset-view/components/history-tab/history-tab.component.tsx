@@ -27,6 +27,7 @@ import moment from 'moment';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
+import { useAppSelector } from 'redux/hooks';
 import { STATUS_OK } from 'services/axios/common-services.const';
 
 interface HistoryTabProps {
@@ -52,6 +53,7 @@ export default function HistoryTab(props: HistoryTabProps) {
   const [updatable, setUpdatable] = useState<boolean>(false)
   const [previousFiles, setPreviousFiles] = useState<Array<FileInfo>>([])
   const lengthVersions = datasetValues.dataset.versions.length
+  const user = useAppSelector(state => state.auth.user)
   const history = useHistory()
 
   const defaultValues = {
@@ -131,17 +133,20 @@ export default function HistoryTab(props: HistoryTabProps) {
             ))}
           </div>
 
-          <div className='h-mt-32 p-new-version'>
-            <Button
-              className='p-round-button'
-              variant='contained'
-              color='primary'
-              onClick={addVersion}
-              startIcon={<Add />}
-            >
-              Tạo mới
+          {datasetValues.accountId === user.accountId &&
+            <div className='h-mt-32 p-new-version'>
+              <Button
+                className='p-round-button'
+                variant='contained'
+                color='primary'
+                onClick={addVersion}
+                startIcon={<Add />}
+              >
+                Tạo mới
             </Button>
-          </div>
+            </div>
+          }
+
         </Grid>
 
         <Grid item xs={9}>

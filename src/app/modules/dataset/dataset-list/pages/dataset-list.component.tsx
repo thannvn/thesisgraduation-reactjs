@@ -80,6 +80,10 @@ export default class DatasetList extends React.Component<RouteComponentProps<any
     })
   }
 
+  handleCreateDataset = () => {
+    this.props.history.push('dataset/create')
+  }
+
   private setArrayLikeOrUnlike = async (datasets: Array<DatasetValues> | undefined, index: number, isLike: boolean, accountId: string) => {
     if (!datasets) return
     if (isLike) {

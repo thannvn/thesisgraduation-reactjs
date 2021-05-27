@@ -30,6 +30,9 @@ ul {
   }
 
   .b-dataset-list {
+    height: 550px;
+    overflow-y: auto;
+
     .b-list {
       list-style: none;
       margin: 0px;

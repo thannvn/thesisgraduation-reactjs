@@ -14,13 +14,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 75%;
+    max-width: 150px;
     cursor: pointer;
   }
 
   .b-content {
-    .p-thumbnail {
+    .p-banner {
       height: 120px;
+    }
+
+    .p-title {
     }
 
     .p-color-content {

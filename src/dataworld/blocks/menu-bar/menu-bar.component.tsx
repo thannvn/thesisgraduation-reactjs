@@ -16,6 +16,7 @@ import {
   SettingsOutlined, StorefrontRounded
 } from '@material-ui/icons';
 import AuthenticationAPI from "api/authentication-api";
+import SearchField from 'dataworld/parts/search-field/search-field.component';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -85,8 +86,14 @@ export default function MenuBar() {
       {user.accountId !== '' && (
         <AppBar position='fixed' className='t-app-bar'>
           <Toolbar className='b-tool-bar'>
-            <div>
+            <div className='h-d_flex p-header-search'>
               <Link href='/dataset' className='p-redirect-page' color='inherit'>Data World</Link>
+
+              <SearchField
+                className='p-search-field h-ml-20'
+                placeHolder='Tìm kiếm...'
+                onChange={() => { }}
+              />
             </div>
 
             <div className='h-d_flex'>

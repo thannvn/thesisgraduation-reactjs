@@ -21,8 +21,6 @@ export default function RecommendList() {
     console.log('view all')
   }
 
-
-
   useEffect(() => {
     async function getRecommendList() {
       const result = await CommonAPI.getRecommendList()

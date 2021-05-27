@@ -32,7 +32,7 @@ export default function RecommendPost({ isLoading, dataset }: RecommendPostProps
         <img
           alt=''
           className='p-thumbnail -cursor-pointer'
-          src={dataset.dataset.thumbnail}
+          src={dataset.dataset.banner}
           onClick={gotoDataset}
         />
       }

@@ -101,9 +101,9 @@ export default function DatasetPost(props: DatasetPostProps) {
       />
       <CardActionArea onClick={gotoDataset} className='b-content'>
         {state.isLoading ?
-          <Skeleton className='p-thumbnail' /> :
+          <Skeleton className='p-banner' /> :
           <CardMedia
-            className='p-thumbnail'
+            className='p-banner'
             image={datasetValues.dataset.banner}
           />
         }
@@ -112,7 +112,11 @@ export default function DatasetPost(props: DatasetPostProps) {
           {state.isLoading ?
             <Skeleton height={20} width="50%" /> :
             <Tooltip title={datasetValues.dataset.title}>
-              <Typography gutterBottom variant="body1" className='f-weight-700'>
+              <Typography
+                gutterBottom
+                variant="body1"
+                className='f-weight-700 p-title'
+              >
                 {datasetValues.dataset.title}
               </Typography>
             </Tooltip>

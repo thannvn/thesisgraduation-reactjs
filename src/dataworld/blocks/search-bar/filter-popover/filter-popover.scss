@@ -1,5 +1,5 @@
 .b-filter-popover {
-  width: 800px;
+  width: 1000px;
 
   .b-content {
     padding: 30px 30px 0px 30px;
@@ -7,11 +7,12 @@
     .p-field-item {
       .p-item {
         display: flex;
+        width: max-content;
 
         .MuiOutlinedInput-input {
           padding: 10px 30px 10px 15px;
         }
-        
+
         .p-text-field {
           width: 150px;
         }

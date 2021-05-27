@@ -127,13 +127,15 @@ export default function CommentPost(props: CommentProps) {
               </div>
 
               <div className='h-d_flex -align-center'>
-                {authorId === comment.commentator._id}
-                <Typography
-                  variant='body2'
-                  className='p-gray-color-typography p-author'
-                >
-                  Tác giả
-                </Typography>
+                {authorId === comment.commentator._id &&
+                  <Typography
+                    variant='body2'
+                    className='p-gray-color-typography p-author'
+                  >
+                    Tác giả
+                  </Typography>
+                }
+
                 <IconButton className='h-ml-20 h-mr-20' onClick={(event) => handleOptions(event)}>
                   <MoreHoriz />
                 </IconButton>
