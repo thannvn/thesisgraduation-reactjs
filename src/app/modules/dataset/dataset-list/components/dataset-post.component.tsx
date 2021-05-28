@@ -22,16 +22,12 @@ import { Skeleton } from '@material-ui/lab';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { DatasetListProps } from '../pages/dataset-list.template';
-
 interface DatasetPostProps extends DatasetListProps {
-  isTagsList: boolean,
-  listIndex: number,
-  datasetsIndex: number,
   datasetValues: DatasetValues
 }
 
 export default function DatasetPost(props: DatasetPostProps) {
-  const { datasetValues, self, isTagsList, listIndex, datasetsIndex } = props
+  const { datasetValues, self } = props
   const { state, handleChangeLike } = self
   const [like, setLike] = useState<boolean>(false)
   const history = useHistory()
@@ -39,7 +35,7 @@ export default function DatasetPost(props: DatasetPostProps) {
 
   const changeLike = async (isLike: boolean) => {
     await DatasetAPI.likeOrUnLikeDataset(datasetValues.dataset._id)
-    handleChangeLike(isTagsList, listIndex, datasetsIndex, user.accountId, isLike)
+    handleChangeLike(datasetValues.dataset._id, isLike)
   }
 
   const gotoProfileOwner = () => {

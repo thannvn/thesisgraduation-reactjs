@@ -94,9 +94,6 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                       <DatasetPost
                         datasetValues={dataset}
                         self={self}
-                        listIndex={ListIndex.TOP_DATASET}
-                        isTagsList={false}
-                        datasetsIndex={index}
                       />
                     </Grid>
                   )}
@@ -129,9 +126,6 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                       <DatasetPost
                         datasetValues={dataset}
                         self={self}
-                        listIndex={ListIndex.NEW_DATASET}
-                        isTagsList={false}
-                        datasetsIndex={index}
                       />
                     </Grid>
                   )}
@@ -163,9 +157,6 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                       <DatasetPost
                         datasetValues={dataset}
                         self={self}
-                        listIndex={ListIndex.RECOMMEND}
-                        isTagsList={false}
-                        datasetsIndex={index}
                       />
                     </Grid>
                   )}
@@ -179,6 +170,8 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                 <Typography variant='h5' className='f-weight-700'>Top tags sử dụng nhiều</Typography>
               }
             </div>
+
+            {console.log(state.datasetValuesList)}
 
             {state.datasetValuesList.tagsDatasets.map((tags, tagsIndex) =>
               <div className='b-list-by-tags h-mt-32' key={tagsIndex}>
@@ -204,9 +197,6 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                         <DatasetPost
                           datasetValues={dataset}
                           self={self}
-                          isTagsList={true}
-                          listIndex={tagsIndex}
-                          datasetsIndex={datasetsIndex}
                         />
                       </Grid>
                     )}

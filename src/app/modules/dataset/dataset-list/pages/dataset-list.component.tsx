@@ -9,6 +9,7 @@ import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { ListIndex } from '../const/list-index.const'
 import DataSetListTemplate from './dataset-list.template'
+import _ from 'lodash'
 interface DatasetListState {
   isLoading: boolean,
   datasetValuesList: DatasetValuesList,
@@ -46,54 +47,42 @@ export default class DatasetList extends React.Component<RouteComponentProps<any
     this.props.history.push(`/dataset/search?${stringified}`)
   }
 
-  handleChangeLike = async (isTagsList: boolean, listIndex: number,
-    datasetIndex: number, accountId: string, isLike: boolean) => {
+  handleChangeLike = async (datasetId: string, isLike: boolean) => {
+    console.log(datasetId)
     const tempTopDatasets = [...this.state.datasetValuesList.topDatasets]
     const tempTagsDatasets = [...this.state.datasetValuesList.tagsDatasets]
     const tempNewDatasets = [...this.state.datasetValuesList.newDatasets]
     const tempRecommend = [...this.state.datasetValuesList.recommend]
+    tempTagsDatasets.forEach(item => this.setArrayLikeOrUnlike(item.datasets || [], datasetId, isLike))
 
-    if (!isTagsList) {
-      switch (listIndex) {
-        case ListIndex.TOP_DATASET:
-          this.setArrayLikeOrUnlike(tempTopDatasets, datasetIndex, isLike, accountId)
-          break;
-        case ListIndex.NEW_DATASET:
-          this.setArrayLikeOrUnlike(tempNewDatasets, datasetIndex, isLike, accountId)
-          break
-        case ListIndex.RECOMMEND:
-          this.setArrayLikeOrUnlike(tempRecommend, datasetIndex, isLike, accountId)
-          break
-      }
-    } else {
-      this.setArrayLikeOrUnlike(tempTagsDatasets[listIndex].datasets, datasetIndex, isLike, accountId)
-    }
-
-    this.setState({
+    this.setState((prev) => ({
       ...this.state,
       datasetValuesList: {
-        topDatasets: tempTopDatasets,
-        newDatasets: tempNewDatasets,
-        recommend: tempRecommend,
+        topDatasets: prev.datasetValuesList.topDatasets,
+        newDatasets: this.setArrayLikeOrUnlike(tempNewDatasets, datasetId, isLike),
+        recommend: this.setArrayLikeOrUnlike(tempRecommend, datasetId, isLike),
         tagsDatasets: tempTagsDatasets
       }
-    })
+    }))
   }
 
   handleCreateDataset = () => {
     this.props.history.push('dataset/create')
   }
 
-  private setArrayLikeOrUnlike = async (datasets: Array<DatasetValues> | undefined, index: number, isLike: boolean, accountId: string) => {
-    if (!datasets) return
-    if (isLike) {
-      ++datasets[index].dataset.countLike
-      datasets[index].dataset.like = [...datasets[index].dataset.like, accountId]
-    }
-    else {
-      --datasets[index].dataset.countLike
-      datasets[index].dataset.like = datasets[index]
-        .dataset.like.filter(id => id !== accountId)
-    }
+  private setArrayLikeOrUnlike = (targetArray: Array<DatasetValues>, datasetId: string, isLike: boolean): Array<DatasetValues> => {
+    targetArray.map(item => {
+
+      if (item.dataset._id === datasetId) {
+        isLike ? item.dataset.countLike++ : item.dataset.countLike--
+
+      }
+      return {
+        ...item,
+        countLike: isLike ? item.dataset.countLike + 1 : item.dataset.countLike - 1,
+        like: isLike ? item.dataset.like.push(datasetId) : _.pull(item.dataset.like, datasetId)
+      }
+    })
+    return targetArray
   }
 }
