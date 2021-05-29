@@ -10,8 +10,6 @@ import {
 } from '@material-ui/core';
 import {
   Add, AddBox,
-
-
   Delete, ExpandMore, History,
   InsertDriveFileOutlined,
   Remove, TrackChanges
@@ -54,7 +52,6 @@ export default function HistoryTab(props: HistoryTabProps) {
   const [previousFiles, setPreviousFiles] = useState<Array<FileInfo>>([])
   const lengthVersions = datasetValues.dataset.versions.length
   const user = useAppSelector(state => state.auth.user)
-  const history = useHistory()
 
   const defaultValues = {
     version: '',
@@ -86,7 +83,7 @@ export default function HistoryTab(props: HistoryTabProps) {
     const result = await DatasetAPI.createNewVersion(formData)
     if (result.status === STATUS_OK) {
       addToast({ message: 'Cập nhật thành công', type: 'success' })
-      history.push(window.location.href)
+      window.location.reload()
     }
   }
 

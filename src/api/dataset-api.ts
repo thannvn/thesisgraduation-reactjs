@@ -7,6 +7,9 @@ import {
 } from 'app/const/api-const/dataset-url.const';
 import axios from 'axios';
 import { createResult, requestAPI } from 'services/axios/handle-api.const';
+import { fetchLogin } from 'redux/authentication-slice';
+import store from 'store';
+import addToast from 'dataworld/parts/toast/add-toast.component';
 export interface DatasetValuesList {
   topDatasets: Array<DatasetValues>,
   newDatasets: Array<DatasetValues>,
@@ -131,6 +134,11 @@ export default class DatasetAPI {
   /* Upload dataset */
   static uploadDataset = async (datasetFormData: FormData) => {
     try {
+      const isLogin = await fetchLogin(store.dispatch)
+      if (!isLogin) {
+        addToast({ message: 'Phiên đăng nhập đã hết hạn, hãy đăng nhập lại', type: 'error' })
+        window.location.href = '/auth/login'
+      }
       const result = await axios.post(UPLOAD_DATASET.URL, datasetFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',

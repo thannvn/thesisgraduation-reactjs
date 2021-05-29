@@ -182,7 +182,7 @@ export default function DatasetCreate() {
             <DatasetSelectVisibility control={control} />
 
             <div className='-top-line'>
-              <Typography ref={apiResult} className='resultAPI h-mt-10 h-ml-2' />
+              <Typography ref={apiResult} className='resultAPI h-mt-10 h-ml-2 h-mb-10' />
 
               <Button
                 className=' p-button-save-color p-round-button'

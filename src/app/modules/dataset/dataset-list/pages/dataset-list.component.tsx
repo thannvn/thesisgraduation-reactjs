@@ -7,7 +7,6 @@ import DatasetAPI, {
 import queryString from 'query-string'
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
-import { ListIndex } from '../const/list-index.const'
 import DataSetListTemplate from './dataset-list.template'
 import _ from 'lodash'
 interface DatasetListState {

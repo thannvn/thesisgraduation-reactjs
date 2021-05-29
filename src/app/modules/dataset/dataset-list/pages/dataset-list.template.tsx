@@ -1,16 +1,13 @@
-import { Button, Container, Grid, Link, Typography } from '@material-ui/core'
-import React from 'react'
-import DatasetList from './dataset-list.component'
-import {
-  TrendingUp, StarsOutlined,
-  FiberNewOutlined, Add
-} from '@material-ui/icons';
-import 'app/modules/dataset/dataset-list/css/dataset-list.scss'
-import DatasetPost from 'app/modules/dataset/dataset-list/components/dataset-post.component';
+import { Button, CardMedia, Container, Grid, Typography } from '@material-ui/core';
+import { Add, FiberNewOutlined, StarsOutlined, TrendingUp } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
-import SearchBar from 'dataworld/blocks/search-bar/search-bar.component';
+import DatasetPost from 'app/modules/dataset/dataset-list/components/dataset-post.component';
+import 'app/modules/dataset/dataset-list/css/dataset-list.scss';
 import clsx from 'clsx';
-import { ListIndex } from '../const/list-index.const'
+import Footer from 'dataworld/blocks/footer/footer.component';
+import SearchBar from 'dataworld/blocks/search-bar/search-bar.component';
+import React from 'react';
+import DatasetList from './dataset-list.component';
 
 export interface DatasetListProps {
   self: DatasetList
@@ -23,25 +20,34 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
     <>
       <Container style={{ maxWidth: '100%' }} className='h-mt-100 h-mb-100'>
         <div className='t-dataset-list'>
-          <div className='h-mb-16'>
-            <Typography variant='h4' className='f-weight-700'>Datasets</Typography>
+          <div className='h-d_flex -justify-space-between'>
+            <div>
+              <Typography variant='h4' className='f-weight-700'>Datasets</Typography>
 
-            <Typography className='h-mt-16' style={{ width: '400px' }}>
-              Tìm kiếm, chia sẻ và quản lý datasets của bạn tốt hơn cùng DataWorld.
-            </Typography>
+              <Typography className='h-mt-16' style={{ width: '400px' }}>
+                Tìm kiếm, chia sẻ và quản lý datasets của bạn tốt hơn cùng DataWorld.
+              </Typography>
+
+              <Button
+                variant='contained'
+                color='primary'
+                className='p-round-button h-mt-16'
+                onClick={handleCreateDataset}
+                startIcon={<Add />}
+              >
+                Tạo Dataset
+              </Button>
+            </div>
+
+            <p />
+
+            <CardMedia
+              image={`${process.env.PUBLIC_URL}/images/list-background.png`}
+              style={{ height: '300px', width: '400px' }}
+            />
           </div>
 
-          <div className='b-header'>
-            <Button
-              variant='contained'
-              color='primary'
-              className='h-mb-32 p-round-button'
-              onClick={handleCreateDataset}
-              startIcon={<Add />}
-            >
-              Tạo Dataset
-            </Button>
-
+          <div className='b-header h-mt-32'>
             <SearchBar />
 
             <div className='popular-tags h-mt-10'>
@@ -204,8 +210,9 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
                 </div>
               </div>
             )}
-
           </div>
+
+          <Footer />
         </div>
       </Container>
     </>
