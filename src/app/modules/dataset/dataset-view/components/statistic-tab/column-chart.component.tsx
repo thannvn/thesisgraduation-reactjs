@@ -143,7 +143,7 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
             }
           </div>
 
-          {/* {!isHidden &&
+          {!isHidden &&
             <Select
               id="select-number-of-column"
               variant='outlined'
@@ -151,23 +151,23 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
               value={typeChart}
               onChange={changeTypeChart}
             >
-              <MenuItem value='line'>Biểu đồ đường</MenuItem>
               <MenuItem value='donut'>Biểu đồ tròn</MenuItem>
               <MenuItem value='bar'>Biểu đồ cột</MenuItem>
-              <MenuItem value='area'>Biểu đồ địa lý</MenuItem>
             </Select>
-          } */}
+          }
         </div>
 
         {isHidden ?
           <div className='h-ml-16 h-mr-16 h-mt-38'>
             <Typography className='f-weight-700 -blue-color'>{columnInfo.analysis.unique} giá trị khác nhau</Typography>
+
             <div className='h-d_flex -justify-space-between h-mt-20'>
               <Typography variant='body2'>{columnInfo.analysis.mostFrequently}</Typography>
               <Typography variant='body2' className='-blue-color'>
                 {convertFloatToPercentage(columnInfo.analysis.percentageMostFrequently)}
               </Typography>
             </div>
+
             <div className='h-d_flex -justify-space-between h-mt-20'>
               <Typography variant='body2'>Giá trị khác</Typography>
               <Typography variant='body2' className='-blue-color'>
@@ -176,14 +176,21 @@ export default function ColumnChart({ columnInfo }: ColumnChartProps) {
             </div>
           </div> :
           <div className='h-mt-74'>
-            <Chart
-              options={chartConfig?.options}
-              series={chartConfig?.series}
-              type={typeChart}
-              width="97%"
-            />
+            {typeChart === 'donut' ?
+              <Chart
+                options={chartConfig?.options}
+                series={chartConfig?.series}
+                type='donut'
+                width="85%"
+              /> :
+              <Chart
+                options={chartConfig?.options}
+                series={chartConfig?.series}
+                type='bar'
+                width="97%"
+              />
+            }
           </div>
-
         }
       </div>
 

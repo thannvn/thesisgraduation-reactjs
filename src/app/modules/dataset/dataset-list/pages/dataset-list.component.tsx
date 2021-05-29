@@ -47,19 +47,15 @@ export default class DatasetList extends React.Component<RouteComponentProps<any
   }
 
   handleChangeLike = async (datasetId: string, isLike: boolean) => {
-    console.log(datasetId)
-    const tempTopDatasets = [...this.state.datasetValuesList.topDatasets]
     const tempTagsDatasets = [...this.state.datasetValuesList.tagsDatasets]
-    const tempNewDatasets = [...this.state.datasetValuesList.newDatasets]
-    const tempRecommend = [...this.state.datasetValuesList.recommend]
     tempTagsDatasets.forEach(item => this.setArrayLikeOrUnlike(item.datasets || [], datasetId, isLike))
 
     this.setState((prev) => ({
       ...this.state,
       datasetValuesList: {
-        topDatasets: prev.datasetValuesList.topDatasets,
-        newDatasets: this.setArrayLikeOrUnlike(tempNewDatasets, datasetId, isLike),
-        recommend: this.setArrayLikeOrUnlike(tempRecommend, datasetId, isLike),
+        topDatasets: this.setArrayLikeOrUnlike(prev.datasetValuesList.topDatasets, datasetId, isLike),
+        newDatasets: this.setArrayLikeOrUnlike(prev.datasetValuesList.newDatasets, datasetId, isLike),
+        recommend: this.setArrayLikeOrUnlike(prev.datasetValuesList.recommend, datasetId, isLike),
         tagsDatasets: tempTagsDatasets
       }
     }))
@@ -71,11 +67,13 @@ export default class DatasetList extends React.Component<RouteComponentProps<any
 
   private setArrayLikeOrUnlike = (targetArray: Array<DatasetValues>, datasetId: string, isLike: boolean): Array<DatasetValues> => {
     targetArray.map(item => {
+      const isDataset = item.dataset._id === datasetId
+      console.log(isDataset, isLike)
 
-      if (item.dataset._id === datasetId) {
-        isLike ? item.dataset.countLike++ : item.dataset.countLike--
-
+      if (!isDataset) {
+        return item
       }
+
       return {
         ...item,
         countLike: isLike ? item.dataset.countLike + 1 : item.dataset.countLike - 1,

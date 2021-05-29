@@ -177,8 +177,6 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
               }
             </div>
 
-            {console.log(state.datasetValuesList)}
-
             {state.datasetValuesList.tagsDatasets.map((tags, tagsIndex) =>
               <div className='b-list-by-tags h-mt-32' key={tagsIndex}>
                 <div className='p-title'>

@@ -24,7 +24,6 @@ import addToast from 'dataworld/parts/toast/add-toast.component';
 import moment from 'moment';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
 import { useAppSelector } from 'redux/hooks';
 import { STATUS_OK } from 'services/axios/common-services.const';
 
