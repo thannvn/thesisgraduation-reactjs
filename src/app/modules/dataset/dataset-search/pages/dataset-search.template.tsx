@@ -35,6 +35,7 @@ export default function DatasetSearchTemplate({ self }: DatasetSearchProps) {
               {`${state.datasetValuesList.countDatasets} dataset được tìm thấy `}
             </Typography>
           </div>
+
           <ul className='b-list'>
             {state.datasetValuesList.datasets.map((item, index) => (
               <li
@@ -51,6 +52,7 @@ export default function DatasetSearchTemplate({ self }: DatasetSearchProps) {
             ))}
           </ul>
         </div>
+
         {!state.isLoading &&
           <Pagination
             count={Math.ceil(state.datasetValuesList.countDatasets / state.limit)}

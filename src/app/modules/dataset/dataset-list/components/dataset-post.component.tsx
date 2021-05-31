@@ -34,7 +34,7 @@ export default function DatasetPost(props: DatasetPostProps) {
   const user = useSelector((state: RootState) => (state.auth.user))
 
   const changeLike = async (isLike: boolean) => {
-    handleChangeLike(datasetValues.dataset._id, isLike)
+    handleChangeLike(datasetValues.dataset._id, isLike, user.accountId)
     await DatasetAPI.likeOrUnLikeDataset(datasetValues.dataset._id)
   }
 

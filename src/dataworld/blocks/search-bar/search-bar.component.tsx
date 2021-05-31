@@ -44,6 +44,7 @@ export default function SearchBar() {
     if (title) {
       search = { ...filter, title: title }
     }
+
     return queryString.stringify(search, { arrayFormat: 'index' })
   }
 

@@ -1,4 +1,8 @@
-import { GET_ALL_TAGS_DATASET, GET_RECOMMEND_LIST, GET_TRENDING_DATASET_TAGS } from 'app/const/api-const/common-url.const';
+import {
+  GET_ALL_TAGS_DATASET, GET_RECOMMEND_LIST,
+  GET_TRENDING_DATASET_TAGS, GET_RECOMMEND_ARRAY
+}
+  from 'app/const/api-const/common-url.const';
 import { requestAPI } from 'services/axios/handle-api.const';
 import { DatasetValues, DatasetValuesList, Tags } from './dataset-api';
 
@@ -16,5 +20,10 @@ export default class CommonAPI {
   /* get trending dataset and tags dataset */
   static getTrending = async () => {
     return await requestAPI<DatasetValuesList>(GET_TRENDING_DATASET_TAGS)
+  }
+
+  /* get recommend array */
+  static getRecommendArray = async () => {
+    return await requestAPI<Array<string>>(GET_RECOMMEND_ARRAY)
   }
 }

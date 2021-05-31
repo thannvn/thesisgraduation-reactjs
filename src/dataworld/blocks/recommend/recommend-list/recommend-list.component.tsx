@@ -12,13 +12,19 @@ import { DatasetValues } from 'api/dataset-api'
 import React, { useEffect, useState } from 'react'
 import RecommendPost from '../recommend-post/recommend-post.component'
 import './recommend-list.scss'
+import queryString from 'query-string'
+import { useHistory } from 'react-router'
 
 export default function RecommendList() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [recommendList, setRecommendList] = useState<Array<DatasetValues>>([])
+  const history = useHistory()
 
-  const handleViewAllRecommend = () => {
-    console.log('view all')
+  const handleViewAllRecommend = async () => {
+    const result = await CommonAPI.getRecommendArray()
+    const recommendArray = result.data.map((item: any) => item.name)
+    const search = queryString.stringify(recommendArray, { arrayFormat: 'index' })
+    history.push(`/dataset/search?${search}`)
   }
 
   useEffect(() => {

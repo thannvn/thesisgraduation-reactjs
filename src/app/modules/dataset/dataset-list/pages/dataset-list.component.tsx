@@ -1,5 +1,6 @@
 import CommonAPI from 'api/common-api'
-import DatasetAPI, {
+import {
+  Dataset,
   datasetDefaultValues,
   DatasetValues, DatasetValuesList,
   QueryString, tagsDefaultValues
@@ -8,7 +9,6 @@ import queryString from 'query-string'
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import DataSetListTemplate from './dataset-list.template'
-import _ from 'lodash'
 interface DatasetListState {
   isLoading: boolean,
   datasetValuesList: DatasetValuesList,
@@ -46,16 +46,21 @@ export default class DatasetList extends React.Component<RouteComponentProps<any
     this.props.history.push(`/dataset/search?${stringified}`)
   }
 
-  handleChangeLike = async (datasetId: string, isLike: boolean) => {
+  handleChangeLike = async (datasetId: string, isLike: boolean, userId: string) => {
     const tempTagsDatasets = [...this.state.datasetValuesList.tagsDatasets]
-    tempTagsDatasets.forEach(item => this.setArrayLikeOrUnlike(item.datasets || [], datasetId, isLike))
+    const tempTopDatasets = this.setArrayLikeOrUnlike(this.state.datasetValuesList.topDatasets, datasetId, isLike, userId)
+    const tempNewDatasets = this.setArrayLikeOrUnlike(this.state.datasetValuesList.newDatasets, datasetId, isLike, userId)
+    const tempRecommend = this.setArrayLikeOrUnlike(this.state.datasetValuesList.recommend, datasetId, isLike, userId)
+    tempTagsDatasets.forEach(item =>
+      item.datasets = this.setArrayLikeOrUnlike(item.datasets || [], datasetId, isLike, userId
+      ))
 
     this.setState((prev) => ({
       ...this.state,
       datasetValuesList: {
-        topDatasets: this.setArrayLikeOrUnlike(prev.datasetValuesList.topDatasets, datasetId, isLike),
-        newDatasets: this.setArrayLikeOrUnlike(prev.datasetValuesList.newDatasets, datasetId, isLike),
-        recommend: this.setArrayLikeOrUnlike(prev.datasetValuesList.recommend, datasetId, isLike),
+        topDatasets: tempTopDatasets,
+        newDatasets: tempNewDatasets,
+        recommend: tempRecommend,
         tagsDatasets: tempTagsDatasets
       }
     }))
@@ -65,21 +70,26 @@ export default class DatasetList extends React.Component<RouteComponentProps<any
     this.props.history.push('dataset/create')
   }
 
-  private setArrayLikeOrUnlike = (targetArray: Array<DatasetValues>, datasetId: string, isLike: boolean): Array<DatasetValues> => {
-    targetArray.map(item => {
+  private setArrayLikeOrUnlike = (targetArray: Array<DatasetValues>, datasetId: string, isLike: boolean, userId: string)
+    : Array<DatasetValues> => {
+    return targetArray.map(item => {
       const isDataset = item.dataset._id === datasetId
-      console.log(isDataset, isLike)
-
       if (!isDataset) {
         return item
       }
 
+      const newDataset: Dataset = {
+        ...item.dataset,
+        countLike: isLike ? item.dataset.countLike + 1 : item.dataset.countLike - 1,
+        like: !isLike ? item.dataset.like.filter(item => item !== userId) : [],
+      }
+
+      if (isLike) newDataset.like.push(userId)
+
       return {
         ...item,
-        countLike: isLike ? item.dataset.countLike + 1 : item.dataset.countLike - 1,
-        like: isLike ? item.dataset.like.push(datasetId) : _.pull(item.dataset.like, datasetId)
+        dataset: newDataset,
       }
     })
-    return targetArray
   }
 }
