@@ -115,8 +115,8 @@ export default function DatasetCreate() {
                   size='small'
                   name="title"
                   autoFocus
-                  className='p-title'
                   required
+                  fullWidth
                   inputRef={register({
                     minLength: 5,
                     maxLength: 50
@@ -150,6 +150,7 @@ export default function DatasetCreate() {
                     fullWidth
                     label='URL'
                     size='small'
+                    className='h-ml-4'
                     name="url"
                     required
                     inputRef={register({

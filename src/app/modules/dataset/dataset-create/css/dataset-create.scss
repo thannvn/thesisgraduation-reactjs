@@ -6,10 +6,6 @@
   }
 
   .b-header {
-    .p-title {
-      width: 75% !important;
-    }
-
     .p-text-area {
       width: 75%;
       background-color: #fafbfc;
@@ -24,11 +20,6 @@
     .b-dataset-url {
       width: 100%;
       display: inline-flex;
-
-      .MuiOutlinedInput-root {
-        height: 29px;
-        font-size: small;
-      }
 
       .MuiOutlinedInput-input {
         padding-left: 4px;
