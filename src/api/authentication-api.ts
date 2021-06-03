@@ -7,8 +7,7 @@ import {
   RESET_PASSWORD, VERIFY_ACCOUNT
 } from 'app/const/api-const/authentication-url.const';
 import axios from 'axios';
-import { configAPI, createResult, requestAPI, requestApiNotCheckLogin } from 'services/axios/handle-api.const';
-
+import { configAPI, createResult, requestApiNotCheckLogin } from 'services/axios/handle-api.const';
 
 export default class AuthenticationAPI {
   /* login */
@@ -18,7 +17,7 @@ export default class AuthenticationAPI {
 
   /* Register account */
   static registerAccount = async (account: any) => {
-    return await requestAPI(REGISTER_ACCOUNT, account)
+    return await requestApiNotCheckLogin(REGISTER_ACCOUNT, account)
   };
 
   /* Get login status: logged or not */
@@ -32,7 +31,7 @@ export default class AuthenticationAPI {
       verifyCode: code,
       accountId: accountId,
     };
-    return await requestAPI(VERIFY_ACCOUNT, data)
+    return await requestApiNotCheckLogin(VERIFY_ACCOUNT, data)
   };
 
   /* Send email to get link reset email */
@@ -40,7 +39,7 @@ export default class AuthenticationAPI {
     const data = {
       email: email,
     };
-    return await requestAPI(FORGOT_PASSWORD, data)
+    return await requestApiNotCheckLogin(FORGOT_PASSWORD, data)
   };
 
   /* Reset password */
