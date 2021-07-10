@@ -50,7 +50,7 @@ export default function EditFileDescription(props: EditFileDescriptionProps) {
 
     if (result[1].status === STATUS_OK) {
       addToast({ message: result[1].message, type: "success" })
-      setFileInfo(fileInfo._id, result[1].data, fileInfo.description)
+      setFileInfo(fileInfo._id, result[1].data, fileDescription)
       onClose()
     } else {
       addToast({ message: result[1].message, type: "error" })
@@ -101,7 +101,6 @@ export default function EditFileDescription(props: EditFileDescriptionProps) {
             />)
           }
         </div>
-
 
         <DialogActions className='b-actions'>
           <Button

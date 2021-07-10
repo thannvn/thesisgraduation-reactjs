@@ -18,11 +18,13 @@ import {
 import AuthenticationAPI from "api/authentication-api";
 import SearchField from 'dataworld/parts/search-field/search-field.component';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logoutSuccess } from 'redux/authentication-slice';
 import { useAppDispatch } from 'redux/hooks';
 import { RootState } from 'store';
+import queryString from 'query-string'
 import './menu-bar.scss';
 
 const StyledMenu = withStyles({
@@ -51,6 +53,7 @@ export default function MenuBar() {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+  const { handleSubmit, register, } = useForm()
 
   const handleMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, id: number) => {
     setPopoverId(id)
@@ -81,6 +84,10 @@ export default function MenuBar() {
     history.push('/dataset/create')
   }
 
+  const onSubmit = (data: any) => {
+    history.push(`/dataset/search?title=${data.title}`)
+  }
+
   return (
     <>
       {user.accountId !== '' && (
@@ -89,11 +96,12 @@ export default function MenuBar() {
             <div className='h-d_flex p-header-search'>
               <Link href='/dataset' className='p-redirect-page' color='inherit'>Data World</Link>
 
-              <SearchField
-                className='p-search-field h-ml-20'
-                placeHolder='Tìm kiếm...'
-                onChange={() => { }}
-              />
+              <form className='p-search-field h-ml-20' onSubmit={handleSubmit(onSubmit)}>
+                <SearchField
+                  register={register}
+                  placeHolder='Tìm kiếm...'
+                />
+              </form>
             </div>
 
             <div className='h-d_flex'>

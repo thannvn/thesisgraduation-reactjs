@@ -72,7 +72,7 @@ export default class DatasetList extends React.Component<RouteComponentProps<any
 
   private setArrayLikeOrUnlike = (targetArray: Array<DatasetValues>, datasetId: string, isLike: boolean, userId: string)
     : Array<DatasetValues> => {
-    return targetArray.map(item => {
+    return targetArray?.map(item => {
       const isDataset = item.dataset._id === datasetId
       if (!isDataset) {
         return item

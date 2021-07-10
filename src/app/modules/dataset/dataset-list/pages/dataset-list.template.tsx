@@ -170,7 +170,7 @@ export default function DatasetListTemplate({ self }: DatasetListProps) {
               </div>
             </div>
 
-            <div className='h-mt-32'>
+            <div className='h-mt-32 h-mb-20'>
               {state.isLoading ?
                 <Skeleton width={300} height={30} /> :
                 <Typography variant='h5' className='f-weight-700'>Top tags sử dụng nhiều</Typography>

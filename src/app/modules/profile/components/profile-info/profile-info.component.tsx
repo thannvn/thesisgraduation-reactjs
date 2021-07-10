@@ -33,7 +33,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from 'redux/authentication-slice';
 import { RootState } from 'store';
 import { ProfileProps } from 'app/modules/profile/pages/profile.template';
-import LoadingApi from 'dataworld/blocks/loading-api/loading-api.component';
 
 
 export default function ProfileInfo({ self }: ProfileProps) {
@@ -149,9 +148,8 @@ export default function ProfileInfo({ self }: ProfileProps) {
               className='p-round-button p-button-save-color'
               type="submit"
               onClick={uploadAvatar}
-              disabled={loadingImage}
               size='small'>
-              {loadingImage ? 'Tải lên' : <LoadingApi />}
+              Tải lên
             </Button>
           </DialogActions>
         </Dialog>

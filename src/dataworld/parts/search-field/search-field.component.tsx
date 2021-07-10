@@ -7,7 +7,8 @@ import styled from "styled-components";
 interface SearchFieldProps {
   placeHolder: string,
   className?: string,
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+  register?: any
 }
 
 const StyledTextField = styled(TextField)`
@@ -16,11 +17,17 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
-export default function SearchField({ onChange, placeHolder, className }: SearchFieldProps) {
+export default function SearchField({
+  onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => { },
+  placeHolder,
+  className,
+  register }: SearchFieldProps) {
   return (
     <StyledTextField
       type="search"
       fullWidth
+      name='title'
+      inputRef={register}
       onChange={(event) => onChange(event)}
       placeholder={placeHolder}
       InputProps={{

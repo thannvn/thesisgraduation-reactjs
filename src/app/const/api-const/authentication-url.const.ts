@@ -47,6 +47,11 @@ const GET_NEW_ACCESS_TOKEN: ApiTemplate = {
   URL: "auth/refresh-token"
 }
 
+const RE_GET_VERIFY_CODE: ApiTemplate = {
+  method: "POST",
+  URL: "auth/get-verify-code"
+}
+
 export {
   LOGIN,
   LOGOUT,
@@ -57,5 +62,6 @@ export {
   RESET_PASSWORD,
   LOGIN_GOOGLE,
   LOGIN_FACEBOOK,
-  GET_NEW_ACCESS_TOKEN
+  GET_NEW_ACCESS_TOKEN,
+  RE_GET_VERIFY_CODE
 };

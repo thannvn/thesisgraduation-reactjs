@@ -4,6 +4,7 @@ import { FormatListNumbered } from '@material-ui/icons';
 import { Pagination } from '@material-ui/lab';
 import SearchBar from 'dataworld/blocks/search-bar/search-bar.component';
 import DatasetItem from 'dataworld/blocks/dataset-item/dataset-item.component';
+import { Skeleton } from '@material-ui/lab'
 import '../css/dataset-search.scss';
 import DatasetSearch from './dataset-search.component';
 
@@ -30,10 +31,16 @@ export default function DatasetSearchTemplate({ self }: DatasetSearchProps) {
 
         <div className='b-dataset-list'>
           <div className='p-title h-mt-32 -bottom-line'>
-            <FormatListNumbered />
-            <Typography variant='h5' className='h-ml-10 f-weight-700'>
-              {`${state.datasetValuesList.countDatasets} dataset được tìm thấy `}
-            </Typography>
+            {state.isLoading ?
+              <Skeleton width={300} height={40} /> :
+              <>
+                <FormatListNumbered />
+                <Typography variant='h5' className='h-ml-10 f-weight-700'>
+                  {`${state.datasetValuesList.countDatasets} dataset được tìm thấy `}
+                </Typography>
+              </>
+            }
+
           </div>
 
           <ul className='b-list'>

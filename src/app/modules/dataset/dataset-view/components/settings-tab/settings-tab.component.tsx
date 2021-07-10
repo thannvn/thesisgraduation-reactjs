@@ -273,7 +273,7 @@ export default function SettingsTab(props: SettingsTabsProps) {
                     () => uploadImage(IMAGE_TYPE.BANNER) :
                     () => uploadImage(IMAGE_TYPE.THUMBNAIL)}
                   size='small'>
-                  Upload ảnh
+                  Tải lên
                 </Button>
               </div>
 

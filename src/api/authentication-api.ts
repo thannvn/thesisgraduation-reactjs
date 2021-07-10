@@ -4,7 +4,8 @@ import {
   LOGIN_FACEBOOK,
   LOGIN_GOOGLE,
   LOGOUT, REGISTER_ACCOUNT,
-  RESET_PASSWORD, VERIFY_ACCOUNT
+  RESET_PASSWORD, VERIFY_ACCOUNT,
+  RE_GET_VERIFY_CODE
 } from 'app/const/api-const/authentication-url.const';
 import axios from 'axios';
 import { configAPI, createResult, requestApiNotCheckLogin } from 'services/axios/handle-api.const';
@@ -35,7 +36,7 @@ export default class AuthenticationAPI {
   };
 
   /* Send email to get link reset email */
-  static forgotPassword = async (email: any) => {
+  static forgotPassword = async (email: string) => {
     const data = {
       email: email,
     };
@@ -64,7 +65,7 @@ export default class AuthenticationAPI {
   };
 
   /* Login with facebook */
-  static loginGoogle = async (accessToken: any, profile: any) => {
+  static loginGoogle = async (accessToken: string, profile: any) => {
     const data = {
       accessToken: accessToken,
       profile: profile,
@@ -73,7 +74,7 @@ export default class AuthenticationAPI {
   };
 
   /* Login with google */
-  static loginFacebook = async (accessToken: any, profile: any) => {
+  static loginFacebook = async (accessToken: string, profile: any) => {
     const data = {
       accessToken: accessToken,
       profile: profile,
@@ -103,4 +104,13 @@ export default class AuthenticationAPI {
       return createResult(null, error)
     }
   };
+
+  /* Send email to get link reset email */
+  static reGetCode = async (accountId: string) => {
+    const data = {
+      accountId: accountId,
+    };
+    return await requestApiNotCheckLogin(RE_GET_VERIFY_CODE, data)
+  };
+
 }

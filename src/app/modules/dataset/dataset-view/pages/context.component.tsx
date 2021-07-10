@@ -116,6 +116,7 @@ const DatasetViewProvider = (props: any) => {
   const setFileInfo = (fileId: string, columns: Array<ColumnInfo>, fileDescription: string) => {
     const index = state.files.findIndex(file => file._id === fileId)
     const newFiles = [...state.files]
+
     newFiles[index].description = fileDescription ? fileDescription : ''
     newFiles[index].columns = columns
     setState({
