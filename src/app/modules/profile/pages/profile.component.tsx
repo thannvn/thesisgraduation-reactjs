@@ -106,7 +106,6 @@ export default class Profile extends React.Component<RouteComponentProps<RoutePa
 
   //Handle set new recommend
   setRecommend = (recommend: Array<Tags>) => {
-    console.log(recommend)
     this.setState({
       userInfo: {
         ...this.state.userInfo,

@@ -6,16 +6,16 @@ import store from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import './styles/main.scss'
+import './styles/main.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-          <ToastContainer />
-        </BrowserRouter>
-      </Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+        <ToastContainer theme='colored' hideProgressBar />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

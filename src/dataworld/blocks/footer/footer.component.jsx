@@ -32,28 +32,20 @@ export default function Footer() {
             </ListItem>
 
             <ListItem className={classes.inlineBlock}>
-              <a
-                href='http://blog.creative-tim.com/?ref=mkr-footer'
-                className={classes.block}
-                target='_blank'
-              >
+              <a href='/' className={classes.block} target='_blank'>
                 Mục tiêu
               </a>
             </ListItem>
 
             <ListItem className={classes.inlineBlock}>
-              <a
-                href='https://www.creative-tim.com/license?ref=mkr-footer'
-                className={classes.block}
-                target='_blank'
-              >
+              <a href='/' className={classes.block} target='_blank'>
                 Licenses
               </a>
             </ListItem>
 
             <ListItem className={classes.inlineBlock}>
               <a
-                href='https://www.creative-tim.com/license?ref=mkr-footer'
+                href='https://github.com/thann1999'
                 className={classes.block}
                 target='_blank'
               >

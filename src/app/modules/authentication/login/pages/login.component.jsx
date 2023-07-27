@@ -12,9 +12,7 @@ import Copyright from 'dataworld/parts/copy-right/copy-right.component';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { StyledPaper } from 'styles/jss/custom.component';
-import LoginFacebook from '../components/login-facebook.component';
 import LoginForm from '../components/login-form.component';
-import LoginGoogle from '../components/login-google.component';
 
 export default function LoginPage(props) {
   const user = useSelector((state) => state.auth.user);
@@ -34,12 +32,12 @@ export default function LoginPage(props) {
             <LoginForm />
 
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <LoginGoogle />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <LoginFacebook />
-              </Grid>
+              </Grid> */}
               <Grid item xs>
                 <Link href='/auth/forgot' variant='body2'>
                   Quên mật khẩu?

@@ -2,29 +2,29 @@ import {
   AppBar,
   Avatar,
   IconButton,
-  Link,
   Menu,
   MenuItem,
   Toolbar,
   Tooltip,
   Typography,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import {
   AccountCircleOutlined,
-  ExitToApp, AddCircleOutline,
-  SettingsOutlined, StorefrontRounded
+  ExitToApp,
+  AddCircleOutline,
+  SettingsOutlined,
+  StorefrontRounded,
 } from '@material-ui/icons';
-import AuthenticationAPI from "api/authentication-api";
+import AuthenticationAPI from 'api/authentication-api';
 import SearchField from 'dataworld/parts/search-field/search-field.component';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { logoutSuccess } from 'redux/authentication-slice';
 import { useAppDispatch } from 'redux/hooks';
 import { RootState } from 'store';
-import queryString from 'query-string'
 import './menu-bar.scss';
 
 const StyledMenu = withStyles({
@@ -49,14 +49,17 @@ const StyledMenu = withStyles({
 
 export default function MenuBar() {
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
-  const [popoverId, setPopoverId] = React.useState<number>(0)
+  const [popoverId, setPopoverId] = React.useState<number>(0);
   const history = useHistory();
   const dispatch = useAppDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-  const { handleSubmit, register, } = useForm()
+  const { handleSubmit, register } = useForm();
 
-  const handleMenu = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, id: number) => {
-    setPopoverId(id)
+  const handleMenu = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    id: number
+  ) => {
+    setPopoverId(id);
     setAnchorEl(event ? event.currentTarget : null);
   };
 
@@ -65,28 +68,28 @@ export default function MenuBar() {
     history.push({
       pathname: `/profile/${user.username}`,
       state: {
-        tabIndex: tabIndex
-      }
+        tabIndex: tabIndex,
+      },
     });
   };
 
   const handleLogout = async () => {
-    await AuthenticationAPI.logout()
+    await AuthenticationAPI.logout();
     dispatch(logoutSuccess());
     handleMenu(null, 0);
   };
 
   const isOpenModal = (id: number) => {
-    return Boolean(id === popoverId) && Boolean(anchorEl)
-  }
+    return Boolean(id === popoverId) && Boolean(anchorEl);
+  };
 
   const handleGotoCreateDataset = () => {
-    history.push('/dataset/create')
-  }
+    history.push('/dataset/create');
+  };
 
   const onSubmit = (data: any) => {
-    history.push(`/dataset/search?title=${data.title}`)
-  }
+    history.push(`/dataset/search?title=${data.title}`);
+  };
 
   return (
     <>
@@ -94,13 +97,15 @@ export default function MenuBar() {
         <AppBar position='fixed' className='t-app-bar'>
           <Toolbar className='b-tool-bar'>
             <div className='h-d_flex p-header-search'>
-              <Link href='/dataset' className='p-redirect-page' color='inherit'>Data World</Link>
+              <Link to='/dataset' className='p-redirect-page'>
+                Data World
+              </Link>
 
-              <form className='p-search-field h-ml-20' onSubmit={handleSubmit(onSubmit)}>
-                <SearchField
-                  register={register}
-                  placeHolder='Tìm kiếm...'
-                />
+              <form
+                className='p-search-field h-ml-20'
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <SearchField register={register} placeHolder='Tìm kiếm...' />
               </form>
             </div>
 
@@ -147,9 +152,14 @@ export default function MenuBar() {
                 onClick={() => handleGotoProfile(0)}
                 style={{ borderBottom: '1px solid #dedfe0' }}
               >
-                <div >
+                <div>
                   <Typography className='f-weight-700'>{user.name}</Typography>
-                  <Typography className='p-gray-color-typography' variant='body2'>@{user.username}</Typography>
+                  <Typography
+                    className='p-gray-color-typography'
+                    variant='body2'
+                  >
+                    @{user.username}
+                  </Typography>
                 </div>
               </MenuItem>
 
