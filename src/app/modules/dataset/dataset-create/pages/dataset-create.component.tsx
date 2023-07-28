@@ -2,9 +2,8 @@ import {
   Button,
   Container,
   IconButton,
-
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import { Link } from '@material-ui/icons';
 import UploadFileAPI from 'api/dataset-api';
@@ -24,27 +23,27 @@ import '../css/dataset-create.scss';
 import Footer from 'dataworld/blocks/footer/footer.component';
 
 interface IUploads {
-  files: IFileWithMeta[],
-  title: string,
-  url: string,
-  visibility: string,
+  files: IFileWithMeta[];
+  title: string;
+  url: string;
+  visibility: string;
 }
 
 export default function DatasetCreate() {
-  const [creatable, setCreatable] = useState<boolean>(false)
-  const user = useSelector((state: RootState) => state.auth.user)
-  const [description, setDescription] = useState('')
-  const apiResult = useRef<HTMLElement>(null)
-  const history = useHistory()
+  const [creatable, setCreatable] = useState<boolean>(false);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [description, setDescription] = useState('');
+  const apiResult = useRef<HTMLElement>(null);
+  const history = useHistory();
 
   const { register, handleSubmit, control, errors, watch } = useForm<IUploads>({
     defaultValues: {
       files: [],
       title: '',
       url: '',
-      visibility: DatasetVisibility.PRIVATE_DATASET.toString()
-    }
-  })
+      visibility: DatasetVisibility.PRIVATE_DATASET.toString(),
+    },
+  });
   const handleCopyLink = () => {
     const el = document.createElement('textarea');
     el.value = `http://localhost:5500/${user.username}/${watch('url')}`;
@@ -55,35 +54,33 @@ export default function DatasetCreate() {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-  }
+  };
 
   const onSubmit = async (data: IUploads) => {
-    const { title, url, files, visibility } = data
-    const formData = new FormData()
-    formData.append('username', user.username)
-    formData.append('title', title.trim())
-    formData.append('url', url)
-    formData.append('description', description)
-    formData.append('visibility', visibility.toString())
-    formData.append('accountId', user.accountId)
-    files.forEach((file: any) =>
-      formData.append('files', file.file)
-    )
+    const { title, url, files, visibility } = data;
+    const formData = new FormData();
+    formData.append('username', user.username);
+    formData.append('title', title.trim());
+    formData.append('url', url);
+    formData.append('description', description);
+    formData.append('visibility', visibility.toString());
+    formData.append('accountId', user.accountId);
+    files.forEach((file: any) => formData.append('files', file.file));
 
-    const result = await UploadFileAPI.uploadDataset(formData)
+    const result = await UploadFileAPI.uploadDataset(formData);
     if (result.status === STATUS_OK) {
-      addToast({ message: result.message, type: "success" })
-      history.push(`/dataset/${user.username}/${url}`)
+      addToast({ message: result.message, type: 'success' });
+      history.push(`/dataset/${user.username}/${url}`);
     } else {
       if (apiResult.current !== null) {
-        apiResult.current.innerHTML = result.message
+        apiResult.current.innerHTML = result.message;
       }
     }
-  }
+  };
 
   useEffect(() => {
-    document.title = 'Tạo mới Dataset'
-  }, [])
+    document.title = 'Tạo mới Dataset';
+  }, []);
 
   return (
     <>
@@ -95,7 +92,8 @@ export default function DatasetCreate() {
             </Typography>
 
             <Typography className='h-mb-24 p-gray-color-typography -italic-style'>
-              Dataset bao gồm 1 hoặc nhiều file. Các file chỉ có thể có các định dạng: csv, json
+              Dataset bao gồm 1 hoặc nhiều file. Các file chỉ có thể có các định
+              dạng: csv, json
             </Typography>
           </div>
 
@@ -103,30 +101,29 @@ export default function DatasetCreate() {
             <div className='-bottom-line'>
               <div className='b-header '>
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   InputLabelProps={{
                     shrink: true,
                     classes: {
-                      asterisk: "labelAsterisk",
+                      asterisk: 'labelAsterisk',
                     },
                   }}
-                  id="title"
-                  label="Tiêu đề"
+                  id='title'
+                  label='Tiêu đề'
                   size='small'
-                  name="title"
+                  name='title'
                   autoFocus
                   required
                   fullWidth
                   inputRef={register({
                     minLength: 5,
-                    maxLength: 50
+                    maxLength: 50,
                   })}
                 />
 
                 <Typography className='p-validate-error h-mt-4'>
                   {errors.title &&
-                    'Tiêu đề phải có 5-50 ký tự. Có thể sử dụng chữ và số và các ký tự đặc biệt'
-                  }
+                    'Tiêu đề phải có 5-50 ký tự. Có thể sử dụng chữ và số và các ký tự đặc biệt'}
                 </Typography>
 
                 <div className='b-dataset-url h-mt-32 -align-center'>
@@ -135,37 +132,41 @@ export default function DatasetCreate() {
                   </IconButton>
 
                   <Typography>
-                    {`${process.env.REACT_APP_FRONT_END_URL}dataset/${user.username}/`}
+                    {`${window.location.origin}dataset/${user.username}/`}
                   </Typography>
 
                   <TextField
-                    variant="outlined"
+                    variant='outlined'
                     InputLabelProps={{
                       shrink: true,
                       classes: {
-                        asterisk: "labelAsterisk",
+                        asterisk: 'labelAsterisk',
                       },
                     }}
-                    id="url"
+                    id='url'
                     fullWidth
                     label='URL'
                     size='small'
                     className='h-ml-4'
-                    name="url"
+                    name='url'
                     required
                     inputRef={register({
-                      pattern: /^(?=.{5,}$)(?![-])(?!.*[-]{2})[a-zA-Z0-9-]+(?<![-])$/
+                      pattern:
+                        /^(?=.{5,}$)(?![-])(?!.*[-]{2})[a-zA-Z0-9-]+(?<![-])$/,
                     })}
                   />
 
                   <Typography className='p-validate-error h-mt-2'>
-                    {errors.url && 'Url có ít nhất 5 ký tự. Có thể sử dụng chữ, số và dấu gạch ngang'}
+                    {errors.url &&
+                      'Url có ít nhất 5 ký tự. Có thể sử dụng chữ, số và dấu gạch ngang'}
                   </Typography>
                 </div>
               </div>
 
               <div className='h-mt-32 '>
-                <Typography className='f-weight-700 h-mb-10'>Mô tả dataset</Typography>
+                <Typography className='f-weight-700 h-mb-10'>
+                  Mô tả dataset
+                </Typography>
 
                 <TinyMCEEditor
                   values={description}
@@ -175,21 +176,31 @@ export default function DatasetCreate() {
               </div>
 
               <div className='h-mt-32'>
-                <Typography className='f-weight-700 h-mb-10'>Tải lên files</Typography>
-                <DatasetUpload control={control} setCreatable={setCreatable} creatable={creatable} />
+                <Typography className='f-weight-700 h-mb-10'>
+                  Tải lên files
+                </Typography>
+                <DatasetUpload
+                  control={control}
+                  setCreatable={setCreatable}
+                  creatable={creatable}
+                />
               </div>
             </div>
 
             <DatasetSelectVisibility control={control} />
 
             <div className='-top-line'>
-              <Typography ref={apiResult} className='resultAPI h-mt-10 h-ml-2 h-mb-10' />
+              <Typography
+                ref={apiResult}
+                className='resultAPI h-mt-10 h-ml-2 h-mb-10'
+              />
 
               <Button
                 className=' p-button-save-color p-round-button'
                 type='submit'
                 disabled={!creatable}
-                variant='outlined'>
+                variant='outlined'
+              >
                 Tạo dataset
               </Button>
             </div>
@@ -197,9 +208,7 @@ export default function DatasetCreate() {
         </div>
 
         <Footer />
-
       </Container>
     </>
-  )
+  );
 }
-

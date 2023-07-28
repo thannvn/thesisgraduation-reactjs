@@ -22,7 +22,7 @@ export default function IntroducePage(props) {
   const { ...rest } = props;
   return (
     <>
-      {user.user.accountId === '' && (
+      {user?.user?.accountId === '' && (
         <Header
           brand='Data world'
           rightLinks={<HeaderLinks />}

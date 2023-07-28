@@ -93,7 +93,7 @@ export default function MenuBar() {
 
   return (
     <>
-      {user.accountId !== '' && (
+      {user?.accountId !== '' && (
         <AppBar position='fixed' className='t-app-bar'>
           <Toolbar className='b-tool-bar'>
             <div className='h-d_flex p-header-search'>

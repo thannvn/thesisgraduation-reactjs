@@ -1,16 +1,16 @@
-import HeaderLinks from 'app/modules/introduce/components/header-links.component'
-import Header from 'app/modules/introduce/components/header.component'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from 'store'
-import Footer from '../footer/footer.component'
-import './not-found-page.scss'
+import HeaderLinks from 'app/modules/introduce/components/header-links.component';
+import Header from 'app/modules/introduce/components/header.component';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
+import Footer from '../footer/footer.component';
+import './not-found-page.scss';
 
 export default function NotFoundPage() {
-  const user = useSelector((state: RootState) => state.auth.user)
+  const user = useSelector((state: RootState) => state.auth.user);
   return (
     <>
-      {user.accountId === '' && (
+      {user?.accountId === '' && (
         <Header
           brand='Data world'
           rightLinks={<HeaderLinks />}
@@ -25,7 +25,5 @@ export default function NotFoundPage() {
       />
       <Footer />
     </>
-
-
-  )
+  );
 }

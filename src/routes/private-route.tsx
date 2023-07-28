@@ -4,21 +4,21 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { fetchLogin } from '../redux/authentication-slice';
 
 interface PrivateRouteProps extends RouteProps {
-  component: any,
+  component: any;
 }
 
 function PrivateRoute(props: PrivateRouteProps) {
-  const { component: Component, ...rest } = props
+  const { component: Component, ...rest } = props;
   const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function fetLoginAPI() {
-      await fetchLogin(dispatch)
-      setIsLoading(false)
+      await fetchLogin(dispatch);
+      setIsLoading(false);
     }
-    fetLoginAPI()
-  }, [dispatch])
+    fetLoginAPI();
+  }, [dispatch]);
 
   const user = useAppSelector((state) => state.auth.user);
   return (
@@ -27,7 +27,7 @@ function PrivateRoute(props: PrivateRouteProps) {
         <Route
           {...rest}
           render={(props) =>
-            user.accountId !== '' ? (
+            user?.accountId !== '' ? (
               <Component {...props}></Component>
             ) : (
               <Redirect to='/auth/login'></Redirect>

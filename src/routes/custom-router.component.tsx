@@ -5,39 +5,40 @@ import { fetchLogin } from 'redux/authentication-slice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 
 interface CustomRouteProps extends RouteProps {
-  component: any,
+  component: any;
 }
 
 export default function CustomRoute(props: CustomRouteProps) {
-  const { component: Component, ...rest } = props
+  const { component: Component, ...rest } = props;
   const [isLoading, setIsLoading] = useState(true);
   const user = useAppSelector((state) => state.auth.user);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function fetLoginAPI() {
-      await fetchLogin(dispatch)
-      setIsLoading(false)
+      await fetchLogin(dispatch);
+      setIsLoading(false);
     }
-    fetLoginAPI()
-  }, [dispatch])
+    fetLoginAPI();
+  }, [dispatch]);
 
   return (
     <>
-      {!isLoading &&
+      {!isLoading && (
         <Route
           {...rest}
           render={(props) =>
-            user.accountId === '' ? (
+            user?.accountId === '' ? (
               <Component {...props}></Component>
-            ) :
+            ) : (
               <>
                 {addToast({ message: 'Bạn đang đăng nhập', type: 'error' })}
                 <Redirect to='/home' />
               </>
+            )
           }
         />
-      }
+      )}
     </>
   );
 }

@@ -18,7 +18,7 @@ export default function LoginPage(props) {
   const user = useSelector((state) => state.auth.user);
   return (
     <>
-      {user.accountId === '' ? (
+      {user?.accountId === '' ? (
         <Container component='main' className='main'>
           <StyledPaper variant='outlined'>
             <Avatar className=''>

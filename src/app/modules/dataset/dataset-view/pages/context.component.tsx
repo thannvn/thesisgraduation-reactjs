@@ -1,44 +1,51 @@
-import CommentAPI from "api/comment-api";
-import DatasetAPI, { datasetDefaultValues, DatasetValues, Tags } from "api/dataset-api";
+import CommentAPI from 'api/comment-api';
+import DatasetAPI, {
+  datasetDefaultValues,
+  DatasetValues,
+  Tags,
+} from 'api/dataset-api';
 import FileAPI, { ColumnInfo, FileInfo } from 'api/file-api';
-import { STATUS_OK } from "services/axios/common-services.const";
-import { DatasetVisibility } from "app/modules/dataset/_common/common.const";
-import addToast from "dataworld/parts/toast/add-toast.component";
-import React, { createContext, useState } from "react";
-import { useSelector } from "react-redux";
-import { useHistory, useRouteMatch } from "react-router";
+import { STATUS_OK } from 'services/axios/common-services.const';
+import { DatasetVisibility } from 'app/modules/dataset/_common/common.const';
+import addToast from 'dataworld/parts/toast/add-toast.component';
+import React, { createContext, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router';
 import { RootState } from 'store';
 
 interface ContextProps {
-  datasetValues: DatasetValues,
-  countComment: number,
-  isLoadingData: boolean,
-  ownerDataset: boolean,
-  setDatasetDescription: (description: string) => void,
-  handleChangeComment: (comment: boolean) => void,
-  setDatasetTags: (tags: Array<Tags>) => void,
-  setFileInfo: (fileId: string, columns: Array<ColumnInfo>, fileDescription: string) => void,
-  setVisibilityDataset: (visibility: number) => void,
-  files: Array<FileInfo>,
-  setTitleAndSubtitle: (title: string, subtitle: string) => void,
-  setBannerDataset: (banner: string) => void,
-  setThumbnailDataset: (thumbnail: string) => void,
-  handleChangeLike: (isLike: boolean) => void
+  datasetValues: DatasetValues;
+  countComment: number;
+  isLoadingData: boolean;
+  ownerDataset: boolean;
+  setDatasetDescription: (description: string) => void;
+  handleChangeComment: (comment: boolean) => void;
+  setDatasetTags: (tags: Array<Tags>) => void;
+  setFileInfo: (
+    fileId: string,
+    columns: Array<ColumnInfo>,
+    fileDescription: string
+  ) => void;
+  setVisibilityDataset: (visibility: number) => void;
+  files: Array<FileInfo>;
+  setTitleAndSubtitle: (title: string, subtitle: string) => void;
+  setBannerDataset: (banner: string) => void;
+  setThumbnailDataset: (thumbnail: string) => void;
+  handleChangeLike: (isLike: boolean) => void;
 }
 
 interface RouteParams {
-  username: string,
-  datasetUrl: string,
+  username: string;
+  datasetUrl: string;
 }
 
 interface DatasetViewState {
-  isLoading: boolean,
-  ownerDataset: boolean,
-  countComment: number,
-  datasetValues: DatasetValues,
-  files: Array<FileInfo>
+  isLoading: boolean;
+  ownerDataset: boolean;
+  countComment: number;
+  datasetValues: DatasetValues;
+  files: Array<FileInfo>;
 }
-
 
 const DatasetViewContext = createContext<ContextProps>({
   datasetValues: { ...datasetDefaultValues },
@@ -46,21 +53,25 @@ const DatasetViewContext = createContext<ContextProps>({
   countComment: 0,
   isLoadingData: true,
   ownerDataset: false,
-  setDatasetDescription: (description: string) => { },
-  handleChangeComment: (comment: boolean) => { },
-  setFileInfo: (fileId: string, columns: Array<ColumnInfo>, fileDescription: string) => { },
-  setVisibilityDataset: (visibility: number) => { },
-  setTitleAndSubtitle: (title: string, subtitle: string) => { },
-  setBannerDataset: (banner: string) => { },
-  setThumbnailDataset: (thumbnail: string) => { },
-  setDatasetTags: (tags: Array<Tags>) => { },
-  handleChangeLike: (isLike: boolean) => { },
+  setDatasetDescription: (description: string) => {},
+  handleChangeComment: (comment: boolean) => {},
+  setFileInfo: (
+    fileId: string,
+    columns: Array<ColumnInfo>,
+    fileDescription: string
+  ) => {},
+  setVisibilityDataset: (visibility: number) => {},
+  setTitleAndSubtitle: (title: string, subtitle: string) => {},
+  setBannerDataset: (banner: string) => {},
+  setThumbnailDataset: (thumbnail: string) => {},
+  setDatasetTags: (tags: Array<Tags>) => {},
+  handleChangeLike: (isLike: boolean) => {},
 });
 
 const DatasetViewProvider = (props: any) => {
-  const match = useRouteMatch<RouteParams>()
-  const history = useHistory()
-  const user = useSelector((state: RootState) => state.auth.user)
+  const match = useRouteMatch<RouteParams>();
+  const history = useHistory();
+  const user = useSelector((state: RootState) => state.auth.user);
   const [state, setState] = useState<DatasetViewState>({
     isLoading: true,
     ownerDataset: false,
@@ -71,21 +82,26 @@ const DatasetViewProvider = (props: any) => {
 
   React.useEffect(() => {
     async function getDatasetValues() {
-      const { datasetUrl, username } = match.params
-      const dataset = await DatasetAPI.getDataset(username, datasetUrl)
+      const { datasetUrl, username } = match.params;
+      const dataset = await DatasetAPI.getDataset(username, datasetUrl);
       if (dataset.status !== STATUS_OK) {
-        return history.push('/404')
+        return history.push('/404');
       }
-      if (user.accountId !== dataset.data.accountId
-        && dataset.data.dataset.visibility === DatasetVisibility.PRIVATE_DATASET) {
-        addToast({ message: "Không thể truy cập dataset cá nhân", type: "error" })
-        history.push('/dataset')
+      if (
+        user?.accountId !== dataset.data.accountId &&
+        dataset.data.dataset.visibility === DatasetVisibility.PRIVATE_DATASET
+      ) {
+        addToast({
+          message: 'Không thể truy cập dataset cá nhân',
+          type: 'error',
+        });
+        history.push('/dataset');
       }
-      document.title = dataset.data.dataset.title
+      document.title = dataset.data.dataset.title;
       const result = await Promise.all([
         FileAPI.getAllFilesInfoInDataset(dataset.data.dataset._id),
-        CommentAPI.countCommentInDataset(dataset.data.dataset._id)
-      ])
+        CommentAPI.countCommentInDataset(dataset.data.dataset._id),
+      ]);
 
       setState((state) => ({
         ...state,
@@ -93,12 +109,11 @@ const DatasetViewProvider = (props: any) => {
         countComment: result[1].data,
         ownerDataset: user.accountId === dataset.data?.accountId ? true : false,
         datasetValues: dataset.data,
-        files: result[0].data.files
-      }))
+        files: result[0].data.files,
+      }));
     }
-    getDatasetValues()
-  }, [history, match.params]) //eslint-disable-line react-hooks/exhaustive-deps
-
+    getDatasetValues();
+  }, [history, match.params]); //eslint-disable-line react-hooks/exhaustive-deps
 
   const setDatasetDescription = (description: string) => {
     setState({
@@ -107,23 +122,27 @@ const DatasetViewProvider = (props: any) => {
         ...state.datasetValues,
         dataset: {
           ...state.datasetValues.dataset,
-          description: description
-        }
-      }
-    })
-  }
+          description: description,
+        },
+      },
+    });
+  };
 
-  const setFileInfo = (fileId: string, columns: Array<ColumnInfo>, fileDescription: string) => {
-    const index = state.files.findIndex(file => file._id === fileId)
-    const newFiles = [...state.files]
+  const setFileInfo = (
+    fileId: string,
+    columns: Array<ColumnInfo>,
+    fileDescription: string
+  ) => {
+    const index = state.files.findIndex((file) => file._id === fileId);
+    const newFiles = [...state.files];
 
-    newFiles[index].description = fileDescription ? fileDescription : ''
-    newFiles[index].columns = columns
+    newFiles[index].description = fileDescription ? fileDescription : '';
+    newFiles[index].columns = columns;
     setState({
       ...state,
-      files: newFiles
-    })
-  }
+      files: newFiles,
+    });
+  };
 
   const setVisibilityDataset = (visibility: number) => {
     setState({
@@ -132,11 +151,11 @@ const DatasetViewProvider = (props: any) => {
         ...state.datasetValues,
         dataset: {
           ...state.datasetValues.dataset,
-          visibility: visibility
-        }
-      }
-    })
-  }
+          visibility: visibility,
+        },
+      },
+    });
+  };
 
   const setTitleAndSubtitle = (title: string, subtitle: string) => {
     setState({
@@ -146,11 +165,11 @@ const DatasetViewProvider = (props: any) => {
         dataset: {
           ...state.datasetValues.dataset,
           title: title,
-          subtitle: subtitle
-        }
-      }
-    })
-  }
+          subtitle: subtitle,
+        },
+      },
+    });
+  };
 
   const setDatasetTags = (tags: Array<Tags>) => {
     setState({
@@ -159,11 +178,11 @@ const DatasetViewProvider = (props: any) => {
         ...state.datasetValues,
         dataset: {
           ...state.datasetValues.dataset,
-          tags: tags
-        }
-      }
-    })
-  }
+          tags: tags,
+        },
+      },
+    });
+  };
 
   const setBannerDataset = (banner: string) => {
     setState({
@@ -172,11 +191,11 @@ const DatasetViewProvider = (props: any) => {
         ...state.datasetValues,
         dataset: {
           ...state.datasetValues.dataset,
-          banner: banner
-        }
-      }
-    })
-  }
+          banner: banner,
+        },
+      },
+    });
+  };
 
   const setThumbnailDataset = (thumbnail: string) => {
     setState({
@@ -185,11 +204,11 @@ const DatasetViewProvider = (props: any) => {
         ...state.datasetValues,
         dataset: {
           ...state.datasetValues.dataset,
-          thumbnail: thumbnail
-        }
-      }
-    })
-  }
+          thumbnail: thumbnail,
+        },
+      },
+    });
+  };
 
   const handleChangeLike = (isLike: boolean) => {
     setState((prevState) => ({
@@ -198,22 +217,27 @@ const DatasetViewProvider = (props: any) => {
         ...state.datasetValues,
         dataset: {
           ...state.datasetValues.dataset,
-          countLike: isLike ?
-            prevState.datasetValues.dataset.countLike + 1 :
-            prevState.datasetValues.dataset.countLike - 1,
-          like: isLike ? [...prevState.datasetValues.dataset.like, user.accountId] :
-            prevState.datasetValues.dataset.like.filter(id => id !== user.accountId)
-        }
-      }
-    }))
-  }
+          countLike: isLike
+            ? prevState.datasetValues.dataset.countLike + 1
+            : prevState.datasetValues.dataset.countLike - 1,
+          like: isLike
+            ? [...prevState.datasetValues.dataset.like, user.accountId]
+            : prevState.datasetValues.dataset.like.filter(
+                (id) => id !== user.accountId
+              ),
+        },
+      },
+    }));
+  };
 
   const handleChangeComment = (comment: boolean) => {
     setState((prevState) => ({
       ...state,
-      countComment: comment ? prevState.countComment + 1 : prevState.countComment - 1
-    }))
-  }
+      countComment: comment
+        ? prevState.countComment + 1
+        : prevState.countComment - 1,
+    }));
+  };
 
   return (
     <>
@@ -232,7 +256,7 @@ const DatasetViewProvider = (props: any) => {
           setThumbnailDataset: setThumbnailDataset,
           setDatasetTags: setDatasetTags,
           handleChangeLike: handleChangeLike,
-          files: state.files
+          files: state.files,
         }}
       >
         {props.children}
@@ -242,4 +266,3 @@ const DatasetViewProvider = (props: any) => {
 };
 
 export { DatasetViewContext, DatasetViewProvider };
-
