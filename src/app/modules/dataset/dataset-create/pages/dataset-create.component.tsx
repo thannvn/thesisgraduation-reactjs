@@ -32,6 +32,7 @@ interface IUploads {
 export default function DatasetCreate() {
   const [creatable, setCreatable] = useState<boolean>(false);
   const user = useSelector((state: RootState) => state.auth.user);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [description, setDescription] = useState('');
   const apiResult = useRef<HTMLElement>(null);
   const history = useHistory();
@@ -66,8 +67,10 @@ export default function DatasetCreate() {
     formData.append('visibility', visibility.toString());
     formData.append('accountId', user.accountId);
     files.forEach((file: any) => formData.append('files', file.file));
+    setIsLoading(true);
 
     const result = await UploadFileAPI.uploadDataset(formData);
+    setIsLoading(false);
     if (result.status === STATUS_OK) {
       addToast({ message: result.message, type: 'success' });
       history.push(`/dataset/${user.username}/${url}`);
@@ -132,7 +135,7 @@ export default function DatasetCreate() {
                   </IconButton>
 
                   <Typography>
-                    {`${window.location.origin}dataset/${user.username}/`}
+                    {`${window.location.origin}/dataset/${user.username}/`}
                   </Typography>
 
                   <TextField
@@ -198,7 +201,7 @@ export default function DatasetCreate() {
               <Button
                 className=' p-button-save-color p-round-button'
                 type='submit'
-                disabled={!creatable}
+                disabled={!creatable || isLoading}
                 variant='outlined'
               >
                 Tạo dataset
