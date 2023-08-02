@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { fetchLogin } from '../redux/authentication-slice';
+import LoadingPage from 'dataworld/blocks/loading/loading-page.component';
 
 interface PrivateRouteProps extends RouteProps {
   component: any;
@@ -23,6 +24,8 @@ function PrivateRoute(props: PrivateRouteProps) {
   const user = useAppSelector((state) => state.auth.user);
   return (
     <>
+      {isLoading && <LoadingPage />}
+
       {!isLoading && (
         <Route
           {...rest}

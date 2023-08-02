@@ -1,3 +1,4 @@
+import LoadingPage from 'dataworld/blocks/loading/loading-page.component';
 import addToast from 'dataworld/parts/toast/add-toast.component';
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
@@ -24,6 +25,8 @@ export default function CustomRoute(props: CustomRouteProps) {
 
   return (
     <>
+      {isLoading && <LoadingPage />}
+
       {!isLoading && (
         <Route
           {...rest}
