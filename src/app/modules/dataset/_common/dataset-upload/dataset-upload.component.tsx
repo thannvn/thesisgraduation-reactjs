@@ -1,36 +1,43 @@
-
 import React from 'react';
-import Dropzone, { IFileWithMeta, StatusValue, IDropzoneProps } from 'react-dropzone-uploader';
+import Dropzone, {
+  IFileWithMeta,
+  StatusValue,
+  IDropzoneProps,
+} from 'react-dropzone-uploader';
 import 'react-dropzone-uploader/dist/styles.css';
 import { Controller } from 'react-hook-form';
 import './dataset-upload.scss';
 
 export interface DatasetUploadProps {
-  control: any,
-  setCreatable: Function,
-  creatable: boolean
+  control: any;
+  setCreatable: Function;
+  creatable: boolean;
 }
 
 export default function DatasetUpload(props: DatasetUploadProps) {
-  const { control, setCreatable, creatable } = props
+  const { control, setCreatable, creatable } = props;
 
   const getUploadParams: IDropzoneProps['getUploadParams'] = () => ({
-    url: 'https://httpbin.org/post'
-  })
+    url: 'https://httpbin.org/post',
+  });
 
-  const handleControlledDropzonChangeStatus = (status: StatusValue, allFiles: IFileWithMeta[], setFiles: Function) => {
+  const handleControlledDropzonChangeStatus = (
+    status: StatusValue,
+    allFiles: IFileWithMeta[],
+    setFiles: Function
+  ) => {
     setTimeout(() => {
       if (['done', 'removed', 'headers_received'].includes(status)) {
         if (allFiles.length === 0) {
-          setCreatable(false)
+          setCreatable(false);
         } else {
-          !creatable && setCreatable(true)
+          !creatable && setCreatable(true);
         }
         setFiles([...allFiles]);
       } else {
-        creatable && setCreatable(false)
+        creatable && setCreatable(false);
       }
-    }, 0)
+    }, 0);
   };
 
   return (
@@ -40,17 +47,30 @@ export default function DatasetUpload(props: DatasetUploadProps) {
       render={({ onChange }) => (
         <Dropzone
           getUploadParams={getUploadParams}
-          inputWithFilesContent="+"
-          onChangeStatus={
-            (file, status, allFiles) => handleControlledDropzonChangeStatus(status, allFiles, onChange)
+          inputWithFilesContent='+'
+          onChangeStatus={(file, status, allFiles) =>
+            handleControlledDropzonChangeStatus(status, allFiles, onChange)
           }
-          accept=".csv, .json, .zip"
-          inputContent='Kéo thả file hoặc click vào đây để upload file'
+          maxSizeBytes={1024 * 1024 * 50}
+          accept='.csv, .json, .zip'
+          maxFiles={5}
+          inputContent={
+            <p>
+              Kéo thả file hoặc click vào đây để upload file. <br /> Dung lượng
+              file nhỏ hơn 10MB. Tối đa 5 file
+            </p>
+          }
           styles={{
             dropzone: { minHeight: 250, maxHeight: 300, marginBottom: 24 },
-            inputLabelWithFiles: { fontSize: "xx-large", marginTop: 5, marginLeft: 5, fontWeight: 500 }
+            inputLabelWithFiles: {
+              fontSize: 'xx-large',
+              marginTop: 5,
+              marginLeft: 5,
+              fontWeight: 500,
+            },
           }}
-        />)}>
-    </Controller>
-  )
+        />
+      )}
+    ></Controller>
+  );
 }

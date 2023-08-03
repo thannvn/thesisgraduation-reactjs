@@ -4,6 +4,7 @@ WORKDIR /app/fe
 COPY package*.json ./
 RUN npm install
 COPY . .
+ARG REACT_APP_BASE_URL_API
 ENV TZ=Asia/Ho_Chi_Minh
 RUN npm run build
 RUN npm install -g serve
