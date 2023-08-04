@@ -56,8 +56,8 @@ export default function DatasetUpload(props: DatasetUploadProps) {
           maxFiles={5}
           inputContent={
             <p>
-              Kéo thả file hoặc click vào đây để upload file. <br /> Dung lượng
-              file nhỏ hơn 10MB. Tối đa 5 file
+              Kéo thả file hoặc click vào đây để upload file. <br /> Tổng dung
+              lượng file nhỏ hơn 50MB. Tối đa 5 file
             </p>
           }
           styles={{
